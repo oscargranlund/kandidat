@@ -1,2 +1,0 @@
-# kandidat
-Kandidatuppsats
