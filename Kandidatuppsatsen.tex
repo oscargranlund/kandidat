@@ -1,3 +1,4 @@
+% !TeX spellcheck = sv_SE
 \documentclass[a4paper, 12pt]{report}
 
 \usepackage[swedish]{babel}
@@ -12,6 +13,11 @@
 
 \usepackage{graphicx}
 
+\DeclareMathOperator{\sign}{sign}
+
+
+
+
 \title{Hilbertrum med Reproducerande Kärnor}
 \author{Oscar Granlund}
 
@@ -22,5 +28,19 @@
 \begin{abstract}
 	Testtesttesttesttesttest
 \end{abstract}
+
+\chapter{Stödvektormaskiner (SVM)}
+
+\section{Klassificering med hjälp av separerande hyperplan}
+Ponera problemet där man på basen av en mängd \textit{träningsdata} med paren $(\mathbf{x}_i,~y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$ ,$y_i\in \{-1,~1\}$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,~1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,~y_i)$. Inom maskininlärningen och statistiken kallas liknande problem för klassificeringsproblem och många olika metoder används för att hitta lösningar. 
+
+I detta kapitel behandlas en metod där man använder plan med dimensionerna $p-1$ för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom att separering. Ett \textit{hyperplan} av ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal\boldsymbol{\beta} + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \boldsymbol{\beta} + \beta_0=0\}$, med $\mathbf{x},~\boldsymbol{\beta}\in \mathbb{R}^p$ och $\|\boldsymbol{\beta}\|=1$, definierar ett hyperplan parametriserat av $\boldmath\beta$ och $\beta_0$. Kvar att göra 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{example-image-a}
+\caption{\label{fig:separatinghyperplane}20 datapunkter med ett separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
+\end{figure}
+
 
 \end{document}          
