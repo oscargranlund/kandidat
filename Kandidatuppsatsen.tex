@@ -15,8 +15,13 @@
 
 \DeclareMathOperator{\sign}{sign}
 
+\theoremstyle{definition}
+\newtheorem{thm}{Sats}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Korrolarium}
+\newtheorem{defi}{Definition}
 
-
+\newcommand{\bfbeta}{\boldsymbol{\beta}}
 
 \title{Hilbertrum med Reproducerande Kärnor}
 \author{Oscar Granlund}
@@ -34,17 +39,45 @@
 \section{Klassificering med hjälp av separerande hyperplan}
 Ponera problemet där man på basen av en mängd \textit{träningsdata} med paren $(\mathbf{x}_i,~y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$ ,$y_i\in \{-1,~1\}$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,~1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,~y_i)$. Inom maskininlärningen och statistiken kallas liknande problem för klassificeringsproblem och många olika metoder används för att hitta lösningar. 
 
-I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering. Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal\boldsymbol{\beta} + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \boldsymbol{\beta} + \beta_0=0\}$, med $\mathbf{x},~\boldsymbol{\beta}\in \mathbb{R}^p$ och $\|\boldsymbol{\beta}\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.\cite{ESL}
+I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering. Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$ och $\|\bfbeta\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.
 
-\begin{theorem}
-	Egenskaper hos hyperplan definierade som affina mängder $L=\{f(\mathbf{x})\}$.
-\end{theorem} 
-
+\begin{thm}
+	Ett hyperplan definierat som den affina mängden $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ har följande egenskaper \cite{ESL}:
+	\begin{enumerate}
+		\item Normalvektorn $\hat{\bfbeta}^*$ kan skrivas på formen
+		\begin{equation*}
+			\hat{\bfbeta}^* = \frac{\bfbeta}{\|\bfbeta\|}.
+		\end{equation*}
+		\item $\mathbf{x}_0^\intercal \bfbeta = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
+		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$ ges av
+		\begin{equation*}
+		\begin{aligned}
+			(\mathbf{x}-\mathbf{x}_0)^\intercal \bfbeta^* &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
+			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}) 
+		\end{aligned}
+		\end{equation*}
+	\end{enumerate}
+\end{thm}
+\begin{proof}
+	\leavevmode
+\begin{enumerate}
+	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två punkter i $L$. Då gäller att $f(\mathbf{x}_1)=f(\mathbf{x}_2)=0$ och
+	\begin{align*}
+		0 &= f(\mathbf{x}_1)-f(\mathbf{x}_2)\\
+		&= \mathbf{x_1}^\intercal \bfbeta + \beta_0 - \mathbf{x_2}^ \intercal \bfbeta - \beta_0\\
+		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
+	\end{align*}
+	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\frac{\bfbeta}{\|\bfbeta\|}$ är en normaliserad normalvektor till hyperplanet $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$. \hfill\qed
+	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal \bfbeta = - \beta_0$. \hfill \qed
+	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$.\qedhere
+\end{enumerate}
+\end{proof}
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{example-image-a}
 \caption{\label{fig:separatinghyperplane}20 datapunkter med ett separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
 \end{figure}
+
 \bibliographystyle{plain}
 \bibliography{bibliografi}
 \end{document}          
