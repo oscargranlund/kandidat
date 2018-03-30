@@ -21,7 +21,8 @@
 \newtheorem{cor}[thm]{Korrolarium}
 \newtheorem{defi}{Definition}
 
-\newcommand{\bfbeta}{\boldsymbol{\beta}}
+\newcommand{\bfbeta}{{\boldsymbol{\beta}}}
+\renewcommand\qedsymbol{$\blacksquare$}
 
 \title{Hilbertrum med Reproducerande Kärnor}
 \author{Oscar Granlund}
@@ -44,16 +45,16 @@ I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används f�
 \begin{thm}
 	Ett hyperplan definierat som den affina mängden $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ har följande egenskaper \cite{ESL}:
 	\begin{enumerate}
-		\item Normalvektorn $\hat{\bfbeta}^*$ kan skrivas på formen
+		\item Den normaliserade normalvektorn $\widehat{\bfbeta}$ kan skrivas på formen
 		\begin{equation*}
-			\hat{\bfbeta}^* = \frac{\bfbeta}{\|\bfbeta\|}.
+			\widehat{\bfbeta} = \frac{\bfbeta}{\|\bfbeta\|}.
 		\end{equation*}
 		\item $\mathbf{x}_0^\intercal \bfbeta = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
 		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$ ges av
 		\begin{equation*}
 		\begin{aligned}
-			(\mathbf{x}-\mathbf{x}_0)^\intercal \bfbeta^* &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
-			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}) 
+			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
+			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 		\end{aligned}
 		\end{equation*}
 	\end{enumerate}
@@ -64,12 +65,22 @@ I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används f�
 	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två punkter i $L$. Då gäller att $f(\mathbf{x}_1)=f(\mathbf{x}_2)=0$ och
 	\begin{align*}
 		0 &= f(\mathbf{x}_1)-f(\mathbf{x}_2)\\
-		&= \mathbf{x_1}^\intercal \bfbeta + \beta_0 - \mathbf{x_2}^ \intercal \bfbeta - \beta_0\\
+		&= \mathbf{x}_1^\intercal \bfbeta + \beta_0 - \mathbf{x}_2^ \intercal \bfbeta - \beta_0\\
 		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
 	\end{align*}
-	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\frac{\bfbeta}{\|\bfbeta\|}$ är en normaliserad normalvektor till hyperplanet $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$. \hfill\qed
-	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal \bfbeta = - \beta_0$. \hfill \qed
-	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$.\qedhere
+	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
+	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal \bfbeta = - \beta_0$.\hfill \qedsymbol
+	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normal, $\beta$. Vi får alltså att
+	\begin{align*}
+		\operatorname{d^\pm} ( \mathbf{x}, L ) &= \operatorname{comp_{\bfbeta}} ( \mathbf{x} - \mathbf{x}_0 )
+		=\underline{\underline{ (\mathbf{x} - \mathbf{x}_0)^\intercal \widehat{\bfbeta} }}\\
+		&= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta - \mathbf{x}_0^\intercal\bfbeta)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \bfbeta_0)}}
+	\end{align*}
+	och om man noterar att $f(\mathbf{x})=\mathbf{x}^\intercal\bfbeta+\beta_0$ och $f^\prime(\mathbf{x})=\bfbeta$ så fås även att
+	\begin{equation*}
+		\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \bfbeta_0)=\frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
+	\end{equation*}
+	\qedhere
 \end{enumerate}
 \end{proof}
 \begin{figure}
