@@ -19,7 +19,7 @@
 \newtheorem{thm}{Sats}[section]
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Korrolarium}
-\newtheorem{defi}{Definition}
+\newtheorem{defi}{Definition}[section]
 
 \newcommand{\bfbeta}{{\boldsymbol{\beta}}}
 \renewcommand\qedsymbol{$\blacksquare$}
@@ -38,9 +38,18 @@
 \chapter{Stödvektormaskiner (SVM)}
 
 \section{Klassificering med hjälp av separerande hyperplan}
-Ponera problemet där man på basen av en mängd \textit{träningsdata} med paren $(\mathbf{x}_i,~y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$ ,$y_i\in \{-1,~1\}$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,~1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,~y_i)$. Inom maskininlärningen och statistiken kallas liknande problem för klassificeringsproblem och många olika metoder används för att hitta lösningar. 
 
-I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering. Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$ och $\|\bfbeta\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.
+INTRODUKTION OM VARFÖR KLASSIFICERING, EXEMPEL MED SPAM-FILTER
+
+\begin{defi}
+	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,~y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,~1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,~1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,~y_i)$.
+\end{defi}
+
+Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regression eller någon sorts klusteralgoritm. I detta kapitel behandlas en metod där affina mängder med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
+
+\begin{defi}
+	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$ och $\|\bfbeta\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.
+\end{defi}
 
 \begin{thm}
 	Ett hyperplan definierat som den affina mängden $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ har följande egenskaper \cite{ESL}:
@@ -83,11 +92,33 @@ I detta kapitel behandlas en metod där plan med dimensionerna $p-1$ används f�
 	\qedhere
 \end{enumerate}
 \end{proof}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{example-image-a}
 \caption{\label{fig:separatinghyperplane}20 datapunkter med ett separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
 \end{figure}
+
+\begin{defi}
+	Ett klassificeringsproblem kallas \textit{separabelt} om det existerar ett hyperplan $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ som separerar mängderna.
+\end{defi}
+
+\begin{thm}
+	För ett hyperplan $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ som separerar två klasser gäller följande
+	\begin{equation}
+		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0
+	\end{equation}
+	för alla $i = 1, \dots,~N$. 
+\end{thm}
+\begin{proof}
+	Ifall ett klassificeringsproblem är separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte separabelt.
+\end{proof}
+
+
+
+%%%%	KANSKE REFERENS TILL VAPNIK 1996
+
+
 
 \bibliographystyle{plain}
 \bibliography{bibliografi}
