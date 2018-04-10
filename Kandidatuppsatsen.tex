@@ -20,10 +20,17 @@
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Korrolarium}
 \newtheorem{defi}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem*{rem}{Observation}
+
+\newtheorem*{reas}{Orsak}
 
 \newcommand{\bfbeta}{{\boldsymbol{\beta}}}
 \renewcommand\qedsymbol{$\blacksquare$}
 
+\newcommand{\sephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}}
+
+\newcommand{\entsephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if(\mathbf{x}_i)\geq0,~i=1,\dots,~N,~\|\bfbeta\|=1\}}
 \title{Hilbertrum med Reproducerande Kärnor}
 \author{Oscar Granlund}
 
@@ -51,8 +58,8 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$ och $\|\bfbeta\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.
 \end{defi}
 
-\begin{thm}
-	Ett hyperplan definierat som den affina mängden $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ har följande egenskaper \cite{ESL}:
+\begin{thm}\label{thm:hyperplan}
+	Ett hyperplan definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
 	\begin{enumerate}
 		\item Den normaliserade normalvektorn $\widehat{\bfbeta}$ kan skrivas på formen
 		\begin{equation*}
@@ -93,6 +100,21 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{enumerate}
 \end{proof}
 
+\begin{rem}
+	Definitionen för hyperplanet $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ är inte entydig.
+\end{rem}
+\begin{reas}
+	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \{\mathbf{x}: g(\mathbf{x})=\mathbf{x}^\intercal(-1\cdot\bfbeta) + (-1 \cdot \beta_0)\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}$ tillhör $L_1$ så tillhör $\mathbf{x}$ även $L_2$.
+	Betrakta vidare $L_3= \{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}\}=0$. Om $\mathbf{x}$ då tillhör $L_1$ så tillhör $\mathbf{x}$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$. Notera även att $\|\bfbeta\|$ kunde ha varit vilket reellt tal $\alpha$ som helst.
+\end{reas}
+
+\begin{rem}
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (med avseende på vart $\bfbeta$ pekar) från origo till hyperplanet.
+\end{rem}
+\begin{reas}
+	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\bar{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\beta_0$.
+\end{reas}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{example-image-a}
@@ -100,22 +122,26 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{figure}
 
 \begin{defi}
-	Ett klassificeringsproblem kallas \textit{separabelt} om det existerar ett hyperplan $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ som separerar mängderna.
+	Ett klassificeringsproblem kallas \textit{separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar mängderna.
 \end{defi}
 
 \begin{thm}
-	För ett hyperplan $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ som separerar två klasser gäller följande
+	För ett hyperplan $L=\entsephyp$ som separerar två klasser gäller att
 	\begin{equation}
 		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0
 	\end{equation}
-	för alla $i = 1, \dots,~N$. 
+	för alla $i = 1, \dots,~N$.
 \end{thm}
 \begin{proof}
 	Ifall ett klassificeringsproblem är separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte separabelt.
 \end{proof}
 
-
-
+\begin{cor}
+	Ifall ett 
+\end{cor}
+\begin{proof}
+	
+\end{proof}
 %%%%	KANSKE REFERENS TILL VAPNIK 1996
 
 
