@@ -20,6 +20,7 @@
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Korrolarium}
 \newtheorem{defi}{Definition}[section]
+\newtheorem{ex}{Exempel}[section]
 \theoremstyle{remark}
 \newtheorem*{rem}{Observation}
 
@@ -136,11 +137,17 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	Ifall ett klassificeringsproblem är separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte separabelt.
 \end{proof}
 
-\begin{cor}
-	Ifall ett 
-\end{cor}
+\begin{ex}
+	Låt träningsdataparen vara $(\left[2,~2\right]^\intercal,~1),~(\left[1,~2\right]^\intercal,-1)$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
+	1\\
+	0
+	\end{bmatrix} + 1.5=0\}$$ och $$L_2=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
+	\sqrt{2}\\
+	\sqrt{2}
+	\end{bmatrix} + 1.5=0\}$$ två separerande hyperplan (linjer i detta fall).
+\end{ex}
 \begin{proof}
-	
+	För $L_1$: 
 \end{proof}
 %%%%	KANSKE REFERENS TILL VAPNIK 1996
 
