@@ -123,7 +123,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{figure}
 
 \begin{defi}
-	Ett klassificeringsproblem kallas \textit{separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar mängderna.
+	Ett klassificeringsproblem kallas \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar mängderna.
 \end{defi}
 
 \begin{thm}
@@ -134,7 +134,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	för alla $i = 1, \dots,~N$.
 \end{thm}
 \begin{proof}
-	Ifall ett klassificeringsproblem är separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte separabelt.
+	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte linjärt separabelt.
 \end{proof}
 
 \begin{ex}\label{exempel:mångahyperplan}
@@ -168,12 +168,20 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{proof}
 
 \begin{rem}
-	Hyperplan kan konstrueras enkelt genom att man tar 
+	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^n$ väljer $n$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom och sedan löser ekvationssystemet $X\bfbeta=-\bfbeta_0$ där $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, n$ och $\bfbeta_0$ är en vektor av värdena $\beta_0$.
 \end{rem}
 
-Som syns i exempel \ref{exempel:mångahyperplan} så kan det finnas många separerande hyperplan ifall ett klassificeringsproblem är separabelt och frågan är ju då vilket av alla separerande hyperplan man borde välja.
+Som syns i exempel \ref{exempel:mångahyperplan} så kan det finnas många separerande hyperplan ifall ett klassificeringsproblem är linjärt separabelt och frågan är ju då vilket av alla separerande hyperplan man borde välja.
 %%%%	KANSKE REFERENS TILL VAPNIK 1996
-\section{Optimala serparerande hyperplan}
+
+\section{Optimala separerande hyperplan}
+
+\begin{equation*}
+\begin{aligned}
+	& \underset{\bfbeta,\beta_0}{\text{max}} & & C\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)>C
+\end{aligned}
+\end{equation*}
 Introduktion genom optimering (behövs kanske ett kapitel med optimeringsteori? Iaf. Lagrange-metoden)
 \section{Det oseparabla fallet}
 Optimera med slack-variabler
