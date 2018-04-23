@@ -175,13 +175,36 @@ Som syns i exempel \ref{exempel:mångahyperplan} så kan det finnas många separ
 %%%%	KANSKE REFERENS TILL VAPNIK 1996
 
 \section{Optimala separerande hyperplan}
+Inom statistiken finns många olika sätt att anpassa en modell till data och dessa sätt kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression som kan visas vara ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
+Dessa optimeringsproblem kan oftast ändras genom att man lägger till eller tar bort termer i objektivfunktionen eller ändrar på kraven.
 
-\begin{equation*}
+För separerande hyperplan kommer vi att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste träningspunkterna från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
+\begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
-	& \underset{\bfbeta,\beta_0}{\text{max}} & & C\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)>C
+	& \underset{\bfbeta,\beta_0,\|\bfbeta\|=1}{\text{max}} & & C\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
 \end{aligned}
+\end{equation}
+där $C$ kallas marginalen och betecknar avståndet från hyperplanet till de närmaste punkterna.
+\begin{rem}
+	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\bfbeta+\beta_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+\end{rem}
+
+Förhoppningen är här att man genom att välja det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna hittar ett hyperplan som även generaliserar till ny data så bra som möjligt. Dessutom kommer vi också se att detta är ett sätt att unikt välja ett separerande hyperplan.
+
+För att se att optimeringsproblemet (\ref{opt:optimalmargin1}) har är \textit{konvext}, det vill säga har en unik lösning, måst vi skriva om det något. Vi börjar med att gör oss av med kravet att $\|\bfbeta\|=1$ genom att byta ut kraven
+\begin{equation*}
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
 \end{equation*}
+mot kraven
+\begin{equation*}
+\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
+\end{equation*}
+eller ekvivalent
+\begin{equation*}
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C\|\bfbeta\|,\quad i=1,\dots,N.
+\end{equation*}
+
 Introduktion genom optimering (behövs kanske ett kapitel med optimeringsteori? Iaf. Lagrange-metoden)
 \section{Det oseparabla fallet}
 Optimera med slack-variabler
