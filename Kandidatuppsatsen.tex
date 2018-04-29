@@ -211,12 +211,12 @@ där man alltså valt en av de andra representationerna för samma hyperplan gen
 y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
 \end{equation*}
 och eftersom att $C=\frac{1}{\|\bfbeta\|}$ ökar när $\|\bfbeta\|$ minskar är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ så vi får optimeringsproblemet
-\begin{equation}\label{opt:optimalmargin2}
+\begin{equation*}%\label{opt:optimalmargin2}
 \begin{aligned}
 & \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \|\bfbeta\|\\
 & \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
-\end{equation}
+\end{equation*}
 Därefter görs ännu en kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$ alltså man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord har vi ett optimeringsproblem av en kvadratisk funktion med linjära krav alltså ett konvext optimeringsproblem där lösningar existerar.
 
 \begin{rem}
@@ -225,31 +225,31 @@ Därefter görs ännu en kvadratisk transformering av \textit{kostfunktionen} $\
 
 Ovanstående resonemang ger alltså ett bevis för sats \ref{thm:primallinearproblem}.
 \begin{thm}\label{thm:primallinearproblem}
-	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$, $\beta_0,~\beta_1 \in \mathbb{R}$. Då är optimeringsproblemet
-	\begin{equation}
+	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\beta_0,~\beta_1 \in \mathbb{R}$. Då är optimeringsproblemet
+	\begin{equation*}
 	\begin{aligned}
 	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\beta_0,\|\widehat{\bfbeta}\|=1} & & C\\
 	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 	\end{aligned}
-	\end{equation}
+	\end{equation*}
 	konvext och ekvivalent med optimeringsproblemet
-	\begin{equation}
+	\begin{equation*}
 	\begin{aligned}
 	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
 	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
 	\end{aligned}
-	\end{equation}
+	\end{equation*}
 	ifall träningsdatat $(\mathbf{x}_i,y_i)$ är sådant att klassificeringsproblemet är linjärt separabelt.
 \end{thm}
 Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
 \begin{cor}\label{cor:inreproduktoptimering}
-	Optimeringsproblemen i \ref{thm:primallinearproblem} är ekvivalenta med optimeringsproblemet
-	\begin{equation}
+	Optimeringsproblemen i sats \ref{thm:primallinearproblem} är ekvivalenta med optimeringsproblemet
+	\begin{equation*}
 	\begin{aligned}
 	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
 	& \text{så att} & & y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_1)\geq 1,\quad i=1,\dots,N
 	\end{aligned}
-	\end{equation}
+	\end{equation*}
 	för samma krav.
 \end{cor}
 \begin{proof}
@@ -257,6 +257,28 @@ Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
 \end{proof}
 Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen %TODO
 och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar dethär?
+
+För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer.
+Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
+\begin{equation*}
+\begin{aligned}
+& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
+& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+\end{aligned}
+\end{equation*}
+ges då av
+\begin{equation}\label{eq:primallagrange}
+L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i[y_i (\mathbf{x}_i^\intercal\bfbeta + \beta_1)-1]
+\end{equation}
+som ska minimeras med avseende på $\bfbeta$ och $\beta_1$.
+
+För att minimera $L_D$ sätter vi derivatorna med avseende på $\bfbeta$ och $\beta_1$ till 0, det vill säga vi får följande relationer:
+\begin{align*}
+	D_\bfbeta(L_P)=
+\end{align*}
+
+\subsection{Det duala problemet}
+
 
 Introduktion genom optimering (behövs kanske ett kapitel med optimeringsteori? Iaf. Lagrange-metoden)
 \section{Det oseparabla fallet}
