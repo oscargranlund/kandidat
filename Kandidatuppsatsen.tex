@@ -18,7 +18,7 @@
 \theoremstyle{definition}
 \newtheorem{thm}{Sats}[section]
 \newtheorem{lem}[thm]{Lemma}
-\newtheorem{cor}[thm]{Korrolarium}
+\newtheorem{cor}[thm]{Korollarium}
 \newtheorem{defi}{Definition}[section]
 \newtheorem{ex}{Exempel}[section]
 \theoremstyle{remark}
@@ -50,27 +50,27 @@
 INTRODUKTION OM VARFÖR KLASSIFICERING, EXEMPEL MED SPAM-FILTER
 
 \begin{defi}
-	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,~y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,~1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,~1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,~y_i)$.
+	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,y_i)$.
 \end{defi}
 
 Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regression eller någon sorts klusteralgoritm. I detta kapitel behandlas en metod där affina mängder med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
 
 \begin{defi}
-	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$ och $\|\bfbeta\|=1$, definierar ett hyperplan, eller en \textit{affin} mängd, parametriserat av $\boldsymbol\beta$ och $\beta_0$.
+	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$, definierar ett hyperplan alternativt en \textit{affin} mängd, parametriserat av $\bfbeta$ och $\beta_0$.
 \end{defi}
 
 \begin{thm}\label{thm:hyperplan}
 	Ett hyperplan definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
 	\begin{enumerate}
-		\item Den normaliserade normalvektorn $\widehat{\bfbeta}$ kan skrivas på formen
+		\item Den normaliserade normalvektorn $\widehat{\bfbeta}_\mathrm{n}$ kan skrivas på formen
 		\begin{equation*}
-			\widehat{\bfbeta} = \frac{\bfbeta}{\|\bfbeta\|}.
+			\widehat{\bfbeta}_\mathrm{n} = \frac{\bfbeta}{\|\bfbeta\|}.
 		\end{equation*}
 		\item $\mathbf{x}_0^\intercal \bfbeta = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
 		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$ ges av
 		\begin{equation*}
 		\begin{aligned}
-			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
+			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta}_\mathrm{n} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
 			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 		\end{aligned}
 		\end{equation*}
@@ -85,7 +85,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 		&= \mathbf{x}_1^\intercal \bfbeta + \beta_0 - \mathbf{x}_2^ \intercal \bfbeta - \beta_0\\
 		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
 	\end{align*}
-	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
+	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}_\mathrm{n}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
 	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal \bfbeta = - \beta_0$.\hfill \qedsymbol
 	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normal, $\beta$. Vi får alltså att
 	\begin{align*}
@@ -181,36 +181,89 @@ Dessa optimeringsproblem kan oftast ändras genom att man lägger till eller tar
 För separerande hyperplan kommer vi att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste träningspunkterna från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
-	& \underset{\bfbeta,\beta_0,\|\bfbeta\|=1}{\text{max}} & & C\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
+	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\beta_0,\|\widehat{\bfbeta}\|=1} & & C\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 \end{aligned}
 \end{equation}
 där $C$ kallas marginalen och betecknar avståndet från hyperplanet till de närmaste punkterna.
 \begin{rem}
-	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\bfbeta+\beta_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\widehat{\bfbeta}+\beta_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 \end{rem}
 
 Förhoppningen är här att man genom att välja det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna hittar ett hyperplan som även generaliserar till ny data så bra som möjligt. Dessutom kommer vi också se att detta är ett sätt att unikt välja ett separerande hyperplan.
 
-För att se att optimeringsproblemet (\ref{opt:optimalmargin1}) har är \textit{konvext}, det vill säga har en unik lösning, måst vi skriva om det något. Vi börjar med att gör oss av med kravet att $\|\bfbeta\|=1$ genom att byta ut kraven
+För att se att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext}, det vill säga har en unik lösning, måst vi skriva om det något. Vi börjar med att gör oss av med kravet $\|\widehat{\bfbeta}\|=1$ genom att byta ut kraven
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
+y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 \end{equation*}
 mot kraven
 \begin{equation*}
-\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C,\quad i=1,\dots,N
+y_i(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_1}{\|\bfbeta\|}) = 
+\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)
+ \geq C,\quad i=1,\dots,N
 \end{equation*}
 eller ekvivalent
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C\|\bfbeta\|,\quad i=1,\dots,N.
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq C\|\bfbeta\|,\quad i=1,\dots,N.
 \end{equation*}
+där man alltså valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\beta_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\|\bfbeta\|}$ och får
+\begin{equation*}
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+\end{equation*}
+och eftersom att $C=\frac{1}{\|\bfbeta\|}$ ökar när $\|\bfbeta\|$ minskar är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ så vi får optimeringsproblemet
+\begin{equation}\label{opt:optimalmargin2}
+\begin{aligned}
+& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \|\bfbeta\|\\
+& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N.
+\end{aligned}
+\end{equation}
+Därefter görs ännu en kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$ alltså man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord har vi ett optimeringsproblem av en kvadratisk funktion med linjära krav alltså ett konvext optimeringsproblem där lösningar existerar.
+
+\begin{rem}
+	För två vektorer $\mathbf{a}$ och $\mathbf{b}$ i $\mathbb{R}^n$ kan produkten $\mathbf{a}^\intercal\mathbf{b}$ uttryckas som den normala inre produkten $\langle \mathbf{a}, \mathbf{b} \rangle$ i $\mathbb{R}^n$. Detta kommer att komma till nytta i kapitel \ref{chap:hilbert} där konvexiteten för en utvidgning av det linjära problemet utforskas.
+\end{rem}
+
+Ovanstående resonemang ger alltså ett bevis för sats \ref{thm:primallinearproblem}.
+\begin{thm}\label{thm:primallinearproblem}
+	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$, $\beta_0,~\beta_1 \in \mathbb{R}$. Då är optimeringsproblemet
+	\begin{equation}
+	\begin{aligned}
+	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\beta_0,\|\widehat{\bfbeta}\|=1} & & C\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
+	\end{aligned}
+	\end{equation}
+	konvext och ekvivalent med optimeringsproblemet
+	\begin{equation}
+	\begin{aligned}
+	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+	\end{aligned}
+	\end{equation}
+	ifall träningsdatat $(\mathbf{x}_i,y_i)$ är sådant att klassificeringsproblemet är linjärt separabelt.
+\end{thm}
+Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
+\begin{cor}\label{cor:inreproduktoptimering}
+	Optimeringsproblemen i \ref{thm:primallinearproblem} är ekvivalenta med optimeringsproblemet
+	\begin{equation}
+	\begin{aligned}
+	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
+	& \text{så att} & & y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_1)\geq 1,\quad i=1,\dots,N
+	\end{aligned}
+	\end{equation}
+	för samma krav.
+\end{cor}
+\begin{proof}
+	Normen $\|\bfbeta\|=(\bfbeta^\intercal\bfbeta)^{\frac{1}{2}}$ kan uttryckas som $\langle \bfbeta, \bfbeta \rangle^{\frac{1}{2}}$ alltså är $\frac{1}{2} \|\bfbeta\|^2=\frac{1}{2}\langle \bfbeta, \bfbeta \rangle$. Resten följer från observationen.
+\end{proof}
+Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen %TODO
+och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar dethär?
 
 Introduktion genom optimering (behövs kanske ett kapitel med optimeringsteori? Iaf. Lagrange-metoden)
 \section{Det oseparabla fallet}
 Optimera med slack-variabler
 \section{En enkel utvidgning med olinjära faktorer?}
 Visa att problemet lösbart
-\chapter{Hilbertrumteori, reproducerande kärnor}
+\chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
 Varför utvidga fakoterna?
 \section{Grundläggande teori}
 Bevis av Mercers villkor för positivsemidefinita ekvationer/operatorer.
