@@ -272,11 +272,24 @@ L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i[y_i (\mathbf{x}_i^\inter
 \end{equation}
 som ska minimeras med avseende på $\bfbeta$ och $\beta_1$.
 
-För att minimera $L_D$ sätter vi derivatorna med avseende på $\bfbeta$ och $\beta_1$ till 0, det vill säga vi får följande relationer:
+För att minimera $L_P$ sätter vi derivatorna med avseende på elementen $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_1$ till 0, det vill säga vi får följande relationer:
+\begin{equation}\label{eq:derivprimal}
+\begin{aligned}
+	D_{ \left[\bfbeta\right]_j } (L_P) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \mathbf{x}_i^\intercal\bfbeta \right) + \lambda_i y_i \beta_1 - \lambda_i \right)\right)\\
+	&= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \sum_{k=1}^{p} \left[\bfbeta\right]_k^2 \right) &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left(  \lambda_i y_i \left(\sum_{k=1}^{p}\left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + \lambda_i y_i \beta_1-\lambda_i \right)\\
+	&= [\bfbeta]_j &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left( \sum_{k=1}^{p} \lambda_i y_i \left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + 0\\
+	&= [\bfbeta]_j &- &\sum_{i=1}^{N}\lambda_i y_i \left[ \mathbf{x}_i \right]_j
+\end{aligned}
+\end{equation}
+där $j=1,\dots p$ och
+\begin{equation*}
+	D_{\beta_1}(L_P) = D_{\beta_1}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_1 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
+\end{equation*}
+Vidare kan relationen \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_1}(L_p)=0 $ fås följande:
 \begin{align*}
-	D_\bfbeta(L_P)=
+	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
+	0 &= \sum_{i=1}^{N} \lambda_i y_i.
 \end{align*}
-
 \subsection{Det duala problemet}
 
 

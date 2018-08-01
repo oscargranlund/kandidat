@@ -2,3 +2,6 @@ Sources/
 *.aux
 *.log
 *.gz
+*.bbl
+*.dvi
+*.blg
