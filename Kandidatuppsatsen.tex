@@ -268,7 +268,7 @@ Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \end{equation*}
 ges då av
 \begin{equation}\label{eq:primallagrange}
-L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i[y_i (\mathbf{x}_i^\intercal\bfbeta + \beta_1)-1]
+L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i\left(y_i \left(\mathbf{x}_i^\intercal\bfbeta + \beta_1\right)-1\right)
 \end{equation}
 som ska minimeras med avseende på $\bfbeta$ och $\beta_1$.
 
@@ -285,11 +285,25 @@ där $j=1,\dots p$ och
 \begin{equation*}
 	D_{\beta_1}(L_P) = D_{\beta_1}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_1 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
 \end{equation*}
-Vidare kan relationen \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_1}(L_p)=0 $ fås följande:
-\begin{align*}
+Vidare kan \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_1}(L_p)=0 $ fås följande krav:
+\begin{align}\label{eq:krav1}
 	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
-	0 &= \sum_{i=1}^{N} \lambda_i y_i.
-\end{align*}
+	0 &= \sum_{i=1}^{N} \lambda_i y_i.\label{eq:krav2}
+\end{align}
+
+Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$ ger insättning av kraven \ref{eq:krav1} och \ref{eq:krav2} i $L_P$ följande duala problem
+
+\begin{equation*}
+\begin{aligned}
+	L_D=&\frac{1}{2}\left(\sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i\right)^\intercal \left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right)&\\
+	&- \sum_{i=1}^{N}\lambda_i \left(y_i\left(\mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) +\beta_1 \right) -1\right)&\\
+	=& \frac{1}{2} \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i^\intercal\left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) &\\
+	&- \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) - \beta_1 \sum_{i=1}^{N} \lambda_i y_i  + \sum_{i=1}^{N} \lambda_i&\\
+	=& -\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \lambda_i \lambda_j y_i y_j \mathbf{x}_i^\intercal \mathbf{x}_j + \sum_{i=1}^{N} \lambda_i &\textstyle{\left(\sum\limits_{i=1}^{N}\lambda_iy_i = 0\right)}
+\end{aligned}
+\end{equation*}
+som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet $\lambda_i\geq 0,~i=1,\dots,N$.
+
 \subsection{Det duala problemet}
 
 
