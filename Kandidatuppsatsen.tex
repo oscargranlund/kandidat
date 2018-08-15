@@ -258,6 +258,8 @@ Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
 Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen %TODO
 och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar dethär?
 
+\subsection{Primala och duala problem}
+
 För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer.
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
@@ -302,12 +304,20 @@ Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$
 	=& -\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \lambda_i \lambda_j y_i y_j \mathbf{x}_i^\intercal \mathbf{x}_j + \sum_{i=1}^{N} \lambda_i &\textstyle{\left(\sum\limits_{i=1}^{N}\lambda_iy_i = 0\right)}
 \end{aligned}
 \end{equation*}
-som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet $\lambda_i\geq 0,~i=1,\dots,N$.
+som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{equation}\label{eq:krav3}
+	\lambda_i\geq 0,~i=1,\dots,N.
+\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven för konvexa problem, det vill säga kraven \ref{eq:krav1}, \ref{eq:krav2} och \ref{eq:krav3} samt kravet
+\begin{equation}\label{eq:krav4}
+	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1 \right) -1 \right) = 0,~i=1,\dots.
+\end{equation}
+\begin{rem}
+	Kraven \ref{eq:krav1} till \ref{eq:krav4} säger något om hurudan den optimala lösningen $\left(\bfbeta,\beta_1\right)$ måste vara;
+	\begin{itemize}
+		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta$ är en linjär kombination av vektorerna $y_i\mathbf{x}_i,~i=1,\dots,N$.
+		\item Ifall $\lambda_i > 0$ så ger krav \ref{eq:krav4} att 
+	\end{itemize}
+\end{rem}
 
-\subsection{Det duala problemet}
-
-
-Introduktion genom optimering (behövs kanske ett kapitel med optimeringsteori? Iaf. Lagrange-metoden)
 \section{Det oseparabla fallet}
 Optimera med slack-variabler
 \section{En enkel utvidgning med olinjära faktorer?}
