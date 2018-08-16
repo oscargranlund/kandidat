@@ -198,7 +198,7 @@ y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 \end{equation*}
 mot kraven
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_1}{\|\bfbeta\|}) = 
+y_i\left(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_1}{\|\bfbeta\|}\right) = 
 \frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)
  \geq C,\quad i=1,\dots,N
 \end{equation*}
@@ -232,7 +232,7 @@ Ovanstående resonemang ger alltså ett bevis för sats \ref{thm:primallinearpro
 	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
-	konvext och ekvivalent med optimeringsproblemet
+	konvext och ekvivalent med optimeringsproblemet %är kanske inte ekvivalent?
 	\begin{equation*}
 	\begin{aligned}
 	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
@@ -314,7 +314,8 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 	Kraven \ref{eq:krav1} till \ref{eq:krav4} säger något om hurudan den optimala lösningen $\left(\bfbeta,\beta_1\right)$ måste vara;
 	\begin{itemize}
 		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta$ är en linjär kombination av vektorerna $y_i\mathbf{x}_i,~i=1,\dots,N$.
-		\item Ifall $\lambda_i > 0$ så ger krav \ref{eq:krav4} att 
+		\item Ifall $\lambda_i > 0$ så ger krav \ref{eq:krav4} att $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_1\right)=1$ vilket enligt det ursprungliga optimeringsproblemet \ref{opt:optimalmargin1} ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av de punkter som ligger närmast det separerande hyperplanet.
+		\item  Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta\right+\beta_1\right) > 1$ så är $\lambda_i=0$
 	\end{itemize}
 \end{rem}
 
