@@ -316,12 +316,16 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
 		\item Ifall $\lambda_i > 0$ så ger krav \ref{eq:krav4} att $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_1\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet \ref{opt:optimalmargin1} ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta + \beta_1\right) > 1$ så är $\lambda_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
+		\item Parametern $\beta_1$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$ för någon av de punkter där $\lambda_i > 0$.
 	\end{itemize}
-	Baserat på de tre tidigare slutsatserna kan vi vidare dra slutsatsen att $\bfbeta$ inte endast är en linjär kombination av träningsdatat $\mathbf{x}_i$ utan en linjär kombination av endast de punkter $\mathbf{x}_{i\mathcal{M}}$ som ligger på randen av det område som definieras av 
+	Baserat på de tre tidigare slutsatserna kan vi vidare dra slutsatsen att $\bfbeta$ inte bara är en linjär kombination av träningsdatat $\mathbf{x}_i$ utan en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av området på avståndet $\pm C$ från det optimala separerande hyperplanet. Dessa punkter kallas \emph{stödvektorer}.
 \end{rem}
 
+Kvar finns också möjligheten att $\lambda_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$. Detta implicerar att åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1 \right) = 1$ existerar och vidare ligger dessa punkter $\mathbf{x}_i$ på samma $p$-dimensionella hyperplan. Detta betyder att vilken som helst av punkterna kan skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan alltså inte garanteras men sannolikheten att de punkter som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
+
 \section{Det oseparabla fallet}
-Optimera med slack-variabler
+
+
 \section{En enkel utvidgning med olinjära faktorer?}
 Visa att problemet lösbart
 \chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
