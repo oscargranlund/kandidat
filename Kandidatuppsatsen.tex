@@ -32,6 +32,8 @@
 \newcommand{\sephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}}
 
 \newcommand{\entsephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if(\mathbf{x}_i)\geq0,~i=1,\dots,~N,~\|\bfbeta\|=1\}}
+
+
 \title{Hilbertrum med Reproducerande Kärnor}
 \author{Oscar Granlund}
 
@@ -325,6 +327,7 @@ Kvar finns också möjligheten att $\lambda_i = 0$ och $y_i\left( \mathbf{x}_i^\
 
 \section{Det oseparabla fallet}
 
+Antag att träningsdatan $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabelt, det vill säga det existerar inte något hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_1 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_1\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$. Träningsdata som inte är linjärt separabelt leder till att optimeringsproblemet \ref{opt:optimalmargin1} samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte är lösbara.
 
 \section{En enkel utvidgning med olinjära faktorer?}
 Visa att problemet lösbart
