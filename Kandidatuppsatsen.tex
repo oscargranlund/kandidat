@@ -52,27 +52,27 @@
 INTRODUKTION OM VARFÖR KLASSIFICERING, EXEMPEL MED SPAM-FILTER
 
 \begin{defi}
-	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för alla träningspar $(\mathbf{x}_i,y_i)$.
+	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för så många träningspar $(\mathbf{x}_i,y_i)$ som möjligt.
 \end{defi}
 
-Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regression eller någon sorts klusteralgoritm. I detta kapitel behandlas en metod där affina mängder med dimensionerna $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
+Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regressionsmodeller eller klusteranalys. I detta kapitel behandlas en metod där en affin mängd med dimensionen $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
 
 \begin{defi}
-	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$; figur \ref{fig:separatinghyperplane} illustrerar ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$, definierar ett hyperplan alternativt en \textit{affin} mängd, parametriserat av $\bfbeta$ och $\beta_0$.
+	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$, i figur \ref{fig:separatinghyperplane} illustreras ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$, definierar ett hyperplan parametriserad av $\bfbeta$ och $\beta_0$.
 \end{defi}
 
 \begin{thm}\label{thm:hyperplan}
 	Ett hyperplan definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
 	\begin{enumerate}
-		\item Den normaliserade normalvektorn $\widehat{\bfbeta}_\mathrm{n}$ kan skrivas på formen
+		\item $\bfbeta$ är en normalvektor till $L$ och kan normaliseras genom
 		\begin{equation*}
-			\widehat{\bfbeta}_\mathrm{n} = \frac{\bfbeta}{\|\bfbeta\|}.
+			\widehat{\bfbeta} = \frac{\bfbeta}{\|\bfbeta\|}.
 		\end{equation*}
 		\item $\mathbf{x}_0^\intercal \bfbeta = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
-		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$ ges av
+		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$, $\operatorname{d}^\pm (\mathbf{x}, L)$, ges av
 		\begin{equation*}
 		\begin{aligned}
-			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta}_\mathrm{n} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
+			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
 			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 		\end{aligned}
 		\end{equation*}
@@ -87,11 +87,11 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 		&= \mathbf{x}_1^\intercal \bfbeta + \beta_0 - \mathbf{x}_2^ \intercal \bfbeta - \beta_0\\
 		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
 	\end{align*}
-	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}_\mathrm{n}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
-	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal \bfbeta = - \beta_0$.\hfill \qedsymbol
-	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normal, $\beta$. Vi får alltså att
+	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
+	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal_0 \bfbeta = - \beta_0$.\hfill \qedsymbol
+	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normaliserade normal $\widehat{\beta}$, $\operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )$. Vi får alltså att
 	\begin{align*}
-		\operatorname{d^\pm} ( \mathbf{x}, L ) &= \operatorname{comp_{\bfbeta}} ( \mathbf{x} - \mathbf{x}_0 )
+		\operatorname{d^\pm} ( \mathbf{x}, L ) &= \operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )
 		=\underline{\underline{ (\mathbf{x} - \mathbf{x}_0)^\intercal \widehat{\bfbeta} }}\\
 		&= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta - \mathbf{x}_0^\intercal\bfbeta)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \bfbeta_0)}}
 	\end{align*}
@@ -104,15 +104,15 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{proof}
 
 \begin{rem}
-	Definitionen för hyperplanet $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ är inte entydig.
+	Definitionen $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ för hyperplanet $L$ är inte entydig.
 \end{rem}
 \begin{reas}
-	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \{\mathbf{x}: g(\mathbf{x})=\mathbf{x}^\intercal(-1\cdot\bfbeta) + (-1 \cdot \beta_0)\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}$ tillhör $L_1$ så tillhör $\mathbf{x}$ även $L_2$.
-	Betrakta vidare $L_3= \{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}\}=0$. Om $\mathbf{x}$ då tillhör $L_1$ så tillhör $\mathbf{x}$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$. Notera även att $\|\bfbeta\|$ kunde ha varit vilket reellt tal $\alpha$ som helst.
+	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g(\mathbf{x})=\mathbf{x}^\intercal(-\bfbeta) + (-\beta_0) = 0\right\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
+	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$.
 \end{reas}
 
 \begin{rem}
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (med avseende på vart $\bfbeta$ pekar) från origo till hyperplanet.
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till vart $\bfbeta$ pekar) från origo till hyperplanet.
 \end{rem}
 \begin{reas}
 	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\bar{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\beta_0$.
@@ -170,7 +170,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{proof}
 
 \begin{rem}
-	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^n$ väljer $n$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom och sedan löser ekvationssystemet $X\bfbeta=-\bfbeta_0$ där $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, n$ och $\bfbeta_0$ är en vektor av värdena $\beta_0$.
+	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^p$ väljer $p$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom och sedan löser ekvationssystemet $X\bfbeta=-\bfbeta_0$ där $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, p$ och $\bfbeta_0$ är en vektor av värdena $\beta_0$.
 \end{rem}
 
 Som syns i exempel \ref{exempel:mångahyperplan} så kan det finnas många separerande hyperplan ifall ett klassificeringsproblem är linjärt separabelt och frågan är ju då vilket av alla separerande hyperplan man borde välja.
@@ -241,7 +241,7 @@ Ovanstående resonemang ger alltså ett bevis för sats \ref{thm:primallinearpro
 	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
-	ifall träningsdatat $(\mathbf{x}_i,y_i)$ är sådant att klassificeringsproblemet är linjärt separabelt.
+	ifall träningsdatan $(\mathbf{x}_i,y_i)$ är sådant att klassificeringsproblemet är linjärt separabelt.
 \end{thm}
 Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
 \begin{cor}\label{cor:inreproduktoptimering}
@@ -320,7 +320,7 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta + \beta_1\right) > 1$ så är $\lambda_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Parametern $\beta_1$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$ för någon av de punkter där $\lambda_i > 0$.
 	\end{itemize}
-	Baserat på de tre tidigare slutsatserna kan vi vidare dra slutsatsen att $\bfbeta$ inte bara är en linjär kombination av träningsdatat $\mathbf{x}_i$ utan en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av området på avståndet $\pm C$ från det optimala separerande hyperplanet. Dessa punkter kallas \emph{stödvektorer}.
+	Baserat på de tre tidigare slutsatserna kan vi vidare dra slutsatsen att $\bfbeta$ inte bara är en linjär kombination av träningsdatan $\mathbf{x}_i$ utan en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av området på avståndet $\pm C$ från det optimala separerande hyperplanet. Dessa punkter kallas \emph{stödvektorer}.
 \end{rem}
 
 Kvar finns också möjligheten att $\lambda_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$. Detta implicerar att åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1 \right) = 1$ existerar och vidare ligger dessa punkter $\mathbf{x}_i$ på samma $p$-dimensionella hyperplan. Detta betyder att vilken som helst av punkterna kan skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan alltså inte garanteras men sannolikheten att de punkter som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
