@@ -108,14 +108,14 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{rem}
 \begin{reas}
 	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g(\mathbf{x})=\mathbf{x}^\intercal(-\bfbeta) + (-\beta_0) = 0\right\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
-	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$.
+	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$. Notera även att $\frac{1}{\|\bfbeta\|}$ kunde ha varit vilket reellt tal som helst.
 \end{reas}
 
 \begin{rem}
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till vart $\bfbeta$ pekar) från origo till hyperplanet.
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till riktningen på $\bfbeta$) från origo till hyperplanet.
 \end{rem}
 \begin{reas}
-	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\bar{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\beta_0$.
+	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\frac{1}{\|\bfbeta\|}\left(\mathbf{0}^\intercal\bfbeta+\beta_0\right)=\beta_0$.
 \end{reas}
 
 \begin{figure}
@@ -125,14 +125,19 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{figure}
 
 \begin{defi}
-	Ett klassificeringsproblem kallas \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar mängderna.
+	Ett klassificeringsproblem eller en mängd observationspar $\left(\mathbf{x}_i, y_i\right)$ är \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar klasserna.
 \end{defi}
 
-\begin{thm}
-	För ett hyperplan $L=\entsephyp$ som separerar två klasser gäller att
-	\begin{equation}
+%TODO SKRIVA OM SATS OCH BEVIS ENLIGT BOYD
+\begin{thm} \cite{Boyd}
+	För ett hyperplan $L=\sephyp$ som separerar två klasser gäller att
+	\begin{equation*}
 		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0
-	\end{equation}
+	\end{equation*}
+	eller
+	\begin{equation*}
+		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) < 0
+	\end{equation*}
 	för alla $i = 1, \dots,~N$.
 \end{thm}
 \begin{proof}
@@ -140,7 +145,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{proof}
 
 \begin{ex}\label{exempel:mångahyperplan}
-	Låt träningsdataparen vara $(\left[2,~2\right]^\intercal,~1),~(\left[1,~2\right]^\intercal,-1)$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
+	Låt observationsparen vara $(\left[2,~2\right]^\intercal,~1),~(\left[1,~2\right]^\intercal,-1)$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
 	1\\
 	0
 	\end{bmatrix} - 1.5=0\}$$ och $$L_2=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
@@ -170,94 +175,95 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{proof}
 
 \begin{rem}
-	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^p$ väljer $p$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom och sedan löser ekvationssystemet $X\bfbeta=-\bfbeta_0$ där $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, p$ och $\bfbeta_0$ är en vektor av värdena $\beta_0$.
+	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^p$ väljer $p$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom, sedan löser man ekvationssystemet $X\bfbeta=-\beta_0\mathbf{1}$, i vilket $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, p$, och $\beta_0\mathbf{1}$ är en vektor med värdet $\beta_0$ i alla rader.
 \end{rem}
 
-Som syns i exempel \ref{exempel:mångahyperplan} så kan det finnas många separerande hyperplan ifall ett klassificeringsproblem är linjärt separabelt och frågan är ju då vilket av alla separerande hyperplan man borde välja.
-%%%%	KANSKE REFERENS TILL VAPNIK 1996
+Som syns i exempel \ref{exempel:mångahyperplan} finns det många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
+%TODO KANSKE REFERENS TILL VAPNIK 1996
 
 \section{Optimala separerande hyperplan}
-Inom statistiken finns många olika sätt att anpassa en modell till data och dessa sätt kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression som kan visas vara ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
-Dessa optimeringsproblem kan oftast ändras genom att man lägger till eller tar bort termer i objektivfunktionen eller ändrar på kraven.
+Inom statistiken finns många olika metoder som en modell till data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
+Optimeringsproblemen kan oftast ändras genom att man lägger till eller tar bort termer i objektivfunktionen eller ändrar på kraven.
 
-För separerande hyperplan kommer vi att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste träningspunkterna från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
+För separerande hyperplan kommer jag att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste observationsparen från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
-	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\beta_0,\|\widehat{\bfbeta}\|=1} & & C\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
+	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & C\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
 \end{aligned}
 \end{equation}
-där $C$ kallas marginalen och betecknar avståndet från hyperplanet till de närmaste punkterna.
+där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste punkterna.
 \begin{rem}
-	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\widehat{\bfbeta}+\beta_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\widehat{\bfbeta}+\widehat{\beta}_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 \end{rem}
 
-Förhoppningen är här att man genom att välja det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna hittar ett hyperplan som även generaliserar till ny data så bra som möjligt. Dessutom kommer vi också se att detta är ett sätt att unikt välja ett separerande hyperplan.
+Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext.
 
-För att se att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext}, det vill säga har en unik lösning, måst vi skriva om det något. Vi börjar med att gör oss av med kravet $\|\widehat{\bfbeta}\|=1$ genom att byta ut kraven
+För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext} måste det skrivas om. Idén är här att man låter inversen av längden på vektorn $\bfbeta$ beskriva avståndet till närmast punkt. På så sätt skapas en direktare länk mellan kraven och objektfunktionen i optimeringsproblemet.
+
+Först måste alltså kravet $\|\widehat{\bfbeta}\|=1$ bytas ut. Detta görs genom att man byter ut kraven
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
+y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
 \end{equation*}
 mot kraven
 \begin{equation*}
-y_i\left(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_1}{\|\bfbeta\|}\right) = 
-\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)
+y_i\left(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_0}{\|\bfbeta\|}\right) = 
+\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)
  \geq C,\quad i=1,\dots,N
 \end{equation*}
 eller ekvivalent
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq C\|\bfbeta\|,\quad i=1,\dots,N.
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C\|\bfbeta\|,\quad i=1,\dots,N,
 \end{equation*}
-där man alltså valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\beta_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\|\bfbeta\|}$ och får
+där man valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\widehat{\beta}_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\|\bfbeta\|}$, då fås
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{equation*}
-och eftersom att $C=\frac{1}{\|\bfbeta\|}$ ökar när $\|\bfbeta\|$ minskar är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ så vi får optimeringsproblemet
+och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende på $\|\bfbeta\|$ är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ och motsvarande optimeringsproblemet blir
 \begin{equation*}%\label{opt:optimalmargin2}
 \begin{aligned}
-& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \|\bfbeta\|\\
-& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N.
+& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \|\bfbeta\|\\
+& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
-Därefter görs ännu en kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$ alltså man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_1} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord har vi ett optimeringsproblem av en kvadratisk funktion med linjära krav alltså ett konvext optimeringsproblem där lösningar existerar.
+Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord är detta ett optimeringsproblem med kvadratisk objektfunktion och linjära krav det vill säga ett konvext optimeringsproblem med entydig lösning.
 
 \begin{rem}
-	För två vektorer $\mathbf{a}$ och $\mathbf{b}$ i $\mathbb{R}^n$ kan produkten $\mathbf{a}^\intercal\mathbf{b}$ uttryckas som den normala inre produkten $\langle \mathbf{a}, \mathbf{b} \rangle$ i $\mathbb{R}^n$. Detta kommer att komma till nytta i kapitel \ref{chap:hilbert} där konvexiteten för en utvidgning av det linjära problemet utforskas.
+	För två vektorer $\mathbf{a}$ och $\mathbf{b}$ i $\mathbb{R}^p$ kan produkten $\mathbf{a}^\intercal\mathbf{b}$ uttryckas som den normala inre produkten $\langle \mathbf{a}, \mathbf{b} \rangle$ i $\mathbb{R}^p$. Detta kommer till nytta i kapitel \ref{chap:hilbert} där konvexiteten för en generalisering av det linjära problemet utforskas.
 \end{rem}
 
-Ovanstående resonemang ger alltså ett bevis för sats \ref{thm:primallinearproblem}.
+Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 \begin{thm}\label{thm:primallinearproblem}
-	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\beta_0,~\beta_1 \in \mathbb{R}$. Då är optimeringsproblemet
+	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom observationsparen $\left(\mathbf{x}_i, y,\right)$ vara linjärt separabla. Då är optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\beta_0,\|\widehat{\bfbeta}\|=1} & & C\\
+	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & C\\
 	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
-	konvext och ekvivalent med optimeringsproblemet %är kanske inte ekvivalent?
+	konvext och ekvivalent med optimeringsproblemet %TODO är kanske inte ekvivalent?
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+	& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\|\bfbeta\|^2\\
+	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 	\end{aligned}
 	\end{equation*}
-	ifall träningsdatan $(\mathbf{x}_i,y_i)$ är sådant att klassificeringsproblemet är linjärt separabelt.
 \end{thm}
-Vidare ger observationen ovan ett till ekvivalent optimeringsproblem:
+Vidare ger observationen ovan ytterligare ett ekvivalent optimeringsproblem:
 \begin{cor}\label{cor:inreproduktoptimering}
 	Optimeringsproblemen i sats \ref{thm:primallinearproblem} är ekvivalenta med optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
-	& \text{så att} & & y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_1)\geq 1,\quad i=1,\dots,N
+	& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
+	& \text{så att} & & y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_0)\geq 1,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
-	för samma krav.
+	med samma antaganden.
 \end{cor}
 \begin{proof}
 	Normen $\|\bfbeta\|=(\bfbeta^\intercal\bfbeta)^{\frac{1}{2}}$ kan uttryckas som $\langle \bfbeta, \bfbeta \rangle^{\frac{1}{2}}$ alltså är $\frac{1}{2} \|\bfbeta\|^2=\frac{1}{2}\langle \bfbeta, \bfbeta \rangle$. Resten följer från observationen.
 \end{proof}
-Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen %TODO
+Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen, %TODO
 och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar dethär?
 
 \subsection{Primala och duala problem}
@@ -266,30 +272,30 @@ För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga l�
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
 \begin{aligned}
-& \operatornamewithlimits{min}_{\bfbeta,\beta_1} & & \frac{1}{2}\|\bfbeta\|^2\\
-& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_1)\geq 1,\quad i=1,\dots,N
+& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\|\bfbeta\|^2\\
+& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{aligned}
 \end{equation*}
 ges då av
 \begin{equation}\label{eq:primallagrange}
-L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i\left(y_i \left(\mathbf{x}_i^\intercal\bfbeta + \beta_1\right)-1\right)
+L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i\left(y_i \left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-1\right)
 \end{equation}
-som ska minimeras med avseende på $\bfbeta$ och $\beta_1$.
+som ska minimeras med avseende på $\bfbeta$ och $\beta_0$.
 
-För att minimera $L_P$ sätter vi derivatorna med avseende på elementen $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_1$ till 0, det vill säga vi får följande relationer:
+För att minimera $L_P$ sätts derivatorna med avseende på elementen $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_0$ till 0, och följande relationer erhålls:
 \begin{equation}\label{eq:derivprimal}
 \begin{aligned}
-	D_{ \left[\bfbeta\right]_j } (L_P) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \mathbf{x}_i^\intercal\bfbeta \right) + \lambda_i y_i \beta_1 - \lambda_i \right)\right)\\
-	&= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \sum_{k=1}^{p} \left[\bfbeta\right]_k^2 \right) &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left(  \lambda_i y_i \left(\sum_{k=1}^{p}\left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + \lambda_i y_i \beta_1-\lambda_i \right)\\
+	D_{ \left[\bfbeta\right]_j } (L_P) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \mathbf{x}_i^\intercal\bfbeta \right) + \lambda_i y_i \beta_0 - \lambda_i \right)\right)\\
+	&= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \sum_{k=1}^{p} \left[\bfbeta\right]_k^2 \right) &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left(  \lambda_i y_i \left(\sum_{k=1}^{p}\left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + \lambda_i y_i \beta_0-\lambda_i \right)\\
 	&= [\bfbeta]_j &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left( \sum_{k=1}^{p} \lambda_i y_i \left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + 0\\
 	&= [\bfbeta]_j &- &\sum_{i=1}^{N}\lambda_i y_i \left[ \mathbf{x}_i \right]_j
 \end{aligned}
 \end{equation}
 där $j=1,\dots p$ och
 \begin{equation*}
-	D_{\beta_1}(L_P) = D_{\beta_1}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_1 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
+	D_{\beta_0}(L_P) = D_{\beta_0}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_0 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
 \end{equation*}
-Vidare kan \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_1}(L_p)=0 $ fås följande krav:
+Vidare kan \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_0}(L_p)=0 $ fås följande krav:
 \begin{align}\label{eq:krav1}
 	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
 	0 &= \sum_{i=1}^{N} \lambda_i y_i.\label{eq:krav2}
@@ -300,9 +306,9 @@ Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$
 \begin{equation*}
 \begin{aligned}
 	L_D=&\frac{1}{2}\left(\sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i\right)^\intercal \left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right)&\\
-	&- \sum_{i=1}^{N}\lambda_i \left(y_i\left(\mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) +\beta_1 \right) -1\right)&\\
+	&- \sum_{i=1}^{N}\lambda_i \left(y_i\left(\mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) +\beta_0 \right) -1\right)&\\
 	=& \frac{1}{2} \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i^\intercal\left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) &\\
-	&- \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) - \beta_1 \sum_{i=1}^{N} \lambda_i y_i  + \sum_{i=1}^{N} \lambda_i&\\
+	&- \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i^\intercal \left(\sum_{j=1}^{N} \lambda_j y_j \mathbf{x}_j\right) - \beta_0 \sum_{i=1}^{N} \lambda_i y_i  + \sum_{i=1}^{N} \lambda_i&\\
 	=& -\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \lambda_i \lambda_j y_i y_j \mathbf{x}_i^\intercal \mathbf{x}_j + \sum_{i=1}^{N} \lambda_i &\textstyle{\left(\sum\limits_{i=1}^{N}\lambda_iy_i = 0\right)}
 \end{aligned}
 \end{equation*}
@@ -310,24 +316,24 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 	\lambda_i\geq 0,~i=1,\dots,N.
 \end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven för konvexa problem, det vill säga kraven \ref{eq:krav1}, \ref{eq:krav2} och \ref{eq:krav3} samt kravet
 \begin{equation}\label{eq:krav4}
-	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1 \right) -1 \right) = 0,~i=1,\dots.
+	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_0 \right) -1 \right) = 0,~i=1,\dots, N.
 \end{equation}
 \begin{rem}
-	Kraven \ref{eq:krav1} till \ref{eq:krav4} säger något om hurudan den optimala lösningen $\left(\bfbeta,\beta_1\right)$ måste vara;
+	Kraven \ref{eq:krav1} till \ref{eq:krav4} säger något om hurudan den optimala lösningen $\left(\bfbeta^*,\beta^*_0, \lambda_1^*,\dots,\lambda_N^*\right)$ måste vara:
 	\begin{itemize}
-		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
-		\item Ifall $\lambda_i > 0$ så ger krav \ref{eq:krav4} att $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_1\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet \ref{opt:optimalmargin1} ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av de punkter som ligger närmast det separerande hyperplanet.
-		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta + \beta_1\right) > 1$ så är $\lambda_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
-		\item Parametern $\beta_1$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$ för någon av de punkter där $\lambda_i > 0$.
+		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta^*$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
+		\item Ifall $\lambda^*_i > 0$ så ger krav \ref{eq:krav4} att $y_i\left(\mathbf{x}_i^\intercal\bfbeta^*+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet \ref{opt:optimalmargin1} ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av punkterna som ligger närmast det separerande hyperplanet.
+		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta^* + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
+		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
-	Baserat på de tre tidigare slutsatserna kan vi vidare dra slutsatsen att $\bfbeta$ inte bara är en linjär kombination av träningsdatan $\mathbf{x}_i$ utan en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av området på avståndet $\pm C$ från det optimala separerande hyperplanet. Dessa punkter kallas \emph{stödvektorer}.
+	Baserat på de tre tidigare slutsatserna kan vidare slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer specifikt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen marginalen. Dessa punkter kallas \emph{stödvektorer}.
 \end{rem}
 
-Kvar finns också möjligheten att $\lambda_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1\right) = 1$. Detta implicerar att åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_1 \right) = 1$ existerar och vidare ligger dessa punkter $\mathbf{x}_i$ på samma $p$-dimensionella hyperplan. Detta betyder att vilken som helst av punkterna kan skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan alltså inte garanteras men sannolikheten att de punkter som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
+Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
 
 \section{Det oseparabla fallet}
 
-Antag att träningsdatan $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabelt, det vill säga det existerar inte något hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_1 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_1\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$. Träningsdata som inte är linjärt separabelt leder till att optimeringsproblemet \ref{opt:optimalmargin1} samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte är lösbara.
+Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Träningsdata som inte är linjärt separabelt leder till att optimeringsproblemet \ref{opt:optimalmargin1} samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte är lösbara.
 
 \section{En enkel utvidgning med olinjära faktorer?}
 Visa att problemet lösbart
