@@ -48,7 +48,6 @@
 \chapter{Stödvektormaskiner (SVM)}
 
 \section{Klassificering med hjälp av separerande hyperplan}
-
 INTRODUKTION OM VARFÖR KLASSIFICERING, EXEMPEL MED SPAM-FILTER
 
 \begin{defi}
@@ -188,8 +187,8 @@ Optimeringsproblemen kan oftast ändras genom att man lägger till eller tar bor
 För separerande hyperplan kommer jag att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste observationsparen från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
-	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & C\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
+	 \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1}& & &C\\
+	 \text{så att}& & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
 \end{aligned}
 \end{equation}
 där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste punkterna.
@@ -222,8 +221,8 @@ y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
 och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende på $\|\bfbeta\|$ är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ och motsvarande optimeringsproblemet blir
 \begin{equation*}%\label{opt:optimalmargin2}
 \begin{aligned}
-& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \|\bfbeta\|\\
-& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
+\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\|\bfbeta\|\\
+\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
 Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord är detta ett optimeringsproblem med kvadratisk objektfunktion och linjära krav det vill säga ett konvext optimeringsproblem med entydig lösning.
@@ -234,18 +233,18 @@ Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \text
 
 Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 \begin{thm}\label{thm:primallinearproblem}
-	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom observationsparen $\left(\mathbf{x}_i, y,\right)$ vara linjärt separabla. Då är optimeringsproblemet
+	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom observationsparen $\left(\mathbf{x}_i, y_i\right)$ vara linjärt separabla. Då är optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & C\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
+	\operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & &C\\
+	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
 	konvext och ekvivalent med optimeringsproblemet %TODO är kanske inte ekvivalent?
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\|\bfbeta\|^2\\
-	& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
+	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
+	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 	\end{aligned}
 	\end{equation*}
 \end{thm}
@@ -254,8 +253,8 @@ Vidare ger observationen ovan ytterligare ett ekvivalent optimeringsproblem:
 	Optimeringsproblemen i sats \ref{thm:primallinearproblem} är ekvivalenta med optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
-	& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
-	& \text{så att} & & y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_0)\geq 1,\quad i=1,\dots,N
+	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
+	\text{så att} & & &y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_0)\geq 1,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
 	med samma antaganden.
@@ -272,8 +271,8 @@ För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga l�
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
 \begin{aligned}
-& \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & \frac{1}{2}\|\bfbeta\|^2\\
-& \text{så att} & & y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
+\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
+\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{aligned}
 \end{equation*}
 ges då av
@@ -332,8 +331,9 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
 
 \section{Det oseparabla fallet}
+Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att de tidigare optimeringsproblemen, \ref{opt:optimalmargin1} samt sats \ref{thm:primallinearproblem}, inte längre är lösbara. Ifall ett optimeringsproblems krav gör det olösbart kan man tillåta lösningar som strider mot kraven men samtidigt reglera hur långt från de ursprungliga kraven man tillåter lösningar. I praktiken åstadkoms detta med hjälp av \emph{slackvariabler}.
 
-Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Träningsdata som inte är linjärt separabelt leder till att optimeringsproblemet \ref{opt:optimalmargin1} samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte är lösbara.
+För optimeringsproblemet \ref{opt:optimalmargin1} 
 
 \section{En enkel utvidgning med olinjära faktorer?}
 Visa att problemet lösbart
