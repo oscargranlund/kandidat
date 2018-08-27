@@ -54,7 +54,6 @@ Hur uppsatsen relaterar till kapitlen om SVMs i boken "The Elements och Statisti
 \chapter{Stödvektormaskiner (SVM)}
 
 \section{Klassificering med hjälp av separerande hyperplan}
-INTRODUKTION OM VARFÖR KLASSIFICERING, EXEMPEL MED SPAM-FILTER
 
 \begin{defi}
 	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för så många träningspar $(\mathbf{x}_i,y_i)$ som möjligt.
@@ -391,7 +390,7 @@ För optimeringsproblemet \ref{opt:softmargin} ger stegen i beviset för sats \r
 	konvext och ekvivalent med optimeringsproblemet %TODO är kanske inte ekvivalent?
 	\begin{equation*}
 	\begin{aligned}
-	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &|\bfbeta\|\\
+	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
 	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
 	& & &s_i\geq0,\quad i=1,\dots N,\\
 	& & &\sum_{i=1}^{N} s_i \leq K.
@@ -399,28 +398,53 @@ För optimeringsproblemet \ref{opt:softmargin} ger stegen i beviset för sats \r
 	\end{equation*}
 \end{thm}
 
-%Även korrolarium \ref{cor:inreproduktoptimering} har en mjuk motsvarighet:
-%\begin{cor}\label{cor:mjukinreproduktoptimering}
-%	Optimeringsproblemen i sats \ref{thm:primalsoftmargin} är ekvivalenta med optimeringsproblemet
-%	\begin{equation*}
-%	\begin{aligned}
-%	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
-%	\text{så att} & & &y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
-%	& & &s_i\geq0,\quad i=1,\dots N,\\
-%	& & &\sum_{i=1}^{N} s_i \leq K
-%	\end{aligned}
-%	\end{equation*}
-%	med samma antaganden.
-%\end{cor}
-%\begin{proof}
-%	Se beviset för korrolarium \ref{cor:inreproduktoptimering}.
-%\end{proof}
+Även korrolarium \ref{cor:inreproduktoptimering} har en mjuk motsvarighet:
+\begin{cor}\label{cor:mjukinreproduktoptimering}
+	Optimeringsproblemen i sats \ref{thm:primalsoftmargin} är ekvivalenta med optimeringsproblemet
+	\begin{equation*}
+	\begin{aligned}
+	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\langle \bfbeta, \bfbeta \rangle\\
+	\text{så att} & & &y_i(\langle \mathbf{x}_i,\bfbeta\rangle+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+	& & &s_i\geq0,\quad i=1,\dots N,\\
+	& & &\sum_{i=1}^{N} s_i \leq K
+	\end{aligned}
+	\end{equation*}
+	med samma antaganden.
+\end{cor}
+\begin{proof}
+	Se beviset för korrolarium \ref{cor:inreproduktoptimering}.
+\end{proof}
 
 \begin{rem}
 	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i,y_i\right)$ är linjärt separabla; man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Detta kan vara till nytta ifall man har outliers i mätdatan och de väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
 \end{rem}
 
+För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden vid optimering för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
+\begin{equation}\label{eq:softpenalty1}
+\begin{aligned}
+	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2 + \gamma\sum_{i=1}^{N} s_i\\
+	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+	& & &s_i\geq0,\quad i=1,\dots N,
+\end{aligned}
+\end{equation}
+eller
+\begin{equation}\label{eq:softpenalty2}
+\begin{aligned}
+\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2 + \gamma\left(\sum_{i=1}^{N} s_i\right)^2\\
+\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+& & &s_i\geq0,\quad i=1,\dots N,
+\end{aligned}
+\end{equation}
+i huvudsak eftersom att de båda är kvadratiska optimeringsproblem och således kan lösas relativt enkelt.
+
+Tolkningen av optimeringsproblemen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små .Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$. En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och \ref{eq:softpenalty1} är att optimeringsproblemet \ref{eq:softpenalty1} alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
+
+Av de två alternativen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är \ref{eq:softpenalty1} vanligare och behandlas således i resten av uppsatsen.
+
 \subsection{Primala och Duala Lagrangeproblem för mjuka marginaler}
+
+
+
 \newpage
 Visa med ett exempel att mjuka marginaler inte alltid ger tillräckligt bra lösningar men att till exempel en enkel kvadratisk utveckling kan ge bra resultat.
 
