@@ -437,13 +437,36 @@ eller
 \end{equation}
 i huvudsak eftersom att de båda är kvadratiska optimeringsproblem och således kan lösas relativt enkelt.
 
-Tolkningen av optimeringsproblemen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små .Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$. En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och \ref{eq:softpenalty1} är att optimeringsproblemet \ref{eq:softpenalty1} alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
+Tolkningen av optimeringsproblemen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små. Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$.
+
+En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och \ref{eq:softpenalty1} är att optimeringsproblemet \ref{eq:softpenalty1} alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
 
 Av de två alternativen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är \ref{eq:softpenalty1} vanligare och behandlas således i resten av uppsatsen.
 
 \subsection{Primala och Duala Lagrangeproblem för mjuka marginaler}
-
-
+Precis som med separabelt data kan lösningen för optimeringsproblemet \ref{eq:softpenalty1} karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
+\begin{equation}\label{eq:softlagrangeprimal}
+	L_P = \frac{1}{2}\|\bfbeta\|^2+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
+\end{equation}
+som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut, då fås:
+\begin{align*}
+	D_{ \bfbeta} \left(L_P\right) &= 	D_{ \bfbeta} \left( \frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i \left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) \right)\\
+	&=\bfbeta - \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i,\\
+	D_{ \beta_0} \left(L_P\right) &= D_{\beta_0} \left(- \sum_{i=1}^{N} \lambda_i \left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right)\right)\\
+	&= -\sum_{i=1}^{N} \lambda_i y_i
+\intertext{och}
+	D_{ s_j} \left(L_P\right) &= D_{s_j} \left( \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i \right)\\
+	&= D_{s_j} \left( \gamma s_j - \lambda_j\left(y_j\left(\mathbf{x}_j^\intercal\bfbeta + \beta_0\right)-\left(1-s_j\right)\right)-\mu_js_j \right)\\
+	&= \gamma - \lambda_j - \mu_j.
+\end{align*}
+Efter att man sedan kräver att derivatorna skalla vara lika med 0 får man följande krav:
+\begin{align}
+\label{eq:softkrav1}	\bfbeta &= \sum_{i=1}^{N} \lambda_iy_i\mathbf{x}_i,\\
+\label{eq:softkrav2}	0 &= \sum_{i=1}^{N} \lambda_iy_i
+	\intertext{och}
+\label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad i = 1,\dots,N.
+\end{align}
+Insättning av kraven \ref{eq:softkrav1}, \ref{eq:softkrav2} och \ref{eq:softkrav3} i den primala Lagrangefunktionen \ref{eq:softlagrangeprimal} ger den duala Lagrangefunktionen 
 
 \newpage
 Visa med ett exempel att mjuka marginaler inte alltid ger tillräckligt bra lösningar men att till exempel en enkel kvadratisk utveckling kan ge bra resultat.
