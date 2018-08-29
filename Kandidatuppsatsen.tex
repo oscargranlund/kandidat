@@ -230,7 +230,10 @@ och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende p�
 \text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
-Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att $\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2$. Med andra ord är detta ett optimeringsproblem med kvadratisk objektfunktion och linjära krav det vill säga ett konvext optimeringsproblem med entydig lösning.
+Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att \begin{equation*}
+\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2.
+\end{equation*}
+Med andra ord är detta ett optimeringsproblem med kvadratisk objektfunktion och linjära krav det vill säga ett konvext optimeringsproblem med entydig lösning.
 
 \begin{rem}
 	För två vektorer $\mathbf{a}$ och $\mathbf{b}$ i $\mathbb{R}^p$ kan produkten $\mathbf{a}^\intercal\mathbf{b}$ uttryckas som den normala inre produkten $\langle \mathbf{a}, \mathbf{b} \rangle$ i $\mathbb{R}^p$. Detta kommer till nytta i kapitel \ref{chap:hilbert} där konvexiteten för en generalisering av det linjära problemet utforskas.
@@ -299,13 +302,13 @@ där $j=1,\dots p$ och
 \begin{equation*}
 	D_{\beta_0}(L_P) = D_{\beta_0}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_0 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
 \end{equation*}
-Vidare kan \ref{eq:derivprimal} skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_0}(L_p)=0 $ fås följande krav:
+Vidare kan (\ref{eq:derivprimal}) skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }(L_p) \right]_j = D_{\left[ \bfbeta \right]_j}(L_p) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }(L_p) = \mathbf{0} $ och $ D_{\beta_0}(L_p)=0 $ fås följande krav:
 \begin{align}\label{eq:krav1}
 	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
 	0 &= \sum_{i=1}^{N} \lambda_i y_i.\label{eq:krav2}
 \end{align}
 
-Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$ ger insättning av kraven \ref{eq:krav1} och \ref{eq:krav2} i $L_P$ följande duala problem
+Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$ ger insättning av kraven (\ref{eq:krav1}) och (\ref{eq:krav2}) i $L_P$ följande duala problem
 
 \begin{equation*}
 \begin{aligned}
@@ -318,15 +321,15 @@ Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$
 \end{equation*}
 som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{equation}\label{eq:krav3}
 	\lambda_i\geq 0,~i=1,\dots,N.
-\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven för konvexa problem, det vill säga kraven \ref{eq:krav1}, \ref{eq:krav2} och \ref{eq:krav3} samt kravet
+\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet
 \begin{equation}\label{eq:krav4}
 	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_0 \right) -1 \right) = 0,~i=1,\dots, N.
 \end{equation}
 \begin{rem}
-	Kraven \ref{eq:krav1} till \ref{eq:krav4} säger något om hurudan den optimala lösningen $\left(\bfbeta^*,\beta^*_0, \lambda_1^*,\dots,\lambda_N^*\right)$ måste vara:
+	Kraven (\ref{eq:krav1}) till (\ref{eq:krav4}) säger något om hurudan den optimala lösningen $\left(\bfbeta^*,\beta^*_0, \lambda_1^*,\dots,\lambda_N^*\right)$ måste vara:
 	\begin{itemize}
-		\item Krav \ref{eq:krav1} säger att vektorn $\bfbeta^*$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
-		\item Ifall $\lambda^*_i > 0$ så ger krav \ref{eq:krav4} att $y_i\left(\mathbf{x}_i^\intercal\bfbeta^*+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet \ref{opt:optimalmargin1} ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av punkterna som ligger närmast det separerande hyperplanet.
+		\item Krav (\ref{eq:krav1}) säger att vektorn $\bfbeta^*$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
+		\item Ifall $\lambda^*_i > 0$ så ger krav (\ref{eq:krav4}) att $y_i\left(\mathbf{x}_i^\intercal\bfbeta^*+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet (\ref{opt:optimalmargin1}) ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av punkterna som ligger närmast det separerande hyperplanet.
 		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta^* + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
@@ -336,11 +339,11 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
 
 \section{Det oseparabla fallet}
-Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet \ref{opt:optimalmargin1} samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
+Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
 
 Ifall ett optimeringsproblems krav gör det olösbart kan man tillåta lösningar som strider mot kraven men samtidigt reglera hur långt från de ursprungliga kraven man tillåter lösningar. I praktiken åstadkoms detta med hjälp av \emph{slackvariabler} och lösningarna blir \emph{hyperplan med mjuka marginaler}.
 
-För optimeringsproblemet \ref{opt:optimalmargin1} finns två omedelbara sätt att ändra på kraven, endera låter man
+För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två omedelbara sätt att ändra på kraven, endera låter man
 \begin{align}
 	y_i\left(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0\right) &\geq C-s_i\label{eq:softändring1}\\
 	\intertext{eller så}
@@ -353,7 +356,7 @@ s_i&\geq0,~i=1,\dots,N,\\
 \end{aligned}
 \end{equation*}
 
-Alternativ \ref{eq:softändring1} kan tolkas som att man låter observationen $\mathbf{x}_i$ vara på avståndet $s_i$ från marginalens rand, på ''fel`` sida om randen. Observationen $\mathbf{x}_i$ blir då felklassificerad om $s_i>C$. För alternativ \ref{eq:softändring2} gäller istället att observationen $\mathbf{x}_i$ tillåts vara $Cs_i$ enheter innanför marginalens rand. Då gäller att felklassificering händer om $s_i\geq1$. Kravet $\sum_{i=1}^{N} s_i \leq K$ kan i det andra fallet tolkas som att $K$ är det största antalet felklassificeringar man tillåter, medan det för det första fallet inte finns någon motsvarande tolkning om man inte låter $K$ variera i proportion till $C$. Detta är en bidragande orsak till att alternativ \ref{eq:softändring2} är det mest allmänt använda.
+Alternativ (\ref{eq:softändring1}) kan tolkas som att man låter observationen $\mathbf{x}_i$ vara på avståndet $s_i$ från marginalens rand, på ''fel`` sida om randen. Observationen $\mathbf{x}_i$ blir då felklassificerad om $s_i>C$. För alternativ (\ref{eq:softändring2}) gäller istället att observationen $\mathbf{x}_i$ tillåts vara $Cs_i$ enheter innanför marginalens rand. Då gäller att felklassificering händer om $s_i\geq1$. Kravet $\sum_{i=1}^{N} s_i \leq K$ kan i det andra fallet tolkas som att $K$ är det största antalet felklassificeringar man tillåter, medan det för det första fallet inte finns någon motsvarande tolkning om man inte låter $K$ variera i proportion till $C$. Detta är en bidragande orsak till att alternativ (\ref{eq:softändring2}) är det mest allmänt använda.
 
 För hyperplan med mjuka marginaler blir då det ursprungliga optimeringsproblemet:
 \begin{equation}\label{opt:softmargin}
@@ -376,7 +379,7 @@ En annan orsak till att det andra alternativet föredras är att om man försök
 \end{equation*}
 vilket inte genast går att skriva om i någon standardform för optimeringsproblem.
 
-För optimeringsproblemet \ref{opt:softmargin} ger stegen i beviset för sats \ref{thm:primallinearproblem} istället ett bevis för sats \ref{thm:primalsoftmargin}:
+För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats \ref{thm:primallinearproblem} istället ett bevis för sats \ref{thm:primalsoftmargin}:
 \begin{thm}\label{thm:primalsoftmargin}
 	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom konstanten $K$ vara vald så att optimeringsproblemen är lösbara för givna observationspar $\left(\mathbf{x}_i,y_i\right)$. Då är optimeringsproblemet
 	\begin{equation*}
@@ -437,14 +440,14 @@ eller
 \end{equation}
 i huvudsak eftersom att de båda är kvadratiska optimeringsproblem och således kan lösas relativt enkelt.
 
-Tolkningen av optimeringsproblemen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små. Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$.
+Tolkningen av optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små. Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$.
 
-En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och \ref{eq:softpenalty1} är att optimeringsproblemet \ref{eq:softpenalty1} alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
+En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och (\ref{eq:softpenalty1}) är att optimeringsproblemet (\ref{eq:softpenalty1}) alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
 
-Av de två alternativen \ref{eq:softpenalty1} och \ref{eq:softpenalty2} är \ref{eq:softpenalty1} vanligare och behandlas således i resten av uppsatsen.
+Av de två alternativen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är (\ref{eq:softpenalty1}) vanligare och behandlas således i resten av uppsatsen.
 
 \subsection{Primala och Duala Lagrangeproblem för mjuka marginaler}
-Precis som med separabelt data kan lösningen för optimeringsproblemet \ref{eq:softpenalty1} karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
+Precis som med separabelt data kan lösningen för optimeringsproblemet (\ref{eq:softpenalty1}) karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
 \begin{equation}\label{eq:softlagrangeprimal}
 	L_P = \frac{1}{2}\|\bfbeta\|^2+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
 \end{equation}
@@ -466,7 +469,7 @@ Efter att man sedan kräver att derivatorna skalla vara lika med 0 får man föl
 	\intertext{och}
 \label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad i = 1,\dots,N.
 \end{align}
-Insättning av kraven \ref{eq:softkrav1}, \ref{eq:softkrav2} och \ref{eq:softkrav3} i den primala Lagrangefunktionen \ref{eq:softlagrangeprimal} ger den duala Lagrangefunktionen 
+Insättning av kraven (\ref{eq:softkrav1}), (\ref{eq:softkrav2}) och (\ref{eq:softkrav3}) i den primala Lagrangefunktionen (\ref{eq:softlagrangeprimal}) ger den duala Lagrangefunktionen 
 
 \newpage
 Visa med ett exempel att mjuka marginaler inte alltid ger tillräckligt bra lösningar men att till exempel en enkel kvadratisk utveckling kan ge bra resultat.
