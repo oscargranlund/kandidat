@@ -419,7 +419,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 \end{proof}
 
 \begin{rem}
-	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i,y_i\right)$ är linjärt separabla; man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Detta kan vara till nytta ifall man har outliers i mätdatan och de väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
+	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i,y_i\right)$ är linjärt separabla; man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers i mätdatan som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
 \end{rem}
 
 För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden vid optimering för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
@@ -440,9 +440,9 @@ eller
 \end{equation}
 i huvudsak eftersom att de båda är kvadratiska optimeringsproblem och således kan lösas relativt enkelt.
 
-Tolkningen av optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet också. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är här att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så blir det viktigare att slackvariablerna är små. Det separabla fallet fås när man låter $\gamma$ gå mot $\infty$.
+Tolkningen av optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,\dots,N$. Märk här att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så är det viktigare att slackvariablerna hålls små. Det separabla fallet fås när $\gamma$ går mot $\infty$.
 
-En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och (\ref{eq:softpenalty1}) är att optimeringsproblemet (\ref{eq:softpenalty1}) alltid är lösbart medan för optimeringsproblemen i sats \ref{thm:primalsoftmargin} måste $K$ väljas tillräckligt stort för att optimeringsproblemen ska vara lösbara.
+En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och (\ref{eq:softpenalty1}) är att optimeringsproblemet (\ref{eq:softpenalty1}) alltid är lösbart medan optimeringsproblemen i sats \ref{thm:primalsoftmargin} är lösbara endast om $K$ väljs tillräckligt stort.
 
 Av de två alternativen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är (\ref{eq:softpenalty1}) vanligare och behandlas således i resten av uppsatsen.
 
@@ -462,14 +462,36 @@ som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta 
 	&= D_{s_j} \left( \gamma s_j - \lambda_j\left(y_j\left(\mathbf{x}_j^\intercal\bfbeta + \beta_0\right)-\left(1-s_j\right)\right)-\mu_js_j \right)\\
 	&= \gamma - \lambda_j - \mu_j.
 \end{align*}
+
 Efter att man sedan kräver att derivatorna skalla vara lika med 0 får man följande krav:
 \begin{align}
-\label{eq:softkrav1}	\bfbeta &= \sum_{i=1}^{N} \lambda_iy_i\mathbf{x}_i,\\
-\label{eq:softkrav2}	0 &= \sum_{i=1}^{N} \lambda_iy_i
-	\intertext{och}
-\label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad i = 1,\dots,N.
+\label{eq:softkrav1}	\bfbeta &= \sum_{i=1}^{N} \lambda_iy_i\mathbf{x}_i, & &\\
+\label{eq:softkrav2}	0 &= \sum_{i=1}^{N} \lambda_iy_i, & &\\
+\label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad& &i = 1,\dots,N
+\intertext{samt kraven}
+\label{eq:softkrav4}	\lambda_i&\geq0,\quad& &i = 1,\dots,N,\\
+\label{eq:softkrav5}	\mu_i&\geq0, \quad& &i = 1,\dots,N,\\
+\label{eq:softkrav6}	s_i&\geq0 \quad& &i = 1,\dots,N.
 \end{align}
-Insättning av kraven (\ref{eq:softkrav1}), (\ref{eq:softkrav2}) och (\ref{eq:softkrav3}) i den primala Lagrangefunktionen (\ref{eq:softlagrangeprimal}) ger den duala Lagrangefunktionen 
+
+Insättning av kraven (\ref{eq:softkrav1}) till (\ref{eq:softkrav2}) och (\ref{eq:softkrav3}) i den primala Lagrangefunktionen (\ref{eq:softlagrangeprimal}) ger den duala Lagrangefunktionen
+\begin{align*}
+	L_D = &\frac{1}{2}\bfbeta^\intercal\bfbeta + \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) - \sum_{i=1}^{N}\mu_is_i\\
+	= &\frac{1}{2}\left(\sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i\right)^\intercal\left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right) - \left(\sum_{i=1}^{N}\lambda_iy_i\mathbf{x}_i\right)^\intercal\left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right)\\
+	&-\sum_{i=1}^{N}\lambda_iy_i\beta_0 + \sum_{i=1}^{N}\lambda_i + \sum_{i=1}^{N}\left(\gamma - \lambda_i - \mu_i\right)s_i\\
+	= &\sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\mathbf{x}_i^\intercal\mathbf{x}_j
+\end{align*}
+som ska maximeras med avseende på $\lambda_i$ med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i$. Dessutom fås
+\begin{align}
+\label{eq:softkrav7}	\lambda_i\left( y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right) - \left(1-s_i\right)\right) &= 0, \quad & &i = 1,\dots,N,\\
+\label{eq:softkrav8}	\mu_is_i&=0, \quad & &i = 1,\dots,N,\\
+\label{eq:softkrav9}	y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right) &\geq 0 \quad & &i = 1,\dots,N,
+\end{align}
+från Karush-Kuhn-Tucker kraven för konvexa problem.
+
+\begin{rem}
+	Precis som för algoritmen för optimala separerande hyperplan kan man karaktärisera lösningen för hyperplan med mjuka marginaler med hjälp av kraven (\ref{eq:softkrav1}) till (\ref{eq:softkrav9}).
+\end{rem}
 
 \newpage
 Visa med ett exempel att mjuka marginaler inte alltid ger tillräckligt bra lösningar men att till exempel en enkel kvadratisk utveckling kan ge bra resultat.
