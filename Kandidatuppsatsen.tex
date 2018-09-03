@@ -122,10 +122,10 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\frac{1}{\|\bfbeta\|}\left(\mathbf{0}^\intercal\bfbeta+\beta_0\right)=\beta_0$.
 \end{reas}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[width=\linewidth]{KandFigur1.pdf}
-\caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
+\includegraphics[width=0.8\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur1.pdf}
+\caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linje) där klassen $y_i=1$ framställs som blå fyrkanter och klassen $y_i=-1$ som orangea cirklar.}
 \end{figure}
 
 \begin{defi}
@@ -503,20 +503,27 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 	\end{itemize}
 \end{rem}
 \begin{ex}
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{KandFigur2.pdf}
-	\caption{\label{fig:mjukamarginaler}Löst exempel för oseparabelt data för 3 olika värden på $\gamma$.}
+	\includegraphics[width=0.8\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur2.pdf}
+	\caption{\label{fig:mjukamarginaler}Löst exempel för linjärt oseparabelt data för 3 olika värden på $\gamma$.}
 \end{figure}
+Låt observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana som i figur \ref{fig:mjukamarginaler} där blåa rutor är klassen $y_i=1$ och orangea cirklar är klassen $y_i=-1$. Axlarna motsvarar här $\mathbf{x}_i$:s första respektive andra komponenter. Klart är här att observationsparen inte är linjärt separabla men det verkar som att en punkt från vardera klassen kanske mätts fel. För att bestämma en klassificeringsregel används metoden med hyperplan med mjuka marginaler för 3 olika värden på $\gamma$. Funktionen \texttt{SVC} med \texttt{kernel='linear'} från paketet \texttt{sklearn} \cite{sklearn} användes för att beräkna hyperplanen.
+
+Observera hur parametern $\gamma$ påverkar lösningen. Ju mindre $\gamma$ är desto större marginaler vilket betyder att flera punkter används som stödvektorer.
 \end{ex}
 \begin{ex}
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{KandFigur3.pdf}
-	\caption{\label{fig:kvadratisk}En lösning med optimala separerande hyperplan och kvadratisk utvidgning där endast mjuka marginaler inte hade fungerat.}
+	\includegraphics[width=0.8\linewidth, trim={0.5cm 4mm -5mm 4mm}, clip]{KandFigur3.pdf}
+	\caption{\label{fig:kvadratisk}En lösning med optimala separerande hyperplan och kvadratisk utvidgning där endast hyperplan med mjuka marginaler inte hade fungerat.}
 \end{figure}
-\end{ex}
+Låt $\mathbf{x}_i\in\mathbb{R}$ och observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana att klassen $y_i=1$ befinner sig mitt i klassen $y_i=-1$, situationen finns illustrerad överst i figur \ref{fig:kvadratisk}. Klart är även här att observationsparen är linjärt oseparabla men nu kan inte heller metoden med hyperplan med mjuka marginaler ge vettiga lösningar. Istället kan man lägga till en dimension och definiera att $\mathbf{x}_i\in\mathbb{R}^2$ och $\mathbf{x}_{i2} = \mathbf{x}_{i1}^2$.
+Då får man situationen som illustreras nederst i figur \ref{fig:kvadratisk} och observationsparen är nu linjärt separabla. Det optimala separerande hyperplanet bestämdes med hjälp av \texttt{sklearn}:s metod \texttt{SVC} med \texttt{kernel='linear'} och \texttt{C=1000} \cite{sklearn}.
 
+Moralen här är då att hyperplan med mjuka marginaler inte alltid räcker till utan flera verktyg behövs. Ett sådant verktyg är olinjära utvidgningar av det ursprungliga rummet $\mathbf{x}_i\in \mathbb{R}^p$ till ett större rum där det kan vara enklare att hitta vettiga klassificeringsregler.
+\end{ex}
+%\FloatBarrier
 \chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
 Motivera den olinjära utvidgningen av $\mathbf{x}_i$ med föregående exempel.
 \section{Grundläggande teori}
