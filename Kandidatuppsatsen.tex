@@ -491,10 +491,23 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 
 \begin{rem}
 	Precis som för algoritmen för optimala separerande hyperplan kan man karaktärisera lösningen för hyperplan med mjuka marginaler med hjälp av kraven (\ref{eq:softkrav1}) till (\ref{eq:softkrav9}).
+	\begin{itemize}
+		\item Krav (\ref{eq:softkrav1}) och (\ref{eq:softkrav7}) ger att den optimala lösningen $\bfbeta^*$ ges som den linjära kombinationen
+		\begin{equation*}
+			\bfbeta^* = \sum_{i=1}^{N}\lambda_i^*y_ix_i,
+		\end{equation*}
+		av punkterna $x_i$ på eller i marginalen för vilka $\lambda_i^*>0$, Punkterna med $\lambda^*_i>0$ kallas \emph{stödvektorer} eftersom att de är de enda punkterna som behövs för att representera $\bfbeta^*$.
+		\item För stödvektorer ($\lambda^*_i>0$) som ligger på marginalen ($s_i^*=0$) ger kraven (\ref{eq:softkrav3}) och (\ref{eq:softkrav8}) att $0<\lambda_i^*<\gamma$.
+		\item För de resterande stödvektorerna ($\lambda_i^*>0$) gäller $\lambda_i^*=\gamma$.
+		\item Vilken som helst av punkterna på marginalen ($\lambda^*_i>0,~s^*_i=0$) kan användas för att lösa för $\beta_0^*$.
+	\end{itemize}
 \end{rem}
-
-\newpage
-Visa med ett exempel att mjuka marginaler inte alltid ger tillräckligt bra lösningar men att till exempel en enkel kvadratisk utveckling kan ge bra resultat.
+\begin{ex}
+	Löst exempel där hårda marginaler inte fungerar
+\end{ex}
+\begin{ex}
+	Löst exempel där mjuka marginaler inte fungerar men kvadratisk utvidgning fungerar (XOR) eller 1D "1-0-1".
+\end{ex}
 
 \chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
 Motivera den olinjära utvidgningen av $\mathbf{x}_i$ med föregående exempel.
