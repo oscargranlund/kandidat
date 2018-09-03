@@ -183,7 +183,6 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{rem}
 
 Som syns i exempel \ref{exempel:mångahyperplan} finns det många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
-%TODO KANSKE REFERENS TILL VAPNIK 1996
 
 \section{Optimala separerande hyperplan}
 Inom statistiken finns många olika metoder som en modell till data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
@@ -270,7 +269,7 @@ Vidare ger observationen ovan ytterligare ett ekvivalent optimeringsproblem:
 \begin{proof}
 	Normen $\|\bfbeta\|=(\bfbeta^\intercal\bfbeta)^{\frac{1}{2}}$ kan uttryckas som $\langle \bfbeta, \bfbeta \rangle^{\frac{1}{2}}$ alltså är $\frac{1}{2} \|\bfbeta\|^2=\frac{1}{2}\langle \bfbeta, \bfbeta \rangle$. Resten följer från observationen.
 \end{proof}
-Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen, %TODO
+Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen, %TODO referens
 och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar dethär?
 
 \subsection{Primala och duala problem}
@@ -529,9 +528,9 @@ Motivera den olinjära utvidgningen av $\mathbf{x}_i$ med föregående exempel.
 \section{Grundläggande teori}
 Introducera inreprodukter.
 \section{Hilbertrum med Reproducerande Kärnor}
-Bygg vidare på korrolarium \ref{cor:inreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en mot en annan, ge krav på inreprodukten för baserade på optimeringsproblem. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
+Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
 
-(Bevis av Mercers villkor för positivsemidefinita ekvationer/operatorer, behöver åtminstone Riesz representationssats och någon sats om eigenvärden samt funktioner, material från kursen fördjupad analys I/II borde "räcka". Måste kanske hoppa över vissa tekniska detaljer.)
+(Bevis av Mercers villkor för positivsemidefinita ekvationer/operatorer, behöver åtminstone Riesz representationssats och någon sats om eigenvärden/funktioner, material från kursen fördjupad analys I/II borde "räcka". Måste kanske hoppa över vissa tekniska detaljer.)
 
 \chapter{Avslutning}
 Har hittills inte gått in på statistiska detaljer, till exempel tränings/validerings-data eller gränser på felklassificering.
