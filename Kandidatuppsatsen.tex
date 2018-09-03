@@ -124,8 +124,8 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{example-image-a}
-\caption{\label{fig:separatinghyperplane}20 datapunkter med ett separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
+\includegraphics[width=\linewidth]{KandFigur1.pdf}
+\caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linje) där klassen $y=1$ har färgats blå och klassen $y=-1$ har färgats orange.}
 \end{figure}
 
 \begin{defi}
@@ -503,10 +503,18 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 	\end{itemize}
 \end{rem}
 \begin{ex}
-	Löst exempel där hårda marginaler inte fungerar
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{KandFigur2.pdf}
+	\caption{\label{fig:mjukamarginaler}Löst exempel för oseparabelt data för 3 olika värden på $\gamma$.}
+\end{figure}
 \end{ex}
 \begin{ex}
-	Löst exempel där mjuka marginaler inte fungerar men kvadratisk utvidgning fungerar (XOR) eller 1D "1-0-1".
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{KandFigur3.pdf}
+	\caption{\label{fig:kvadratisk}En lösning med optimala separerande hyperplan och kvadratisk utvidgning där endast mjuka marginaler inte hade fungerat.}
+\end{figure}
 \end{ex}
 
 \chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
