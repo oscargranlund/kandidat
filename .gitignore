@@ -6,3 +6,4 @@ Sources/
 *.dvi
 *.blg
 *.7z
+.ipynb_checkpoints/
