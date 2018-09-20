@@ -33,6 +33,7 @@
 
 \newcommand{\entsephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if(\mathbf{x}_i)\geq0,~i=1,\dots,~N,~\|\bfbeta\|=1\}}
 
+\newcommand{\inprod}[2]{\langle \mathbf{#1}, \mathbf{#2}\rangle}
 
 \title{Stödvektormaskiner\\
 {\large Linjära hyperplan i Hilbertrum}}
@@ -524,12 +525,35 @@ Moralen här är då att hyperplan med mjuka marginaler inte alltid räcker till
 \end{ex}
 %\FloatBarrier
 \chapter{Hilbertrumteori, reproducerande kärnor}\label{chap:hilbert}
-Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. Klart är att man alltid kan bilda $n$:te gradens polynom men ifall den ursprungliga dimensionen $p$, mängden observationspar $N$ eller graden $n$ är stor så kan detta bli övermäktigt för även den snabbaste datorn. Det kommer att visa sig att eftersom observationerna $\mathbf{x}_i$ endast förekommer i inreprodukter (se till exempel korrolarium \ref{cor:inreproduktoptimering} och \ref{cor:mjukinreproduktoptimering}) så finns det ett behagligare alternativ men först några definitioner och resultat.
+Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. Klart är att man alltid kan bilda $n$:te gradens polynom men ifall den ursprungliga dimensionen $p$, mängden observationspar $N$ eller graden $n$ är stor så kan detta bli övermäktigt för även den snabbaste datorn. Det kommer att visa sig att eftersom observationerna $\mathbf{x}_i$ endast förekommer i inreprodukter (se till exempel korrolarium \ref{cor:inreproduktoptimering} och \ref{cor:mjukinreproduktoptimering}) så finns det ett behagligare alternativ.
 
 \section{Grundläggande teori}
+Först några grundläggande definitioner angående \emph{Hilbertrum}, $\mathcal{H}$, det vill säga \emph{fullständiga} vektorrum $X$ försedda med en \emph{inreprodukt} $\langle \cdot , \cdot \rangle$.
+
 \begin{defi}
-En \emph{inreprodukt} är en funktion $\langle \cdot , \cdot \rangle: X\cross X \longmapsto \mathbb{R}$ sådan att:
+En \emph{inreprodukt} är en funktion $\langle \cdot , \cdot \rangle: X\times X \longmapsto \mathbb{R}$ sådan att, för alla $\mathbf{x},~\mathbf{y},~\mathbf{z}~\in X$ och alla $\lambda \in \mathbb{R}$, gäller:
+\begin{enumerate}
+\item $\inprod{x}{y} = \inprod{y}{x}$
+\item $\langle \lambda \mathbf{x}, \mathbf{y}\rangle = \lambda \inprod{x}{y}$
+\item $\inprod{x+y}{z} =\inprod{x}{z} + \inprod{y}{z}$
+\item $\inprod{x}{x} \geq 0$, där likhet gäller om och endast om $\mathbf{x} = \mathbf{0}$. 
+\end{enumerate}
 \end{defi}
+\begin{defi}
+Ett vektorrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar till en punkt $\mathbf{x}\in X$.
+\end{defi}
+
+\begin{rem}
+Dimensionen på vektorrummet $X$ nämns inte i definitionen för inreprodukten och därför kan Hilbertrum även vara oändligtdimensionella. Många av de bekanta egenskaperna för ändligtdimensonella inreproduktrum gäller även för oändligtdimensionella inreproduktrum, till exempel är två vektorer $\mathbf{x}, ~\mathbf{y}$ ortogonala ifall $\inprod{x}{y}=0$, även om det kan vara svårt att visualisera för oändligtdimensionella rum.
+\end{rem}
+På tal om ortogonalitet så vore det behändigt att ha någon parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. Det visar sig att inte alla Hilbertrum har en motsvarighet till basvektorer men ifall man kräver att rummet är \emph{separabelt} så existerar en ortonormal följd vektorer $\mathbf{e}_i$ sådan att för varje vektor $\mathbf{x}\in \mathcal{H}$  gäller \cite{Young}:
+\begin{equation*}
+	\mathbf{x}=\sum_{i=1}^{\infty}\left\langle \mathbf{x}, \mathbf{e}_i \right\rangle \mathbf{e}_i
+\end{equation*}
+där vektorerna $\mathbf{e}_i$ agerar bas och koefficienten $\left\langle \mathbf{x}, \mathbf{e}_i \right\rangle$ kallas den $i$:te Fourierkoefficienten med avseende på basen $\mathbf{e}_i,$ $i=1,2,3,\dots$. I fortsättningen behandlas bara separabla Hilbertrum, så att varje vektor $\mathbf{x}$ kan skrivas som en linjär kombination av basvektorerna.
+
+
+
 \section{Hilbertrum med Reproducerande Kärnor}
 Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
 
