@@ -552,7 +552,34 @@ På tal om ortogonalitet så vore det behändigt att ha någon parallell till de
 \end{equation*}
 där vektorerna $\mathbf{e}_i$ agerar bas och koefficienten $\left\langle \mathbf{x}, \mathbf{e}_i \right\rangle$ kallas den $i$:te Fourierkoefficienten med avseende på basen $\mathbf{e}_i,$ $i=1,2,3,\dots$. I fortsättningen behandlas bara separabla Hilbertrum, så att varje vektor $\mathbf{x}$ kan skrivas som en linjär kombination av basvektorerna.
 
+Elementen i Hilbertrummen kan också ha många olika former, till exempel de $d$-dimensionella vektorerna med den vanliga inreprodukten $\left\langle \mathbf{x}, \mathbf{y} \right\rangle = \mathbf{x}^\intercal\mathbf{y}$ som hittills behandlats. Man kan även tillåta att elementen är funktioner, till exempel på intervallet $\left[a,b\right]$, då brukar inreprodukten definieras som
+\begin{equation*}
+	\left\langle f, g \right\rangle=\int_{a}^{b}f(x)g(x) dx,
+\end{equation*}
+men man måste dessutom kräva att normen $\left\|f\right\| = \left(\int_{a}^{b}f(x)^2dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i rummet.
 
+Speciellt när det kommer till Hilbertrum med funktioner som element, så kallade \emph{funktionsrum}, så behandlar man \emph{funktionaler} istället för funktioner för att undvika förvirring.
+\begin{defi}
+	En \emph{funktional} $\mathcal{F}$ är en reellvärd funktion som tar en annan funktion $f$ som argument, det vill säga
+	\begin{equation*}
+		\mathcal{F}: \mathcal{H} \longmapsto \mathbb{R}
+	\end{equation*}
+	där elementen i Hilbertrummet $\mathcal{H}$ är funktioner.
+\end{defi}
+
+En funktional är linjär om följande gäller:
+\begin{equation*}
+	\mathcal{F}(\lambda f+g) = \lambda\mathcal{F}(f) + \mathcal{F}(g),
+\end{equation*}
+för alla $f$, $g$ $\in \mathcal{H}$, $\lambda \in \mathbb{R}$ och \emph{begränsad} om följande gäller:
+\begin{equation*}
+	\sup \left\{\left| \mathcal{F}(u) \right| : u\in\mathcal{H},~\left\| u \right\|_{\mathcal{H}} \leq 1 \right\} < \infty
+\end{equation*}
+där $\left\| \cdot \right\|_ \mathcal{H}$ är den inducerade normen i Hilbertrummet $\mathcal{H}$.
+
+Dessutom gäller att funktionaler är linjära och begränsade om och endast om de är kontinuerliga. Det gäller även att funktionaler är kontinuerliga om och endast om de är kontinuerliga i 0 \cite{Young}.
+
+Följande 
 
 \section{Hilbertrum med Reproducerande Kärnor}
 Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
