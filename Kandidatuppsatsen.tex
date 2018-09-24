@@ -2,9 +2,11 @@
 \documentclass[a4paper, 12pt]{report}
 
 \usepackage[swedish]{babel}
+%\usepackage{babelbib}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
+
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -577,10 +579,23 @@ för alla $f$, $g$ $\in \mathcal{H}$, $\lambda \in \mathbb{R}$ och \emph{begrän
 \end{equation*}
 där $\left\| \cdot \right\|_ \mathcal{H}$ är den inducerade normen i Hilbertrummet $\mathcal{H}$.
 
-Dessutom gäller att funktionaler är linjära och begränsade om och endast om de är kontinuerliga. Det gäller även att funktionaler är kontinuerliga om och endast om de är kontinuerliga i 0 \cite{Young}.
+Dessutom gäller att linjära funktionaler är begränsade om och endast om de är kontinuerliga. Det gäller även att funktionaler är kontinuerliga om och endast om de är kontinuerliga i 0 \cite{Young}.
 
-Följande 
+Följande sats ger ett sätt att karaktärisera varje begränsad linjär funktional $\mathcal{F}$ som en inreprodukt.
 
+\begin{thm}[Riesz-Fréchets representations sats \cite{Young}]
+	För varje begränsad linjär funktional på ett Hilbertrum $\mathcal{H}$, $\mathcal{F}: \mathcal{H} \longmapsto \mathbb{R}$, existerar ett unikt $v\in\mathcal{H}$ sådant att
+	\begin{equation}
+		\mathcal{F}(u)=\left\langle u, v\right\rangle_\mathcal{H}\quad \text{för alla }u\in\mathcal{H}
+	\end{equation}
+	för alla $u\in\mathcal{H}$, där $\left\langle \cdot, \cdot\right\rangle_\mathcal{H}$ betecknar inreprodukten i Hilbertrummet $\mathcal{H}$.\\
+	Dessutom gäller att $\left\| v \right\|_\mathcal{H}=\left\| \mathcal{F}\right\|_O$ där $\left\| \cdot \right\|_\mathcal{H}$ är den inducerade normen och $\left\|\cdot\right\|_O$ är operatornormen \begin{equation*}
+	\left\|\mathcal{F}\right\|_O:=\sup_{u\in\mathcal{H},\left\|u\right\|_\mathcal{H}\leq 1}\left|\mathcal{F}(u)\right|.
+	\end{equation*}
+\end{thm}
+\begin{proof}
+	Se \cite{Young} för ett bevis.
+\end{proof}
 \section{Hilbertrum med Reproducerande Kärnor}
 Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
 
