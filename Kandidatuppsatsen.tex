@@ -2,11 +2,9 @@
 \documentclass[a4paper, 12pt]{report}
 
 \usepackage[swedish]{babel}
-%\usepackage{babelbib}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
-
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -95,16 +93,16 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
 	\end{align*}
 	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
-	\item Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal_0 \bfbeta = - \beta_0$.\hfill \qedsymbol
+	\item \label{eq:egenskap2}Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal_0 \bfbeta = - \beta_0$.\hfill \qedsymbol
 	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normaliserade normal $\widehat{\beta}$, $\operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )$. Vi får alltså att
 	\begin{align*}
 		\operatorname{d^\pm} ( \mathbf{x}, L ) &= \operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )
 		=\underline{\underline{ (\mathbf{x} - \mathbf{x}_0)^\intercal \widehat{\bfbeta} }}\\
-		&= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta - \mathbf{x}_0^\intercal\bfbeta)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \bfbeta_0)}}
+		&= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta - \mathbf{x}_0^\intercal\bfbeta)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \beta_0)}}
 	\end{align*}
-	och om man noterar att $f(\mathbf{x})=\mathbf{x}^\intercal\bfbeta+\beta_0$ och $f^\prime(\mathbf{x})=\bfbeta$ så fås även att
+	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$. Om man vidare noterar att $f(\mathbf{x})=\mathbf{x}^\intercal\bfbeta+\beta_0$ och $f^\prime(\mathbf{x})=\bfbeta$ så fås även att
 	\begin{equation*}
-		\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \bfbeta_0)=\frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
+		\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \beta_0)=\frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 	\end{equation*}
 	\qedhere
 \end{enumerate}
@@ -235,7 +233,18 @@ och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende p�
 Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att \begin{equation*}
 \operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2.
 \end{equation*}
-Med andra ord är detta ett optimeringsproblem med kvadratisk objektfunktion och linjära krav det vill säga ett konvext optimeringsproblem med entydig lösning.
+En orsak till att göra den kvadratiska transformeringen är att man på så sätt kan garantera att objektfunktionen är deriverbar:
+\begin{ex}
+	Låt $f(x):=|x-x_0|$ och $g(x):=\left(f(x)\right)^2$. Då är $f(x)$ inte deriverbar i punkten $x_0$ medan $D_x\left(g(x)\right)=D_x\left(\left(x-x_0\right)^2\right)=D_x\left(x^2-2xx_0+x_0^2\right)=2x-2x_0=2(x-x_0)$ och $D_x\left(g(x_0)\right)=0$ det vill säga $\operatornamewithlimits{argmin}_x f(x) = x_0 = \operatornamewithlimits{argmin}_x g(x)$.
+\end{ex}
+Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen 
+\begin{equation*}
+\begin{aligned}
+\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2=\frac{1}{2}\bfbeta^\intercal\bfbeta=\bfbeta^\intercal\left(\frac{1}{2}I\right)\bfbeta\\
+\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
+\end{aligned}
+\end{equation*}
+där $\left( \frac{1}{2}I \right)$ är en \emph{positiv semi-definit} matris det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
 
 \begin{rem}
 	För två vektorer $\mathbf{a}$ och $\mathbf{b}$ i $\mathbb{R}^p$ kan produkten $\mathbf{a}^\intercal\mathbf{b}$ uttryckas som den normala inre produkten $\langle \mathbf{a}, \mathbf{b} \rangle$ i $\mathbb{R}^p$. Detta kommer till nytta i kapitel \ref{chap:hilbert} där konvexiteten för en generalisering av det linjära problemet utforskas.
@@ -277,7 +286,7 @@ och är en av de mer generella framställningarna för optimeringsproblemet som 
 
 \subsection{Primala och duala problem}
 
-För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer.
+För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer \cite{Boyd}.
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
 \begin{aligned}
@@ -323,7 +332,7 @@ Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$
 \end{equation*}
 som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{equation}\label{eq:krav3}
 	\lambda_i\geq 0,~i=1,\dots,N.
-\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet
+\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven \cite{Boyd} för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet
 \begin{equation}\label{eq:krav4}
 	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_0 \right) -1 \right) = 0,~i=1,\dots, N.
 \end{equation}
@@ -453,7 +462,7 @@ Precis som med separabelt data kan lösningen för optimeringsproblemet (\ref{eq
 \begin{equation}\label{eq:softlagrangeprimal}
 	L_P = \frac{1}{2}\|\bfbeta\|^2+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
 \end{equation}
-som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut, då fås:
+som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut; om man följer liknande steg som i (\ref{eq:derivprimal}) får man:
 \begin{align*}
 	D_{ \bfbeta} \left(L_P\right) &= 	D_{ \bfbeta} \left( \frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i \left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) \right)\\
 	&=\bfbeta - \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i,\\
@@ -496,9 +505,9 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 	\begin{itemize}
 		\item Krav (\ref{eq:softkrav1}) och (\ref{eq:softkrav7}) ger att den optimala lösningen $\bfbeta^*$ ges som den linjära kombinationen
 		\begin{equation*}
-			\bfbeta^* = \sum_{i=1}^{N}\lambda_i^*y_ix_i,
+			\bfbeta^* = \sum_{i=1}^{N}\lambda_i^*y_i\mathbf{x}_i,
 		\end{equation*}
-		av punkterna $x_i$ på eller i marginalen för vilka $\lambda_i^*>0$, Punkterna med $\lambda^*_i>0$ kallas \emph{stödvektorer} eftersom att de är de enda punkterna som behövs för att representera $\bfbeta^*$.
+		av punkterna $\mathbf{x}_i$ på eller i marginalen för vilka $\lambda_i^*>0$, Punkterna med $\lambda^*_i>0$ kallas \emph{stödvektorer} eftersom att de är de enda punkterna som behövs för att representera $\bfbeta^*$.
 		\item För stödvektorer ($\lambda^*_i>0$) som ligger på marginalen ($s_i^*=0$) ger kraven (\ref{eq:softkrav3}) och (\ref{eq:softkrav8}) att $0<\lambda_i^*<\gamma$.
 		\item För de resterande stödvektorerna ($\lambda_i^*>0$) gäller $\lambda_i^*=\gamma$.
 		\item Vilken som helst av punkterna på marginalen ($\lambda^*_i>0,~s^*_i=0$) kan användas för att lösa för $\beta_0^*$.
