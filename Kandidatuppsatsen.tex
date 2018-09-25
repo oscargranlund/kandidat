@@ -603,8 +603,38 @@ Följande sats ger ett sätt att karaktärisera varje begränsad linjär funktio
 	\end{equation*}
 \end{thm}
 \begin{proof}
-	Se \cite{Young} för ett bevis.
+	Nedan följer en översikt av beviset i \cite{Young}.
+	
+	Ifall $\mathcal{F}$ är funktionalen som avbildar varje element $u\in\mathcal{H}$ på 0 så är satsen bevisad genom att man väljer $v=0$. 
+	
+	Antag att det existerar åtminstone ett $u\in\mathcal{H}$ sådant att $\mathcal{F}(u)\neq0$. Då kan man dela upp $\mathcal{H}$ i två delar,
+	\begin{equation*}
+		\mathcal{M} = \left\{u\in\mathcal{H}:\mathcal{F}\left(u\right)=0\right\}
+	\end{equation*}
+	och
+	\begin{equation*}
+		\mathcal{M}^\perp = \left\{u\in\mathcal{H}: \left\langle u,w \right\rangle=0\text{ för alla }w \in \mathcal{M}\right\},
+	\end{equation*}
+	det vill säga $\mathcal{M}^\perp$ är det \emph{ortogonala komplementet} till $\mathcal{M}$.
+	Då gäller att varje element $w_0\in \mathcal{H}$ kan skrivas som summan $w_0 = w_1 + w_2$ där $w_1\in\mathcal{M}$ och $w_2\in \mathcal{M}^\perp$ (Sats 4.24 i \cite{Young}). Lineariteten av $\mathcal{F}$ ger då att $\mathcal{F}(w_0)=\mathcal{F}(w_1)+\mathcal{F}(w_2)=\mathcal{F}(w_2)$, på grund av detta och antagandet att det existerar ett $w_0\in\mathcal{H}$ sådant att $\mathcal{F}(w_0)\neq0$ måste det finnas åtminstone ett element $w_2 \neq 0$ i $\mathcal{M}^\perp$. Välj $x:= \frac{w_2}{\mathcal{F}(w_2)}$, då är $\mathcal{F}(x)=\mathcal{F}\left(\frac{1}{\mathcal{F}(w_2)}w_2\right)=\frac{\mathcal{F}(w_2)}{\mathcal{F}(w_2)}=1$ och $x\in\mathcal{M}^\perp$.
+	För varje element $u\in\mathcal{H}$ kan man då skriva
+	\begin{equation*}
+		u=\underbrace{\left(u-\mathcal{F}(u)x \right)}_{\in\mathcal{M}} + \underbrace{\mathcal{F}(u)x}_{\in \mathcal{M}^\perp}.
+	\end{equation*}
+	Om man sedan tar inreprodukten med $x$ på båda sidorna så får man
+	\begin{align*}
+		\left\langle u,x \right\rangle &= \underbrace{\left\langle u-\mathcal{F}(u)x ,x \right\rangle}_{=0} + \left\langle \mathcal{F}(u)x,x \right\rangle\\
+		&= \mathcal{F}(u)\langle x, x\rangle=\mathcal{F}(u)\|x\|^2
+	\end{align*}
+	eftersom att $u-\mathcal{F}(u)x\in\mathcal{M}$ och $\langle w, x \rangle=\langle x,w\rangle=0$ för alla element $w\in \mathcal{M}$ då $x\in\mathcal{M}^\perp$. Om man då väljer $v=\frac{x}{\|x\|^2}$ får man att
+	\begin{align*}
+		\langle u,v \rangle &= \left\langle u , \frac{x}{\|x\|^2}\right\rangle= \frac{\langle u, x\rangle}{\|x\|^2}\\
+		&= \frac{\mathcal{F}(u)\|x\|^2}{\|x\|^2}\\
+		&= \mathcal{F}(u)
+	\end{align*}
+	och då är den första delen av satsen bevisade. Den andra delen är inte lika intressant i detta fall så beviset lämnas bort.
 \end{proof}
+
 \section{Hilbertrum med Reproducerande Kärnor}
 Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
 
