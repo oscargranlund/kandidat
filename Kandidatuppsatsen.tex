@@ -29,6 +29,8 @@
 \newcommand{\bfbeta}{{\boldsymbol{\beta}}}
 \renewcommand\qedsymbol{$\blacksquare$}
 
+\newcommand{\bfx}{\mathbf{x}}
+
 \newcommand{\sephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}}
 
 \newcommand{\entsephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if(\mathbf{x}_i)\geq0,~i=1,\dots,~N,~\|\bfbeta\|=1\}}
@@ -635,7 +637,19 @@ Följande sats ger ett sätt att karaktärisera varje begränsad linjär funktio
 	och då är den första delen av satsen bevisade. Den andra delen är inte lika intressant i detta fall så beviset lämnas bort.
 \end{proof}
 
-\section{Hilbertrum med Reproducerande Kärnor}
+\section{Reproducerande Kärnor}
+Betrakta funktionen $\Phi:(x)\longmapsto (x^2,\sqrt{2}x, 1)$ där $x\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. För att lösa exempel \ref{ex:olinjär} borde följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ beräknas:
+\begin{align*}
+	\left\langle \Phi(\mathbf{x}_1), \Phi(\mathbf{x}_2) \right\rangle_3 &= \bfx_1^2\bfx_2^2 + 2\bfx_1\bfx_2 + 1\\
+	&= \langle \bfx_1, \bfx_2 \rangle_1^2 + 2\langle \bfx_1, \bfx_2 \rangle_1 + 1\\
+	&= \left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^2 = k(\bfx_1, \bfx_2)
+\end{align*}
+där $\langle \cdot, \cdot \rangle_d$ är den vanliga inreprodukten i $\mathbb{R}^d$.
+
+Funktioner $k(\bfx_1, \bfx_2)$ som kan uttryckas som en inreprodukt av en funktion $\Phi$ evaluerad i två olika punkter $\bfx_1$ och $\bfx_2$ brukar kallas \emph{kärnor} och studerades först av David Hilbert \cite{Hilbert} i samband med studien av integraloperatorn $T_k f(x)=\int_{X}k(x_1, x_2)f(x_2)dx_2$ där funktionen $k$ är operatorn $T_k$:s kärna \cite{LearningKernels}.
+
+
+
 Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
 
 (Bevis av Mercers villkor för positivsemidefinita ekvationer/operatorer, behöver åtminstone Riesz representationssats och någon sats om eigenvärden/funktioner, material från kursen fördjupad analys I/II borde "räcka". Måste kanske hoppa över vissa tekniska detaljer.)
