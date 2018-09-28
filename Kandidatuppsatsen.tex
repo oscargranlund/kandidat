@@ -543,7 +543,7 @@ Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga obs
 \section{Grundläggande teori}
 Först några grundläggande definitioner angående \emph{Hilbertrum}, $\mathcal{H}$, det vill säga \emph{fullständiga} vektorrum $X$ försedda med en \emph{inreprodukt} $\langle \cdot , \cdot \rangle$.
 
-\begin{defi}
+\begin{defi}\label{def:inreprodukt}
 En \emph{inreprodukt} är en funktion $\langle \cdot , \cdot \rangle: X\times X \longmapsto \mathbb{R}$ sådan att, för alla $\mathbf{x},~\mathbf{y},~\mathbf{z}~\in X$ och alla $\lambda \in \mathbb{R}$, gäller:
 \begin{enumerate}
 \item $\inprod{x}{y} = \inprod{y}{x}$
@@ -662,11 +662,37 @@ Givet en mängd observationer $\bfx_i,~i=1,~\dots,~N$ samt kärnan i exempel \re
 \end{equation*}
 Varje funktion $f(\bfx)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}(\bfx)$ där $\bfx_i,~i=1,~\dots,~N$.
 
-För en annan funktion $g(\bfx)=\sum_{j=1}^{m}\beta_jk(\bfx, \bfx_j)$ i samma vektorrum kan man definiera funktionen
-\begin{equation*}
+För en annan funktion $g(\bfx)=\sum_{j=1}^{m}\beta_jk(\bfx, \bfx_j)$ i samma vektorrum kan man definiera inreprodukten
+\begin{equation}\label{eq:polykärnaprodukt}
 	\langle f , g\rangle_k := \sum_{i=j}^{N}\sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j).
+\end{equation}
+Definitionen för $\langle f, g \rangle_k$ innehåller samma koefficienter som de linjära kombinationer som definierar $f$ och $g$ men eftersom att
+\begin{equation*}
+	\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) = \sum_{i=1}^{N} \alpha_i \sum_{j=1}^{N}\beta_j k(\bfx_i, \bfx_j)=\sum_{i=1}^{N} \alpha_i g(\bfx_i)
 \end{equation*}
+och
+\begin{align*}
+	\langle f, g \rangle_k &= \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j \left((\bfx_i\bfx_j)^2 + 2\bfx_i\bfx_j+1\right)\\
+	&= \sum_{j=1}^{N} \sum_{i=1}^{N} \alpha_i \beta_j \left((\bfx_j\bfx_i)^2 + 2\bfx_j\bfx_i+1\right) = \sum_{j=1}^{N} \beta_j \sum_{i=1}^{N}\alpha_i k(\bfx_j, \bfx_i) \\
+	&= \sum_{j=1}^{N} \beta_j f(\bfx_j)
+\end{align*}
+så beror inte summan på vilka linjära kombinationer man väljer för funktionerna $f$ och $g$ ifall de inte går att välja unikt. Som mellansteg visades även att $k(\bfx_i,\bfx_j)=k(\bfx_j, \bfx_i)$.
 
+För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla att alla villkor i definitionen \ref{def:inreprodukt} är uppfyllda:
+\begin{enumerate}
+	\item $\langle f, g \rangle_k=\langle g, f \rangle_k$:
+	\begin{align*}
+		\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) = \sum_{j=1}^{N} \sum_{i=1}^{N}  \beta_j \alpha_i k(\bfx_j, \bfx_i) = \langle g, f \rangle_k
+	\end{align*}
+	där man kan kasta om summorna eftersom att de är ändliga. \hfill \qedsymbol
+	\item $\langle \lambda f, g \rangle_k=\lambda\langle f, g \rangle_k,~\lambda\in\mathbb{R}$:
+	\begin{equation*}
+	\pushQED{\qed}
+		\langle \lambda f, g \rangle_k	= \sum_{j=1}^{N} \beta_j \lambda f(\bfx_j) = \lambda \sum_{j=1}^{N} \beta_j f(\bfx_j) = \lambda\langle f, g \rangle_k \qedhere
+		\popQED
+	\end{equation*}
+	
+\end{enumerate}
 
 
 
