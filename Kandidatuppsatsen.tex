@@ -638,15 +638,35 @@ Följande sats ger ett sätt att karaktärisera varje begränsad linjär funktio
 \end{proof}
 
 \section{Reproducerande Kärnor}
-Betrakta funktionen $\Phi:(x)\longmapsto (x^2,\sqrt{2}x, 1)$ där $x\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. För att lösa exempel \ref{ex:olinjär} borde följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ beräknas:
+\begin{ex}\label{ex:polynomkärna}
+Betrakta funktionen $\phi:(x)\longmapsto (x^2,\sqrt{2}x, 1)$ där $x\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. För att lösa exempel \ref{ex:olinjär} borde följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ beräknas:
 \begin{align*}
-	\left\langle \Phi(\mathbf{x}_1), \Phi(\mathbf{x}_2) \right\rangle_3 &= \bfx_1^2\bfx_2^2 + 2\bfx_1\bfx_2 + 1\\
+	\left\langle \phi(\mathbf{x}_1), \phi(\mathbf{x}_2) \right\rangle_3 &= \bfx_1^2\bfx_2^2 + 2\bfx_1\bfx_2 + 1\\
 	&= \langle \bfx_1, \bfx_2 \rangle_1^2 + 2\langle \bfx_1, \bfx_2 \rangle_1 + 1\\
 	&= \left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^2 = k(\bfx_1, \bfx_2)
 \end{align*}
 där $\langle \cdot, \cdot \rangle_d$ är den vanliga inreprodukten i $\mathbb{R}^d$.
+\end{ex}
 
-Funktioner $k(\bfx_1, \bfx_2)$ som kan uttryckas som en inreprodukt av en funktion $\Phi$ evaluerad i två olika punkter $\bfx_1$ och $\bfx_2$ brukar kallas \emph{kärnor} och studerades först av David Hilbert \cite{Hilbert} i samband med studien av integraloperatorn $T_k f(x)=\int_{X}k(x_1, x_2)f(x_2)dx_2$ där funktionen $k$ är operatorn $T_k$:s kärna \cite{LearningKernels}.
+Funktioner $k(\bfx_1, \bfx_2)$ som kan uttryckas som en inreprodukt av en funktion $\phi$ evaluerad i två olika punkter $\bfx_1$ och $\bfx_2$ brukar kallas \emph{kärnor} och studerades först av David Hilbert \cite{Hilbert} i samband med studien av integraloperatorn $T_k f(x)=\int_{X}k(x_1, x_2)f(x_2)dx_2$ där funktionen $k$ är operatorn $T_k$:s kärna \cite{LearningKernels}.
+
+Föregående exempel motiverar alltså definitionen av en \emph{kärna}:
+\begin{defi}\label{def:kärna}
+	Givet en funktion $\phi: \mathbb{R}^p \longmapsto \mathbb{R}^P$ definieras \emph{kärnan} $k$ som funktionen $k(\bfx, \bfx') = \langle \phi (\bfx), \phi(\bfx') \rangle_P$ där $\bfx, \bfx' \in \mathbb{R}^p$ och $\langle \cdot, \cdot \rangle_P$ är den vanliga inreprodukten i $\mathbb{R}^P$. Vidare om man fixerar ett $\bfx'\in\mathbb{R}^p$ så betecknar vi $\Phi_{\bfx'}(\bfx) = k(\bfx, \bfx')$ där $\bfx\in\mathbb{R}^p$.
+\end{defi}
+Den sista delen i definition \ref{def:kärna} ger med andra ord att varje val av ett fixt $\bfx'$ ger upphov till en reellvärd funktion $\Phi_{\bfx'}$ av $\bfx$.
+
+Givet en mängd observationer $\bfx_i,~i=1,~\dots,~N$ samt kärnan i exempel \ref{ex:polynomkärna}, det vill säga den polynomiella kärnan $k(\bfx, \bfx'):=\left(\langle \bfx, \bfx' \rangle_1 + 1\right)^2 = (\bfx\bfx')^{2} + 2\bfx\bfx' + 1$, kan man definiera ett vektorrum av funktioner genom
+\begin{equation*}
+	f(\bfx):=\sum_{i=1}^{N}\alpha_ik(\bfx, \bfx_i)\quad ,~\alpha_i\in\mathbb{R}.
+\end{equation*}
+Varje funktion $f(\bfx)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}(\bfx)$ där $\bfx_i,~i=1,~\dots,~N$.
+
+För en annan funktion $g(\bfx)=\sum_{j=1}^{m}\beta_jk(\bfx, \bfx_j)$ i samma vektorrum kan man definiera funktionen
+\begin{equation*}
+	\langle f , g\rangle_k := \sum_{i=j}^{N}\sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j).
+\end{equation*}
+
 
 
 
