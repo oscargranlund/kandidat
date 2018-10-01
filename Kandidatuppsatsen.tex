@@ -667,31 +667,57 @@ För en annan funktion $g(\bfx)=\sum_{j=1}^{m}\beta_jk(\bfx, \bfx_j)$ i samma ve
 	\langle f , g\rangle_k := \sum_{i=j}^{N}\sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j).
 \end{equation}
 Definitionen för $\langle f, g \rangle_k$ innehåller samma koefficienter som de linjära kombinationer som definierar $f$ och $g$ men eftersom att
-\begin{equation*}
+\begin{equation}\label{eq:expansion1}
 	\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) = \sum_{i=1}^{N} \alpha_i \sum_{j=1}^{N}\beta_j k(\bfx_i, \bfx_j)=\sum_{i=1}^{N} \alpha_i g(\bfx_i)
-\end{equation*}
+\end{equation}
 och
-\begin{align*}
+\begin{equation}\label{eq:expansion2}
+\begin{aligned}
 	\langle f, g \rangle_k &= \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j \left((\bfx_i\bfx_j)^2 + 2\bfx_i\bfx_j+1\right)\\
 	&= \sum_{j=1}^{N} \sum_{i=1}^{N} \alpha_i \beta_j \left((\bfx_j\bfx_i)^2 + 2\bfx_j\bfx_i+1\right) = \sum_{j=1}^{N} \beta_j \sum_{i=1}^{N}\alpha_i k(\bfx_j, \bfx_i) \\
 	&= \sum_{j=1}^{N} \beta_j f(\bfx_j)
-\end{align*}
+\end{aligned}
+\end{equation}
 så beror inte summan på vilka linjära kombinationer man väljer för funktionerna $f$ och $g$ ifall de inte går att välja unikt. Som mellansteg visades även att $k(\bfx_i,\bfx_j)=k(\bfx_j, \bfx_i)$.
 
 För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla att alla villkor i definitionen \ref{def:inreprodukt} är uppfyllda:
 \begin{enumerate}
 	\item $\langle f, g \rangle_k=\langle g, f \rangle_k$:
 	\begin{align*}
-		\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) = \sum_{j=1}^{N} \sum_{i=1}^{N}  \beta_j \alpha_i k(\bfx_j, \bfx_i) = \langle g, f \rangle_k
+		\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) \overset{(\ref{eq:expansion2})}{=} \sum_{j=1}^{N} \sum_{i=1}^{N}  \beta_j \alpha_i k(\bfx_j, \bfx_i) = \langle g, f \rangle_k
 	\end{align*}
 	där man kan kasta om summorna eftersom att de är ändliga. \hfill \qedsymbol
 	\item $\langle \lambda f, g \rangle_k=\lambda\langle f, g \rangle_k,~\lambda\in\mathbb{R}$:
 	\begin{equation*}
 	\pushQED{\qed}
-		\langle \lambda f, g \rangle_k	= \sum_{j=1}^{N} \beta_j \lambda f(\bfx_j) = \lambda \sum_{j=1}^{N} \beta_j f(\bfx_j) = \lambda\langle f, g \rangle_k \qedhere
+		\langle \lambda f, g \rangle_k	\overset{(\ref{eq:expansion2})}{=} \sum_{j=1}^{N} \beta_j \lambda f(\bfx_j) = \lambda \sum_{j=1}^{N} \beta_j f(\bfx_j) = \lambda\langle f, g \rangle_k \qedhere
 		\popQED
 	\end{equation*}
-	
+	\item $\langle f+h, g\rangle_k = \langle f, g\rangle_k + \langle h, g\rangle_k$:
+	\begin{align*}
+		\langle f+h, g \rangle_k \overset{(\ref{eq:expansion2})}{=} &\sum_{j=1}^{N} \beta_j \left(f(\bfx_j) + g(\bfx_j)\right)\\
+		= &\sum_{j=1}^{N} \beta_j f(\bfx_j) + \sum_{j=1}^{N} \beta_j g(\bfx_j)\\
+		= &\langle f, g\rangle_k + \langle h, g\rangle_k
+	\end{align*}
+	där även $h$ kan skrivas som en linjär kombination men beviset beror inte på vilken kombination man väljer. \hfill \qedsymbol
+	\item $\langle f, f \rangle_k\geq0$:
+	\begin{align*}
+	\langle f, f \rangle_k &= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j)
+	= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_j\left\langle\phi(\bfx_i),\phi(\bfx_j)\right\rangle_P\\
+	&= \sum_{i=1}^{N}\alpha_i\sum_{j=1}^{N}\alpha_j\left\langle\phi(\bfx_j),\phi(\bfx_i)\right\rangle_P
+	= \sum_{i=1}^{N}\alpha_i\left\langle\sum_{j=1}^{N}\alpha_j\phi(\bfx_j),\phi(\bfx_i)\right\rangle_P\\
+	&= \sum_{i=1}^{N}\alpha_i\left\langle\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P
+	= \left\langle\sum_{i=1}^{N}\alpha_i\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P\\
+	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_P^2\geq 0
+	\end{align*}
+	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs lite mera matematiskt maskineri, man behöver en motsats till Cauchy-Schwartz olikheten för kärnor det vill säga
+	\begin{equation}
+		\|k(\bfx_1,\bfx_2)\|^2 \leq k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2)
+	\end{equation}
+	\begin{equation}
+	\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}
+	\end{equation}
+	där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$
 \end{enumerate}
 
 
