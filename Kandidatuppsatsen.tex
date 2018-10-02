@@ -711,7 +711,7 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_P^2\geq 0
 	\end{align*}
 	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsats till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
-	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]
+	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
 		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
 		\begin{equation}
 		|k(\bfx_1,\bfx_2)|^2 \leq k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2)
@@ -732,25 +732,31 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 		\end{equation*}
 	\end{proof}
 	För att visa att $\langle f, f \rangle_k=0$ om och endast om $f=0$, det vill säga alla $\alpha_i=0$, notera först att följande gäller
-	\begin{equation}\label{eq:reproducing1}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot), \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)\rangle_k
-	\end{equation}
+	\begin{equation*}
+		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot, \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)\rangle_k
+	\end{equation*}
 	där $\beta_j = 0$ om $j\neq k$ och $1$ om $j=k$, det vill säga
-	\begin{equation}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i)\rangle_k = f(\bfx_k)
+	\begin{equation}\label{eq:reproducing1}
+		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i)\rangle_k = f(\bfx_k).
 	\end{equation}
+	och speciellt fås att
+	\begin{equation*}
+		\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle:k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)
+	\end{equation*}
+	där $\alpha_i=\beta_j=1$ endast om $i=k$ och $j=l$, $\alpha_i=\beta_j=0$ annars. Då fås
+	\begin{equation*}
+	\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \alpha_k\beta_lk(\bfx_k,\bfx_l) = k(\bfx_k, \bfx_l).
+	\end{equation*}
+	Sats \ref{thm:cauchy} och ekvation (\ref{eq:reproducing1}) ger då
+	\begin{equation*}
+		|f(\bfx)|^2 = |\left\langle \Phi_{\bfx},f\right\rangle_k|^2 \leq k\left(\bfx, \bfx \right)\left\langle f, f \right\rangle_k
+	\end{equation*}
 \end{enumerate}
 
-
-\begin{equation}
-\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}
-\end{equation}
-där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$
-
-
-Bygg vidare på korrolarium \ref{cor:mjukinreproduktoptimering}:s mjuka motsvarighet genom att byta ut inreprodukten mot en annan, ge krav på inreprodukten. Visa att just precis de inreprodukter som samtidigt är reproducerande kärnor uppfyller de kraven.
-
-(Bevis av Mercers villkor för positivsemidefinita ekvationer/operatorer, behöver åtminstone Riesz representationssats och någon sats om eigenvärden/funktioner, material från kursen fördjupad analys I/II borde "räcka". Måste kanske hoppa över vissa tekniska detaljer.)
+%\begin{equation}
+%\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) = boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}
+%end{equation}
+%där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$
 
 \chapter{Avslutning}
 Har hittills inte gått in på statistiska detaljer, till exempel tränings/validerings-data eller gränser på felklassificering.
