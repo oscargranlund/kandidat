@@ -710,27 +710,35 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	= \left\langle\sum_{i=1}^{N}\alpha_i\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P\\
 	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_P^2\geq 0
 	\end{align*}
-	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs lite mera matematiskt maskineri, man behöver en motsats till Cauchy-Schwartz olikheten för kärnor det vill säga
+	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsats till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
 	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]
-		För en \emph{positiv definit} kärna $k$ (se \ref{def:positivdefinit}) och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
+		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
 		\begin{equation}
 		|k(\bfx_1,\bfx_2)|^2 \leq k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2)
 		\end{equation}
 	\end{thm}
 	\begin{proof}
 		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k(\bfx_1, \bfx_2)$. Eftersom att $k$ är positiv definit är även $\mathbf{K}$ positiv definit alltså är alla egenvärden positiva och då även determinanten positiv (se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
-		\begin{gather*}
-			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0\\
-			\overset{\mathbf{K}_{21}=\mathbf{K}_{12}\text{ enligt (\ref{eq:expansion2})}}{\Leftrightarrow}\\
-			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{12} \geq 0\\
-			\overset{a^2 = |a|^2\text{ om } a\in\mathbb{R}}{\Leftrightarrow}\\
-			\mathbf{K}_{11} \mathbf{K}_{22} - \left|\mathbf{K}_{12}\right|^2 \geq 0\\
-			\overset{\text{byt tillbaka } \mathbf{K}_{ij}\text{ till } k(\bfx_i, \bfx_j)}{\Leftrightarrow}\\
-			 k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2) \geq |k(\bfx_1,\bfx_2)|^2\qedhere
-		\end{gather*}
+		\begin{equation*}
+			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
+		\end{equation*}
+		Då $\mathbf{K}_ij = k(\bfx_i,\bfx_j)$ är symmetrisk enligt (\ref{eq:expansion2}) så fås att
+		\begin{equation*}
+			\mathbf{K}_{11} \mathbf{K}_{22} - \left|\mathbf{K}_{12}\right|^2
+		\end{equation*}
+		alltså gäller
+		\begin{equation*}
+			k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2) \geq |k(\bfx_1,\bfx_2)|^2\qedhere
+		\end{equation*}
 	\end{proof}
-
-	
+	För att visa att $\langle f, f \rangle_k=0$ om och endast om $f=0$, det vill säga alla $\alpha_i=0$, notera först att följande gäller
+	\begin{equation}\label{eq:reproducing1}
+		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot), \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)\rangle_k
+	\end{equation}
+	där $\beta_j = 0$ om $j\neq k$ och $1$ om $j=k$, det vill säga
+	\begin{equation}
+		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i)\rangle_k = f(\bfx_k)
+	\end{equation}
 \end{enumerate}
 
 
