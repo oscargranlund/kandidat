@@ -188,22 +188,22 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 Som syns i exempel \ref{exempel:mångahyperplan} finns det många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
 
 \section{Optimala separerande hyperplan}
-Inom statistiken finns många olika metoder som en modell till data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
-Optimeringsproblemen kan oftast ändras genom att man lägger till eller tar bort termer i objektivfunktionen eller ändrar på kraven.
+Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
+Optimeringsproblemen kan ofta ändras genom att man lägger till eller tar bort termer i objektfunktionen eller ändrar på kraven och på så sätt får en ny metod (för att modellera data) med andra egenskaper.
 
-För separerande hyperplan kommer jag att behandla ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste observationsparen från vardera klass maximeras \cite{Vapnik96}. Med andra ord fås följande optimeringsproblem
+För separerande hyperplan kommer ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste observationsparen från vardera klass maximeras behandlas \cite{Vapnik96}. Matematiskt kan man uttrycka problemet som följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
 	 \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1}& & &C\\
 	 \text{så att}& & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
 \end{aligned}
 \end{equation}
-där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste punkterna.
+där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste observationerna.
 \begin{rem}
 	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\widehat{\bfbeta}+\widehat{\beta}_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 \end{rem}
 
-Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext.
+Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext. %TODO definiera konvext
 
 För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext} måste det skrivas om. Idén är här att man låter inversen av längden på vektorn $\bfbeta$ beskriva avståndet till närmast punkt. På så sätt skapas en direktare länk mellan kraven och objektfunktionen i optimeringsproblemet.
 
@@ -232,7 +232,8 @@ och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende p�
 \text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
-Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av \textit{kostfunktionen} $\|\bfbeta\|$, det vill säga man noterar att \begin{equation*}
+Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen $\|\bfbeta\|$ (objektfunktionen kallas även \textit{kostfunktionen}), det vill säga man noterar att
+\begin{equation*}%TODO Definiera argmin
 \operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \|\bfbeta\|=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\|\bfbeta\|^2.
 \end{equation*}
 En orsak till att göra den kvadratiska transformeringen är att man på så sätt kan garantera att objektfunktionen är deriverbar:
@@ -288,7 +289,7 @@ och är en av de mer generella framställningarna för optimeringsproblemet som 
 
 \subsection{Primala och duala problem}
 
-För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer \cite{Boyd}.
+För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer \cite{Boyd}. %TODO Förklara mera utförligt? Glader vill ha förklaring för utvidnging till olikhetsvillkor men Boyd använder genast olikhetsvillkor, Tahns bok?
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
 \begin{aligned}
@@ -334,7 +335,7 @@ Efter omskrivning av $\left\| \bfbeta \right\|^2$ som $\bfbeta^\intercal\bfbeta$
 \end{equation*}
 som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{equation}\label{eq:krav3}
 	\lambda_i\geq 0,~i=1,\dots,N.
-\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven \cite{Boyd} för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet
+\end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,\dots,N,$ kan motiveras genom Karush-Kuhn-Tucker kraven \cite{Boyd} för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet %TODO	Skriv iallafall ut kraven för ett optimertingsproblem i allmän form
 \begin{equation}\label{eq:krav4}
 	\lambda_i\left( y_i\left( \mathbf{x}_i^\intercal \bfbeta + \beta_0 \right) -1 \right) = 0,~i=1,\dots, N.
 \end{equation}
@@ -346,10 +347,10 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta^* + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
-	Baserat på de tre tidigare slutsatserna kan vidare slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer specifikt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen marginalen. Dessa punkter kallas \emph{stödvektorer}.
+	Baserat på de tre tidigare slutsatserna kan vidare slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer specifikt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av marginalen. Dessa punkter kallas \emph{stödvektorer}.
 \end{rem}
 
-Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande.
+Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande. %TODO	källa för hur datorer representerar tal
 
 \section{Det oseparabla fallet}
 Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
@@ -476,7 +477,7 @@ som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta 
 	&= \gamma - \lambda_j - \mu_j.
 \end{align*}
 
-Efter att man sedan kräver att derivatorna skalla vara lika med 0 får man följande krav:
+Efter att man sedan kräver att derivatorna skall vara lika med 0 får man följande krav:
 \begin{align}
 \label{eq:softkrav1}	\bfbeta &= \sum_{i=1}^{N} \lambda_iy_i\mathbf{x}_i, & &\\
 \label{eq:softkrav2}	0 &= \sum_{i=1}^{N} \lambda_iy_i, & &\\
@@ -494,7 +495,7 @@ Insättning av kraven (\ref{eq:softkrav1}) till (\ref{eq:softkrav2}) och (\ref{e
 	&-\sum_{i=1}^{N}\lambda_iy_i\beta_0 + \sum_{i=1}^{N}\lambda_i + \sum_{i=1}^{N}\left(\gamma - \lambda_i - \mu_i\right)s_i\\
 	= &\sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\mathbf{x}_i^\intercal\mathbf{x}_j
 \end{align*}
-som ska maximeras med avseende på $\lambda_i$ med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i$. Dessutom fås
+som ska maximeras med avseende på $\lambda_i$ med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i=0$. Dessutom fås
 \begin{align}
 \label{eq:softkrav7}	\lambda_i\left( y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right) - \left(1-s_i\right)\right) &= 0, \quad & &i = 1,\dots,N,\\
 \label{eq:softkrav8}	\mu_is_i&=0, \quad & &i = 1,\dots,N,\\
@@ -559,7 +560,7 @@ Ett vektorrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ 
 \begin{rem}
 Dimensionen på vektorrummet $X$ nämns inte i definitionen för inreprodukten och därför kan Hilbertrum även vara oändligtdimensionella. Många av de bekanta egenskaperna för ändligtdimensonella inreproduktrum gäller även för oändligtdimensionella inreproduktrum, till exempel är två vektorer $\mathbf{x}, ~\mathbf{y}$ ortogonala ifall $\inprod{x}{y}=0$, även om det kan vara svårt att visualisera för oändligtdimensionella rum.
 \end{rem}
-På tal om ortogonalitet så vore det behändigt att ha någon parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. Det visar sig att inte alla Hilbertrum har en motsvarighet till basvektorer men ifall man kräver att rummet är \emph{separabelt} så existerar en ortonormal följd vektorer $\mathbf{e}_i$ sådan att för varje vektor $\mathbf{x}\in \mathcal{H}$  gäller \cite{Young}:
+På tal om ortogonalitet så vore det behändigt att ha någon parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. Det visar sig att inte alla Hilbertrum har en motsvarighet till basvektorer men ifall man kräver att rummet är \emph{separabelt} så existerar en ortonormal följd vektorer $\mathbf{e}_i$ sådan att för varje vektor $\mathbf{x}\in \mathcal{H}$  gäller \cite{Young}: %TODO	Definition på separabellt eller källa
 \begin{equation*}
 	\mathbf{x}=\sum_{i=1}^{\infty}\left\langle \mathbf{x}, \mathbf{e}_i \right\rangle \mathbf{e}_i
 \end{equation*}
@@ -597,7 +598,7 @@ Följande sats ger ett sätt att karaktärisera varje begränsad linjär funktio
 \begin{thm}[Riesz-Fréchets representations sats \cite{Young}]
 	För varje begränsad linjär funktional på ett Hilbertrum $\mathcal{H}$, $\mathcal{F}: \mathcal{H} \longmapsto \mathbb{R}$, existerar ett unikt $v\in\mathcal{H}$ sådant att
 	\begin{equation}
-		\mathcal{F}(u)=\left\langle u, v\right\rangle_\mathcal{H}\quad \text{för alla }u\in\mathcal{H}
+		\mathcal{F}(u)=\left\langle u, v\right\rangle_\mathcal{H}\quad \text{för alla }u\in\mathcal{H} %TODO	Inte för alla?
 	\end{equation}
 	för alla $u\in\mathcal{H}$, där $\left\langle \cdot, \cdot\right\rangle_\mathcal{H}$ betecknar inreprodukten i Hilbertrummet $\mathcal{H}$.\\
 	Dessutom gäller att $\left\| v \right\|_\mathcal{H}=\left\| \mathcal{F}\right\|_O$ där $\left\| \cdot \right\|_\mathcal{H}$ är den inducerade normen och $\left\|\cdot\right\|_O$ är operatornormen \begin{equation*}
@@ -660,13 +661,13 @@ Givet en mängd observationer $\bfx_i,~i=1,~\dots,~N$ samt kärnan i exempel \re
 \begin{equation*}
 	f(\bfx):=\sum_{i=1}^{N}\alpha_ik(\bfx, \bfx_i)\quad ,~\alpha_i\in\mathbb{R}.
 \end{equation*}
-Varje funktion $f(\bfx)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}(\bfx)$ där $\bfx_i,~i=1,~\dots,~N$.
+Varje funktion $f(\bfx)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}(\bfx)$ där $\bfx_i,~i=1,~\dots,~N$. %TODO	Klumpigt formulerat
 
 För en annan funktion $g(\bfx)=\sum_{j=1}^{m}\beta_jk(\bfx, \bfx_j)$ i samma vektorrum kan man definiera inreprodukten
 \begin{equation}\label{eq:polykärnaprodukt}
 	\langle f , g\rangle_k := \sum_{i=j}^{N}\sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j).
 \end{equation}
-Definitionen för $\langle f, g \rangle_k$ innehåller samma koefficienter som de linjära kombinationer som definierar $f$ och $g$ men eftersom att
+Definitionen för $\langle f, g \rangle_k$ innehåller samma koefficienter som de linjära kombinationer som definierar $f$ och $g$ men eftersom
 \begin{equation}\label{eq:expansion1}
 	\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k(\bfx_i, \bfx_j) = \sum_{i=1}^{N} \alpha_i \sum_{j=1}^{N}\beta_j k(\bfx_i, \bfx_j)=\sum_{i=1}^{N} \alpha_i g(\bfx_i)
 \end{equation}
@@ -710,7 +711,7 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	= \left\langle\sum_{i=1}^{N}\alpha_i\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P\\
 	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_P^2\geq 0
 	\end{align*}
-	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsats till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
+	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsvarighet till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
 	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
 		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
 		\begin{equation}
@@ -722,9 +723,9 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 		\begin{equation*}
 			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
 		\end{equation*}
-		Då $\mathbf{K}_ij = k(\bfx_i,\bfx_j)$ är symmetrisk enligt (\ref{eq:expansion2}) så fås att
+		Då $\mathbf{K}_{ij} = k(\bfx_i,\bfx_j)$ är symmetrisk enligt (\ref{eq:expansion2}) så fås att
 		\begin{equation*}
-			\mathbf{K}_{11} \mathbf{K}_{22} - \left|\mathbf{K}_{12}\right|^2
+			\mathbf{K}_{11} \mathbf{K}_{22} \geq \left|\mathbf{K}_{12}\right|^2
 		\end{equation*}
 		alltså gäller
 		\begin{equation*}
@@ -733,15 +734,15 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	\end{proof}
 	För att visa att $\langle f, f \rangle_k=0$ om och endast om $f=0$, det vill säga alla $\alpha_i=0$, notera först att följande gäller
 	\begin{equation*}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot, \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)\rangle_k
+		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot, \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)
 	\end{equation*}
 	där $\beta_j = 0$ om $j\neq k$ och $1$ om $j=k$, det vill säga
 	\begin{equation}\label{eq:reproducing1}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i)\rangle_k = f(\bfx_k).
+		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i) = f(\bfx_k).
 	\end{equation}
 	och speciellt fås att
 	\begin{equation*}
-		\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle:k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)
+		\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)
 	\end{equation*}
 	där $\alpha_i=\beta_j=1$ endast om $i=k$ och $j=l$, $\alpha_i=\beta_j=0$ annars. Då fås
 	\begin{equation*}
