@@ -550,11 +550,11 @@ En \emph{inreprodukt} är en funktion $\langle \cdot , \cdot \rangle: X\times X 
 \item $\inprod{x}{y} = \inprod{y}{x}$
 \item $\langle \lambda \mathbf{x}, \mathbf{y}\rangle = \lambda \inprod{x}{y}$
 \item $\inprod{x+y}{z} =\inprod{x}{z} + \inprod{y}{z}$
-\item $\inprod{x}{x} \geq 0$, där likhet gäller om och endast om $\mathbf{x} = \mathbf{0}$. 
+\item $\inprod{x}{x} \geq 0$ där likhet gäller om och endast om $\mathbf{x} = \mathbf{0}$. 
 \end{enumerate}
 \end{defi}
 \begin{defi}
-Ett vektorrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar till en punkt $\mathbf{x}\in X$.
+Ett inreproduktrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar (med avseende på normen inducerad av inreprodukten) till en punkt $\mathbf{x}$ i $X$.
 \end{defi}
 
 \begin{rem}
@@ -704,60 +704,99 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	\item $\langle f, f \rangle_k\geq0$:
 	\begin{align*}
 	\langle f, f \rangle_k &= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j)
-	= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_j\left\langle\phi(\bfx_i),\phi(\bfx_j)\right\rangle_P\\
-	&= \sum_{i=1}^{N}\alpha_i\sum_{j=1}^{N}\alpha_j\left\langle\phi(\bfx_j),\phi(\bfx_i)\right\rangle_P
-	= \sum_{i=1}^{N}\alpha_i\left\langle\sum_{j=1}^{N}\alpha_j\phi(\bfx_j),\phi(\bfx_i)\right\rangle_P\\
-	&= \sum_{i=1}^{N}\alpha_i\left\langle\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P
-	= \left\langle\sum_{i=1}^{N}\alpha_i\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_P\\
-	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_P^2\geq 0
+	= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_j\left\langle\phi(\bfx_i),\phi(\bfx_j)\right\rangle_3\\
+	&= \sum_{i=1}^{N}\alpha_i\sum_{j=1}^{N}\alpha_j\left\langle\phi(\bfx_j),\phi(\bfx_i)\right\rangle_3
+	= \sum_{i=1}^{N}\alpha_i\left\langle\sum_{j=1}^{N}\alpha_j\phi(\bfx_j),\phi(\bfx_i)\right\rangle_3\\
+	&= \sum_{i=1}^{N}\alpha_i\left\langle\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_3
+	= \left\langle\sum_{i=1}^{N}\alpha_i\phi(\bfx_i),\sum_{j=1}^{N}\alpha_j\phi(\bfx_j)\right\rangle_3\\
+	&= \left\|\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)\right\|_3^2\geq 0
 	\end{align*}
-	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsvarighet till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
-	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
-		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
-		\begin{equation}
-		|k(\bfx_1,\bfx_2)|^2 \leq k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2)
-		\end{equation}
-	\end{thm}
-	\begin{proof}
-		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k(\bfx_1, \bfx_2)$. Eftersom att $k$ är positiv definit är även $\mathbf{K}$ positiv definit alltså är alla egenvärden positiva och då även determinanten positiv (se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
-		\begin{equation*}
-			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
-		\end{equation*}
-		Då $\mathbf{K}_{ij} = k(\bfx_i,\bfx_j)$ är symmetrisk enligt (\ref{eq:expansion2}) så fås att
-		\begin{equation*}
-			\mathbf{K}_{11} \mathbf{K}_{22} \geq \left|\mathbf{K}_{12}\right|^2
-		\end{equation*}
-		alltså gäller
-		\begin{equation*}
-			k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2) \geq |k(\bfx_1,\bfx_2)|^2\qedhere
-		\end{equation*}
-	\end{proof}
-	För att visa att $\langle f, f \rangle_k=0$ om och endast om $f=0$, det vill säga alla $\alpha_i=0$, notera först att följande gäller
+	där likhet gäller om och endast om $\sum_{i=1}^{N}\alpha_i\phi(\bfx_i)=\mathbf{0}$.
+	
+	För
 	\begin{equation*}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot, \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)
+		f(\bfx)=\sum_{i=1}^{N}\alpha_i k(\bfx, \bfx_i) = \sum_{i=1}^{N}\alpha_i \left\langle\phi(\bfx), \phi(\bfx_i) \right\rangle_3 = \left\langle \phi(\bfx), \sum_{i=1}^{N}\alpha_i\phi(\bfx_i) \right\rangle_3
 	\end{equation*}
-	där $\beta_j = 0$ om $j\neq k$ och $1$ om $j=k$, det vill säga
-	\begin{equation}\label{eq:reproducing1}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i) = f(\bfx_k).
-	\end{equation}
-	och speciellt fås att
+	gäller då att om $\langle f, f \rangle_k = 0$ så är $\ \sum_{i=1}^{N}\alpha_i\phi(\bfx_i)=\mathbf{0}$ och då även
 	\begin{equation*}
-		\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)
+		f(\bfx) = \left\langle \phi(\bfx), \sum_{i=1}^{N}\alpha_i\phi(\bfx_i) \right\rangle_3 = \left\langle \phi(\bfx), \mathbf{0}\right\rangle_3=0.
 	\end{equation*}
-	där $\alpha_i=\beta_j=1$ endast om $i=k$ och $j=l$, $\alpha_i=\beta_j=0$ annars. Då fås
-	\begin{equation*}
-	\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \alpha_k\beta_lk(\bfx_k,\bfx_l) = k(\bfx_k, \bfx_l).
-	\end{equation*}
-	Sats \ref{thm:cauchy} och ekvation (\ref{eq:reproducing1}) ger då
-	\begin{equation*}
-		|f(\bfx)|^2 = |\left\langle \Phi_{\bfx},f\right\rangle_k|^2 \leq k\left(\bfx, \bfx \right)\left\langle f, f \right\rangle_k
-	\end{equation*}
+	Med andra ord är $\left\langle f,f\right\rangle\geq0$ där likhet gäller om och endast om $f=0$.\hfill\qedsymbol
+	
+%	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsvarighet till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
+%	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
+%		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
+%		\begin{equation}
+%		|k(\bfx_1,\bfx_2)|^2 \leq k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2)
+%		\end{equation}
+%	\end{thm}
+%	\begin{proof}
+%		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k(\bfx_1, \bfx_2)$. Eftersom att $k$ är positiv definit är även $\mathbf{K}$ positiv definit alltså är alla egenvärden positiva och då även determinanten positiv (se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
+%		\begin{equation*}
+%			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
+%		\end{equation*}
+%		Då $\mathbf{K}_{ij} = k(\bfx_i,\bfx_j)$ är symmetrisk enligt (\ref{eq:expansion2}) så fås att
+%		\begin{equation*}
+%			\mathbf{K}_{11} \mathbf{K}_{22} \geq \left|\mathbf{K}_{12}\right|^2
+%		\end{equation*}
+%		alltså gäller
+%		\begin{equation*}
+%			k(\bfx_1,\bfx_1) k(\bfx_2,\bfx_2) \geq |k(\bfx_1,\bfx_2)|^2\qedhere
+%		\end{equation*}
+%	\end{proof}
+%	För att visa att $\langle f, f \rangle_k=0$ om och endast om $f=0$, det vill säga alla $\alpha_i=0$, notera först att följande gäller
+%	\begin{equation*}
+%		\langle \Phi_{\bfx_k}, f\rangle_k = \langle k(\cdot, \bfx_i), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k(\bfx_j, \bfx_i)
+%	\end{equation*}
+%	där $\beta_j = 0$ om $j\neq k$ och $1$ om $j=k$, det vill säga
+%	\begin{equation}\label{eq:reproducing1}
+%		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k(\bfx_k, \bfx_i) = f(\bfx_k).
+%	\end{equation}
+%	och speciellt fås att
+%	\begin{equation*}
+%		\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)
+%	\end{equation*}
+%	där $\alpha_i=\beta_j=1$ endast om $i=k$ och $j=l$, $\alpha_i=\beta_j=0$ annars. Då fås
+%	\begin{equation*}
+%	\langle \Phi_{\bfx_k}, \Phi_{\bfx_l} \rangle_k = \alpha_k\beta_lk(\bfx_k,\bfx_l) = k(\bfx_k, \bfx_l).
+%	\end{equation*}
+%	Sats \ref{thm:cauchy} och ekvation (\ref{eq:reproducing1}) ger då
+%	\begin{equation*}
+%		|f(\bfx)|^2 = |\left\langle \Phi_{\bfx},f\right\rangle_k|^2 \leq k\left(\bfx, \bfx \right)\left\langle f, f \right\rangle_k
+%	\end{equation*}
 \end{enumerate}
+Eftersom att alla villkor i \ref{def:inreprodukt} är uppfyllda så är $\langle f, g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk(\bfx_i,\bfx_j)$ där $k(\bfx, \bfx')=\left(\langle \bfx, \bfx'\rangle_1 + 1\right)^2= \left\langle \phi(\bfx), \phi(\bfx')\right\rangle_3$ och $\phi(\bfx)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]$ en inreprodukt. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i rummet så har man ett Hilbertrum vilket betyder att man enkelt kan definiera till exempel projektioner.
 
-%\begin{equation}
-%\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) = boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}
-%end{equation}
-%där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$
+I beviset användes egenskap (\ref{eq:expansion2}) flitigt. Det visar sig att det räcker med att kärnan $k$ är symmetrisk det vill säga $k(\bfx_i,\bfx_j)=k(\bfx_j,\bfx_i)$ som garanteras om kärnan kan definieras som den naturliga inreprodukten mellan någon funktion $\phi(\mathbf{x})$ evaluerad i punkterna $\bfx_i$ och $\bfx_j$. Med andra ord kan man dra slutsatsen att följande sats gäller:
+\begin{thm}\label{thm:kärnainreprodukt}
+	För en kärna $k$ definierad genom $k(\bfx, \bfx')=\langle \phi(\bfx), \phi(\bfx')\rangle_P$ är rummet med funktioner definierade genom $f(x) = \sum_{i=1}^{N}\alpha_ik(\bfx, \bfx_i)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk(\bfx_i,\bfx_j)$ ett inreproduktrum.
+\end{thm}
+Dessutom fås även följande korrolarium:
+\begin{cor}\label{cor:kärnahilbert}
+	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
+\end{cor}
+
+Nu kan man fundera på om kärnan $k$ måste vara definierad genom en inreprodukt, det kan ju hända att även andra funktioner $X \times X \longmapsto \mathbb{R}$ ger upphov till ett liknande Hilbertrum. Som sagt så garanterar inreprodukten att $k$ är symmetrisk men det finns säkert symmetriska funktioner som inte kan definieras genom inreprodukter. På samma sätt så garanterade inreprodukten att egenskap 4 uppfylldes men man kan istället genast kräva att
+\begin{equation*}
+	\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) \geq 0
+\end{equation*}
+med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultiplikation:
+\begin{equation}\label{eq:positivsemidefinit}
+\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk(\bfx_i,\bfx_j) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
+\end{equation}
+där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet}. En funktion $k(\bfx_i, \bfx_j)$ sägs vara positiv semidefinit om Gram matrisen $\mathbf{K}_{ij}=k(\bfx_i,\bfx_j)$ är positiv semidefinit för alla val av $\bfx_i,~\bfx_j$. På så sätt kan man motivera följande definition av kärnor:
+
+\begin{defi}
+	En kärna är en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$.
+\end{defi}
+
+Med modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt} och korrolarium \ref{cor:kärnahilbert} även för följande sats och korrolarium:
+\begin{thm}
+	För en kärna det vill säga en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f(x) = \sum_{i=1}^{N}\alpha_ik(\bfx, \bfx_i)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk(\bfx_i,\bfx_j)$ ett inreproduktrum.
+\end{thm}
+\begin{cor}
+	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
+\end{cor}
 
 \chapter{Avslutning}
 Har hittills inte gått in på statistiska detaljer, till exempel tränings/validerings-data eller gränser på felklassificering.
