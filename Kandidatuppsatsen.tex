@@ -64,11 +64,13 @@ Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel 
 Snart därefter generaliserades även Bennet och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är den algoritm som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
 
 I uppsatsen kommer till först den ursprungliga algoritmen att undersökas för att sedan utvidgas med slackvariabler.
-Därefter kommer de reproducerande kärnorna att undersökas, upplägget följer långt Trevor Hastie, Robert Tibshirani och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler; till sist undersöks de reproducerande kärnorna.
+Därefter kommer de reproducerande kärnorna att undersökas, upplägget följer långt Trevor Hastie, Robert Tibshirani och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler.
+Till sist undersöks de reproducerande kärnorna, för det följdes i stora drag Bernhard Schölkopf och Alexander Smolas bok \cite{LearningKernels}.
 
 Precis som många andra metoder inom statistiken och maskininlärningen bygger stödvektormaskinen på ett konvext optimeringsproblem och på grund av detta borde läsaren vara bekant med koncept ur konvex optimering.
-En bra introduktion är Stephen Boyd och Lieven Vandenberghes bok \emph{Convex Optimization} \cite{Boyd}.
+En bra introduktion är Stephen Boyd och Lieven Vandenberghes bok \cite{Boyd}.
 Främst kommer teorin om kvadratiska optimeringsproblem och analys av duala problem med hjälp av Lagrangemultiplikatorer att användas.
+
 \chapter{Stödvektormaskiner (SVM)}
 
 \section{Geometrisk begrepp}
