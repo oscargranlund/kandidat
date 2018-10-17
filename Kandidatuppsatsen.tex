@@ -50,11 +50,29 @@
 \end{abstract}
 
 \chapter{Inledning}
-Kort kapitel med avstamp i Vapniks ursprungliga algoritm för optimala separerande hyperplan (1963) och utvecklingen fram till 1995 då Vapnik och Cortes presenterade den första algoritmen med både mjuk marginal (Smith 1968, Bennet och Mangasarian 1992) och olinjära kärnor (Aizerman 1964, Poggio och Girosi 1990?) baserade på Aronszajns "Theory of Reproducing Kernels", 1950.
+Tack vare en ökande beräkningsförmåga samt användbarhet hos datorer under senare delar av 1900-talet forskades det flitigt om hur man bästa använder datorer för beräkning och lösning av statistiska metoder och problem.
+I samband med detta uppstod även forskningsområdet maskininlärning där tyngdpunkten låg mera på datorerna.
+En tidig algoritm var Frank Rosenblatts \emph{Perceptron} (år 1957) \cite{Rosenblatt} där man med inspiration från hjärnans neuroner försökt klassificera \emph{observationer} $\mathbf{x}$ genom att dra ett \emph{hyperplan} mellan klasserna.
+År 1963 gav Aleksandr Lerner och Vladimir Vapnik en variant av Rosenblatts perceptron där \emph{optimala separerande hyperplan} används för att klassificera observationerna \cite{VapnikLerner1963}.
+Lerner och Vapniks algoritm är matematiskt mera tilltalande än Rosenblatts eftersom att den optimala lösningen kan visas vara unik men det finns fortfarande några problem, bland annat går algoritmen bara att använda om observationsparen är \emph{linjärt separabla}.
+År 1968 föreslog Fred Smith \cite{Smith} en generaliserad algoritm som använde \emph{slackvariabler} för att även fungera för icke linjärt separabla observationspar.
+Smiths arbete med slackvariabler undersöktes vidare av Kristin Bennet och Olvi Mangasarian år 1992 \cite{BennetMangasarian}.
 
-Hur uppsatsen relaterar till kapitlen om SVMs i boken "The Elements och Statistical Learning Theory".
+Parallellt med forskningen i de linjära optimalt separerande hyperplanen forskades om tillämpningar av funktioner kallade \emph{kärnor}, med avstamp i James Mercers forskning (1909) i \emph{positiva} funktioner \cite{Mercer} och Nachman Aronszajns fortsatta forskning (1950) om \emph{reproducerande} kärnor \cite{Aronszajn}.
+Kärnor föreslogs av Mark Aizerman, Emmanuil Braverman och Lev Rozonoer \cite{Aizerman} för att generalisera perceptron algoritmen till en algoritm för olinjär klassificering.
+Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel Grace Wahbas bok om splin-modeller (1990) \cite{Grace} tillämpades kärnor även på den ursprungliga algoritmen med optimalt separerande av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
+Snart därefter generaliserades även Bennet och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är den algoritm som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
 
+I uppsatsen kommer till först den ursprungliga algoritmen att undersökas för att sedan utvidgas med slackvariabler.
+Därefter kommer de reproducerande kärnorna att undersökas, upplägget följer långt Trevor Hastie, Robert Tibshirani och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler; till sist undersöks de reproducerande kärnorna.
+
+Precis som många andra metoder inom statistiken och maskininlärningen bygger stödvektormaskinen på ett konvext optimeringsproblem och på grund av detta borde läsaren vara bekant med koncept ur konvex optimering.
+En bra introduktion är Stephen Boyd och Lieven Vandenberghes bok \emph{Convex Optimization} \cite{Boyd}.
+Främst kommer teorin om kvadratiska optimeringsproblem och analys av duala problem med hjälp av Lagrangemultiplikatorer att användas.
 \chapter{Stödvektormaskiner (SVM)}
+
+\section{Geometrisk begrepp}
+I många statistiska metoder används enkla geometriska koncept, till exempel plan eller linjer, för att dra slutsatser angående insamlat data. Ofta vill man även hitta den bästa 
 
 \section{Klassificering med hjälp av separerande hyperplan}
 
