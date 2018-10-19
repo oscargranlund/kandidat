@@ -36,11 +36,15 @@
 \newcommand{\llangle}{\left\langle}
 \newcommand{\rrangle}{\right\rangle}
 
-\newcommand{\sephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}}
+\newcommand{\sephyp}{\{ \mathbf{x} : f(\mathbf{x})=\inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}}
 
 \newcommand{\entsephyp}{\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if(\mathbf{x}_i)\geq0,~i=1,\dots,~N,~\|\bfbeta\|=1\}}
 
-\newcommand{\inprod}[2]{\langle \mathbf{#1}, \mathbf{#2}\rangle}
+\newcommand{\inprod}[2]{\llangle \mathbf{#1}, \mathbf{#2}\rrangle}
+
+\newcommand{\inner}[2]{\llangle #1, #2 \rrangle}
+
+\newcommand{\hil}{\mathcal{H}}
 
 \title{Stödvektormaskiner\\
 {\large Linjära hyperplan i Hilbertrum}}
@@ -98,12 +102,38 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 \end{defi}
 
 \begin{rem}
-	En norm $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ kan definieras som (man säger att normen induceras av inreprodukten)
+	Den inducerade normen $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum $\mathcal{H}$ med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ kan definieras genom
 	\begin{equation*}
-		\| \mathbf{x}\|_\mathcal{H} := \sqrt{\llangle \bfx, \bfx \rrangle_\mathcal{H}}
+		\| \mathbf{x}\|_\mathcal{H} := \sqrt{\llangle \bfx, \bfx \rrangle_\mathcal{H}} \qquad \text{där } \bfx \in \mathcal{H}.
 	\end{equation*}
-	där $\bfx \in \mathcal{H}$.
 \end{rem}
+För att bevisa att normen definierad ovan är en norm krävs ett välkänt resultat:
+\begin{thm}[Cauchy-Scwharz olikhet \cite{Young}]\label{CauchySchwarz}
+	För $\bfx,~\mathbf{y}$ i ett inreproduktrum $X$ gäller
+	\begin{equation*}
+	\llangle\bfx, \mathbf{y}\rrangle^2 \leq \llangle\bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle
+	\end{equation*}
+	med likhet om och endast om $\mathbf{y} = \lambda \bfx$ för något $\lambda \in \mathbb{R}$, det vill säga om $\bfx$ och $\mathbf{y}$ är linjärt beroende.
+\end{thm}
+\begin{proof}
+	Om $\mathbf{y} = \lambda \bfx$ så gäller
+	\begin{equation*}
+	\llangle\bfx, \mathbf{y}\rrangle^2 = \llangle\bfx, \lambda \bfx\rrangle^2 = \lambda^2\llangle\bfx, \bfx\rrangle^2 = \llangle \lambda\bfx, \lambda\bfx \rrangle\llangle \bfx, \bfx \rrangle = \llangle \mathbf{y}, \mathbf{y} \rrangle\llangle \bfx, \bfx \rrangle
+	\end{equation*}
+	vilket skulle visas.
+	
+	Ifall $\mathbf{y} \neq \lambda \bfx$ så måste följande gälla enligt \ref{IP4}:
+	\begin{align*}
+	0 &\leq\llangle \bfx - \lambda\mathbf{y} , \bfx - \lambda\mathbf{y} \rrangle\\
+	&= \llangle \bfx, \bfx \rrangle + \llangle \bfx , - \lambda \mathbf{y} \rrangle + \llangle - \lambda \mathbf{y} , \bfx \rrangle + \llangle -\lambda\mathbf{y}, -\lambda\mathbf{y}\rrangle\\
+	&=  \llangle\mathbf{y}, \mathbf{y} \rrangle \lambda^2 - 2 \llangle \bfx, \mathbf{y}\rrangle \lambda + \llangle \bfx, \bfx \rrangle
+	\end{align*}
+	det vill säga en kvadratisk ekvation av $\lambda$ med högst en unik reell rot. Då följer att diskriminanten $\Delta=\left(-2\llangle\bfx,\mathbf{y}\rrangle\right)^2 - 4 \llangle \mathbf{y}, \mathbf{y}\rrangle\llangle\bfx,\bfx\rrangle\leq0$. Efter omarrangerande och division med $4$ fås då
+	\begin{equation*}
+	\llangle \bfx, \mathbf{y}\rrangle^2 \leq \llangle \bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle. \qedhere
+	\end{equation*}
+\end{proof}
+Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\llangle \bfx , \bfx \rrangle_\mathcal{H}}$, $\bfx \in\mathcal{H}$ är en norm:
 \begin{proof}
 	Låt $\lambda \in \mathbb{R}$, $\bfx,~\mathbf{y}\in \mathcal{M}$:
 	\begin{enumerate}[label=\textbf{N\arabic*}:]
@@ -111,40 +141,10 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 		\begin{align*}
 			\| \bfx + \mathbf{y}\|_\mathcal{H}^2 &= \llangle \bfx + \mathbf{y}, \bfx + \mathbf{y}\rrangle_\mathcal{H}\\
 			&= \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2 \llangle \bfx, \mathbf{y}\rrangle_\mathcal{H} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
-			&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \mathbf{y}\rrangle^2_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}.
-		\end{align*}
-		Här behövs ett känt resultat:
-		\begin{lem}[Cauchy-Scwharz olikhet \cite{Young}]\label{CauchySchwarz}
-			För $\bfx,~\mathbf{y}$ i ett inreproduktrum $X$ gäller
-			\begin{equation*}
-				\llangle\bfx, \mathbf{y}\rrangle^2 \leq \llangle\bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle
-			\end{equation*}
-			med likhet om och endast om $\mathbf{y} = \lambda \bfx$ för något $\lambda \in \mathbb{R}$, det vill säga om $\bfx$ och $\mathbf{y}$ är linjärt beroende.
-		\end{lem}
-		\begin{proof}
-			Om $\mathbf{y} = \lambda \bfx$ så gäller
-			\begin{equation*}
-				\llangle\bfx, \mathbf{y}\rrangle^2 = \llangle\bfx, \lambda \bfx\rrangle^2 = \lambda^2\llangle\bfx, \bfx\rrangle^2 = \llangle \lambda\bfx, \lambda\bfx \rrangle\llangle \bfx, \bfx \rrangle = \llangle \mathbf{y}, \mathbf{y} \rrangle\llangle \bfx, \bfx \rrangle
-			\end{equation*}
-			vilket skulle visas.
-			
-			Ifall $\mathbf{y} \neq \lambda \bfx$ så måste följande gälla enligt \ref{IP4}:
-			\begin{align*}
-				0 &\leq\llangle \bfx - \lambda\mathbf{y} , \bfx - \lambda\mathbf{y} \rrangle\\
-				 &= \llangle \bfx, \bfx \rrangle + \llangle \bfx , - \lambda \mathbf{y} \rrangle + \llangle - \lambda \mathbf{y} , \bfx \rrangle + \llangle -\lambda\mathbf{y}, -\lambda\mathbf{y}\rrangle\\
-				 &=  \llangle\mathbf{y}, \mathbf{y} \rrangle \lambda^2 - 2 \llangle \bfx, \mathbf{y}\rrangle \lambda + \llangle \bfx, \bfx \rrangle
-			\end{align*}
-			det vill säga en kvadratisk ekvation av $\lambda$ med högst en unik reell rot. Då följer att diskriminanten $\Delta=\left(-2\llangle\bfx,\mathbf{y}\rrangle\right)^2 - 4 \llangle \mathbf{y}, \mathbf{y}\rrangle\llangle\bfx,\bfx\rrangle\leq0$. Efter omarrangerande och division med $4$ fås då
-			\begin{equation*}
-				\llangle \bfx, \mathbf{y}\rrangle^2 \leq \llangle \bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle. \qedhere
-			\end{equation*}
-		\end{proof}
-		Fortsättningen på beviset blir då:
-		\begin{align*}
-		\| \bfx + \mathbf{y}\|_\mathcal{H}^2 &\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \mathbf{y}\rrangle^2_ \mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
-		&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \bfx\rrangle_ \mathcal{H} \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
-		&=\left\|\bfx \right\|^2_\mathcal{H} + 2\left\|\bfx \right\|_\mathcal{H}\left\|\mathbf{y} \right\|_\mathcal{H}  + \left\| \mathbf{y}\right\|^2_\mathcal{H}\\
-		&= \left(\left\|\bfx \right\|_\mathcal{H}+ \left\| \mathbf{y}\right\|_\mathcal{H}\right)^2
+			&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \mathbf{y}\rrangle^2_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
+			\text{(Enligt Caucy-Scwarz \ref{CauchySchwarz})}\quad&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \bfx\rrangle_ \mathcal{H} \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
+			&=\left\|\bfx \right\|^2_\mathcal{H} + 2\left\|\bfx \right\|_\mathcal{H}\left\|\mathbf{y} \right\|_\mathcal{H}  + \left\| \mathbf{y}\right\|^2_\mathcal{H}\\
+			&= \left(\left\|\bfx \right\|_\mathcal{H}+ \left\| \mathbf{y}\right\|_\mathcal{H}\right)^2
 		\end{align*}
 		där olikheten fås efter att man tagit kvadratrötter av båda sidorna.
 		\item $\left\| \lambda\bfx \right\|_\mathcal{H} = \left|\lambda\right|\left\| \bfx \right\|_\mathcal{H}$ (absolut homogen):
@@ -178,24 +178,39 @@ men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \l
 	Ett \textit{klassificeringsproblem} är ett problem var man utgående från en mängd observationspar (\textit{träningsdata}) $(\mathbf{x}_i,y_i)$, $\mathbf{x}_i\in\mathbb{R}^p$, $y_i\in \{-1,1\}$, $i=1,\dots,~N$, försöker hitta en regel $g: \mathbb{R}^p \longmapsto \{-1,1\}$ sådan att $g(\mathbf{x}_i)=y_i$ för så många träningspar $(\mathbf{x}_i,y_i)$ som möjligt.
 \end{defi}
 
-Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regressionsmodeller eller klusteranalys. I detta kapitel behandlas en metod där en affin mängd med dimensionen $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
+Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa klassificeringsproblem, till exempel med hjälp av regressionsmodeller eller klusteranalys. I detta kapitel behandlas en metod för där en affin mängd med dimensionen $p-1$ används för att definiera en regel som klassificerar \textit{observationerna} $\mathbf{x}_i$ i \textit{klasserna} $y_i\in\{-1,~1\}$ genom separering.
 
 \begin{defi}
-	Ett \textit{hyperplan} i ett vektorrum med dimensionen $p$ är ett underrum med dimensionen $p-1$, i figur \ref{fig:separatinghyperplane} illustreras ett separerande hyperplan för fallet $p=2$. Klassificeringsregeln $g$ för separerande hyperplan blir $g(\mathbf{x}_i)=\sign (\mathbf{x}_i^\intercal    \bfbeta + \beta_0)$ där mängden $\{\mathbf{x}: \mathbf{x}^\intercal \bfbeta + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in \mathbb{R}^p$, definierar ett hyperplan parametriserad av $\bfbeta$ och $\beta_0$.
+	Ett \textit{hyperplan} i ett inreproduktrum $\mathcal{H}$ är ett delrum av $\mathcal{H}$ definierat som mängden $\{\mathbf{x}: \inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in X,~\beta_0\in\mathbb{R}$.
+	\\Klassificeringsregeln $g$ för separerande hyperplan blir
+	\begin{equation*}
+	g(\mathbf{x}_i)=  
+	\begin{cases}
+	~~ 1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 \geq 0,\\
+	-1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0,
+	\end{cases}\qquad\text{där }\bfx_i\text{ är en observation.}
+	\end{equation*}
 \end{defi}
 
+\begin{ex}
+	I figur \ref{fig:separatinghyperplane} illustreras två separerande hyperplan i $\mathbb{R}^2$. I $\mathbb{R}^2$ blir hyperplanet en linje det vill säga ett delrum med dimensionen $2-1=1$.
+	Allmänt gäller att i ett rum med dimensionen $p$ blir hyperplanet ett delrum med dimensionen $p-1$.
+	Märk att ifall $\bfx = 0$ tillhör hyperplanet så är hyperplanet ett underrum.
+\end{ex}
+
 \begin{thm}\label{thm:hyperplan}
-	Ett hyperplan definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
+	Ett hyperplan i ett inreproduktrum $\hil$ definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
 	\begin{enumerate}
 		\item $\bfbeta$ är en normalvektor till $L$ och kan normaliseras genom
-		\begin{equation*}
+		\begin{equation*}%TODO	Definiera normalvektor
 			\widehat{\bfbeta} = \frac{\bfbeta}{\|\bfbeta\|}.
 		\end{equation*}
-		\item $\mathbf{x}_0^\intercal \bfbeta = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
-		\item Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$, $\operatorname{d}^\pm (\mathbf{x}, L)$, ges av
+		\item $\inner{\bfx_0}{\bfbeta}_\hil = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
+		\item %TODO		Definiera signerat avstånd
+		Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$, $\operatorname{d}^\pm (\mathbf{x}, L)$, ges av
 		\begin{equation*}
 		\begin{aligned}
-			(\mathbf{x}-\mathbf{x}_0)^\intercal \widehat{\bfbeta} &= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal \bfbeta+\beta_0)\\
+			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil &= \frac{1}{\|\bfbeta\|}(\inner{\mathbf{x}}{\bfbeta}_\hil+\beta_0)\\
 			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 		\end{aligned}
 		\end{equation*}
@@ -207,38 +222,42 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två punkter i $L$. Då gäller att $f(\mathbf{x}_1)=f(\mathbf{x}_2)=0$ och
 	\begin{align*}
 		0 &= f(\mathbf{x}_1)-f(\mathbf{x}_2)\\
-		&= \mathbf{x}_1^\intercal \bfbeta + \beta_0 - \mathbf{x}_2^ \intercal \bfbeta - \beta_0\\
-		&= (\mathbf{x}_1-\mathbf{x}_2)^\intercal \bfbeta
+		&= \inner{\bfx_1}{\bfbeta}_\hil + \beta_0 - \inner{\bfx_2}{\bfbeta}_\hil - \beta_0\\
+		&= \inner{\mathbf{x}_1-\mathbf{x}_2}{\bfbeta}_\hil
 	\end{align*}
 	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\|\bfbeta\|}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
-	\item \label{eq:egenskap2}Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\mathbf{x}_0^\intercal \bfbeta + \beta_0 = 0$ alltså är $\mathbf{x}^\intercal_0 \bfbeta = - \beta_0$.\hfill \qedsymbol
-	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normaliserade normal $\widehat{\beta}$, $\operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )$. Vi får alltså att
+	\item \label{eq:egenskap2}Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f(\mathbf{x}_0)=\inner{\bfx_0}{\bfbeta}_\hil + \beta_0 = 0$ alltså är $\inner{\bfx_0}{\bfbeta}_\hil = - \beta_0$.\hfill \qedsymbol
+	\item %TODO		Definiera komponent och projektion
+	Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $(\mathbf{x}-\mathbf{x}_0)$ på hyperplanets normaliserade normal $\widehat{\bfbeta}$, $\operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )$. Vi får alltså att
 	\begin{align*}
 		\operatorname{d^\pm} ( \mathbf{x}, L ) &= \operatorname{comp_{\widehat{\bfbeta}}} ( \mathbf{x} - \mathbf{x}_0 )
-		=\underline{\underline{ (\mathbf{x} - \mathbf{x}_0)^\intercal \widehat{\bfbeta} }}\\
-		&= \frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta - \mathbf{x}_0^\intercal\bfbeta)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \beta_0)}}
+		=\underline{\underline{ \inner{\mathbf{x} - \mathbf{x}_0}{\widehat{\bfbeta}}_\hil}}\\
+		&= \frac{1}{\|\bfbeta\|}(\inner{\bfx}{\bfbeta}_\hil - \inner{\bfx_0}{\bfbeta}_\hil)=\underline{\underline{\frac{1}{\|\bfbeta\|}(\inner{\bfx}{\bfbeta}_\hil + \beta_0)}}
 	\end{align*}
-	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$. Om man vidare noterar att $f(\mathbf{x})=\mathbf{x}^\intercal\bfbeta+\beta_0$ och $f^\prime(\mathbf{x})=\bfbeta$ så fås även att
+	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$. Om man vidare noterar att $f(\mathbf{x})=\inner{\bfx}{\bfbeta}_\hil+\beta_0$ och $f^\prime(\mathbf{x})=\bfbeta$ så fås även att
 	\begin{equation*}
-		\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta + \beta_0)=\frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
+		\frac{1}{\|\bfbeta\|}(\inner{\bfx}{\bfbeta}_\hil + \beta_0)=\frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
 	\end{equation*}
 	\qedhere
 \end{enumerate}
 \end{proof}
 
 \begin{rem}
-	Definitionen $L=\{ \mathbf{x} : f(\mathbf{x})=\mathbf{x}^\intercal \bfbeta + \beta_0=0\}$ för hyperplanet $L$ är inte entydig.
+	Definitionen $L=\{ \mathbf{x} : f(\mathbf{x})=\inner{\bfx}{\bfbeta}_\hil + \beta_0=0\}$ för hyperplanet $L$ är inte entydig.
 \end{rem}
 \begin{reas}
-	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g(\mathbf{x})=\mathbf{x}^\intercal(-\bfbeta) + (-\beta_0) = 0\right\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
-	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h(\mathbf{x})=\frac{\mathbf{x}^\intercal\bfbeta}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$. Notera även att $\frac{1}{\|\bfbeta\|}$ kunde ha varit vilket reellt tal som helst.
+	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g(\mathbf{x})=\inner{\bfx}{-\bfbeta}_\hil + (-\beta_0) = 0\right\}$. Eftersom att $g(\mathbf{x}) = -f(\mathbf{x})$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
+	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h(\mathbf{x})=\frac{\inner{\bfx}{\bfbeta}_\hil}{\|\bfbeta\|} + \frac{\beta_0}{\|\bfbeta\|}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h(\mathbf{x}) = \frac{f(\mathbf{x})}{\|\bfbeta\|}=0$. Notera även att $\frac{1}{\|\bfbeta\|}$ kunde ha varit vilket reellt tal som helst.
 \end{reas}
 
 \begin{rem}
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\mathbf{x}_i^\intercal\bfbeta + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till riktningen på $\bfbeta$) från origo till hyperplanet.
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\|\bfbeta\|=1$ och $y_i(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till riktningen på $\bfbeta$) från origo till hyperplanet.
 \end{rem}
 \begin{reas}
-	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med $\frac{1}{\|\bfbeta\|}(\mathbf{x}^\intercal\bfbeta+\beta_0)=\frac{1}{\|\bfbeta\|}\left(\mathbf{0}^\intercal\bfbeta+\beta_0\right)=\beta_0$.
+	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med
+	\begin{equation*}
+	\frac{1}{\|\bfbeta\|}(\inner{\bfx}{\bfbeta}_\hil+\beta_0)=\frac{1}{\|\bfbeta\|}\left(\inner{\mathbf{0}}{\bfbeta}_\hil+\beta_0\right)=\beta_0.
+	\end{equation*}
 \end{reas}
 
 \begin{figure}[h]
@@ -252,23 +271,23 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \end{defi}
 
 %TODO SKRIVA OM SATS OCH BEVIS ENLIGT BOYD
-\begin{thm} \cite{Boyd}
-	För ett hyperplan $L=\sephyp$ som separerar två klasser gäller att
+\begin{thm}
+	För ett hyperplan $L=\sephyp$ som separerar två klasser gäller att \cite{Boyd}
 	\begin{equation*}
-		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0
+		y_i(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0) > 0
 	\end{equation*}
 	eller
 	\begin{equation*}
-		y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) < 0
+		y_i(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0) < 0
 	\end{equation*}
 	för alla $i = 1, \dots,~N$.
 \end{thm}
 \begin{proof}
-	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\mathbf{x}^\intercal \bfbeta + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 > 0$ och om $y_i=-1$ så är $\mathbf{x}_i^\intercal \bfbeta + \beta_0 < 0$. Detta betyder att $y_i(\mathbf{x}_i^\intercal \bfbeta + \beta_0) > 0$. Ifall $\mathbf{x}_i^\intercal \bfbeta + \beta_0 = 0$ är problemet inte linjärt separabelt.
+	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\inner{\bfx}{\bfbeta}_\hil + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 > 0$ och om $y_i=-1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0$. Detta betyder att $y_i(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0) > 0$. Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
 \end{proof}
 
 \begin{ex}\label{exempel:mångahyperplan}
-	Låt observationsparen vara $(\left[2,~2\right]^\intercal,~1),~(\left[1,~2\right]^\intercal,-1)$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
+	Låt observationsparen vara $(\left[2,~2\right]^\intercal,~1),~(\left[1,~2\right]^\intercal,-1)$, inreproduktrummet i fråga är då $\mathbb{R}^2$ och inreprodukten $\inner{\bfx}{\mathbf{y}}_2:=\bfx^\intercal\mathbf{y}$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
 	1\\
 	0
 	\end{bmatrix} - 1.5=0\}$$ och $$L_2=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
@@ -279,29 +298,46 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \begin{proof}
 	För $L_1$: $$y_1(\mathbf{x}_1^\intercal\begin{bmatrix}
 	1\\
-	0\end{bmatrix}-1.5)=\left[2,~2\right]^\intercal\begin{bmatrix}
+	0\end{bmatrix}-1.5)=\left[2,~2\right]\begin{bmatrix}
 	1\\
 	0\end{bmatrix}-1.5=0.5>0$$ och $$y_2(\mathbf{x}_2^\intercal\begin{bmatrix}
 	1\\
-	0\end{bmatrix}-1.5)=-1(\left[1,~2\right]^\intercal\begin{bmatrix}
+	0\end{bmatrix}-1.5)=-1(\left[1,~2\right]\begin{bmatrix}
 	1\\
 	0\end{bmatrix}-1.5)=(-1)(-0.5)=0.5>0.$$
 	Och för $L_2$: $$y_1(\mathbf{x}_1^\intercal\begin{bmatrix}
 	\sqrt{2}\\
-	\sqrt{2}\end{bmatrix}-3.5\sqrt{2})=\left[2,~2\right]^\intercal\begin{bmatrix}
+	\sqrt{2}\end{bmatrix}-3.5\sqrt{2})=\left[2,~2\right]\begin{bmatrix}
 	\sqrt{2}\\
 	\sqrt{2}\end{bmatrix}-3.5\sqrt{2}=0.5\sqrt{2}>0$$ och $$y_2(\mathbf{x}_2^\intercal\begin{bmatrix}
 	\sqrt{2}\\
-	\sqrt{2}\end{bmatrix}-3.5\sqrt{2})=-1(\left[1,~2\right]^\intercal\begin{bmatrix}
+	\sqrt{2}\end{bmatrix}-3.5\sqrt{2})=-1(\left[1,~2\right]\begin{bmatrix}
 	\sqrt{2}\\
 	\sqrt{2}\end{bmatrix}-3.5\sqrt{2})=(-1)(-0.5\sqrt{2})=0.5\sqrt{2}>0$$
 \end{proof}
 
 \begin{rem}
-	Hyperplan kan konstrueras enkelt genom att man i $\mathbb{R}^p$ väljer $p$ stycken punkter $\mathbf{x}_i$ som man vill att planet ska gå igenom, sedan löser man ekvationssystemet $X\bfbeta=-\beta_0\mathbf{1}$, i vilket $X$ är en matris där raderna består av punkterna $\mathbf{x}_i$, $i=1,\dots, p$, och $\beta_0\mathbf{1}$ är en vektor med värdet $\beta_0$ i alla rader.
+	Hyperplan i $\mathbb{R}^p$ kan konstrueras enkelt genom att man väljer $p$ stycken punkter $\mathbf{x}_i$ som man vill att hyperplanet ska gå igenom, sedan löser man ekvationssystemet $X\bfbeta=-\beta_0\mathbf{1}$, i vilket $X$ är en matris där raderna består av punkterna $\mathbf{x}_i^\intercal$, $i=1,\dots, p$, och $\beta_0\mathbf{1}$ är en vektor med värdet $\beta_0$ i alla rader.
+	Med andra ord löser man ekvationssystemet
+	\begin{equation*}
+		\begin{bmatrix}
+		\bfx_{1,1}	& \bfx_{1,2}	& \cdots	& \bfx_{1,p-1}	& \bfx_{1,p}\\
+		\bfx_{2,1}	& \bfx_{2,2}	&  			& 				& \bfx_{2,p}\\
+		\vdots		&				& \ddots	&				& \vdots\\
+		\bfx_{p-1,1}& 				&  			& \bfx_{p-1,p-1}	&\bfx_{p-1,p}\\
+		\bfx_{p,1}	& \bfx_{p,2}	& \cdots	& \bfx_{p,p-1}	& \bfx_{p,p}\\
+		\end{bmatrix}
+		\begin{bmatrix}
+		\bfbeta_1\\ \bfbeta_2\\\vdots\\\bfbeta_{p-1}\\\bfbeta_{p}
+		\end{bmatrix}=
+		\begin{bmatrix}
+		-\beta_0\\-\beta_0\\\vdots\\-\beta_0\\-\beta_0
+		\end{bmatrix},
+	\end{equation*}
+	ekvationssystemet kan aldrig vara överbestämt men nog underbestämt ifall punkterna inte är linjärt oberoende.
 \end{rem}
 
-Som syns i exempel \ref{exempel:mångahyperplan} finns det många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
+Som syns i exempel \ref{exempel:mångahyperplan} finns det ofta många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
 
 \section{Optimala separerande hyperplan}
 Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
