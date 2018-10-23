@@ -211,9 +211,10 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 		\begin{equation*}
 		\begin{aligned}
 			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil &= \frac{1}{\|\bfbeta\|}(\inner{\mathbf{x}}{\bfbeta}_\hil+\beta_0)\\
-			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x}).
+			&= \frac{1}{\|f^\prime(\mathbf{x})\|}f(\mathbf{x})
 		\end{aligned}
 		\end{equation*}
+		där $\bfx_0$ är en godtycklig punkt i hyperplanet $L$.
 	\end{enumerate}
 \end{thm}
 \begin{proof}
@@ -340,19 +341,25 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 Som syns i exempel \ref{exempel:mångahyperplan} finns det ofta många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
 
 \section{Optimala separerande hyperplan}
-Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden (ML-metoden) för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
+Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
 Optimeringsproblemen kan ofta ändras genom att man lägger till eller tar bort termer i objektfunktionen eller ändrar på kraven och på så sätt får en ny metod (för att modellera data) med andra egenskaper.
 
-För separerande hyperplan kommer ett optimeringsproblem som är utformat så att det kortaste avståndet från hyperplanet till de närmaste observationsparen från vardera klass maximeras behandlas \cite{Vapnik96}. Matematiskt kan man uttrycka problemet som följande optimeringsproblem
+För metoden med optimalt separerande hyperplan är tanken att om man hittar ett hyperplan sådant att:
+\begin{itemize}
+	\item alla observationer klassificeras rätt och,
+	\item hyperplanet samtidigt maximerar det kortaste avståndet från hyperplanet till det närmsta observationsparet,
+\end{itemize}
+så borde hyperplanet även fungera bra för att separera och klassificera nya observationer \cite{VapnikLerner1963} \cite{Vapnik96}.
+Matematiskt kan man uttrycka problemet som följande optimeringsproblem %TODO	VAÅNIK96 DÅLIG REFERENS? Generealized portraits?
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
 	 \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1}& & &C\\
-	 \text{så att}& & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
+	 \text{så att}& & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0\right)\geq C,\quad i=1,\dots,N
 \end{aligned}
 \end{equation}
 där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste observationerna.
 \begin{rem}
-	Ifall alla punkter är rätt klassificerade så anger $y_i(\mathbf{x}^\intercal_i\widehat{\bfbeta}+\widehat{\beta}_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+	Ifall alla punkter är rätt klassificerade så anger $y_i(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0)$ det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 \end{rem}
 
 Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext. %TODO definiera konvext
@@ -361,27 +368,27 @@ För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{ko
 
 Först måste alltså kravet $\|\widehat{\bfbeta}\|=1$ bytas ut. Detta görs genom att man byter ut kraven
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
+y_i(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0)\geq C,\quad i=1,\dots,N
 \end{equation*}
 mot kraven
 \begin{equation*}
-y_i\left(\mathbf{x}_i^\intercal\frac{\bfbeta}{\|\bfbeta\|}+\frac{\beta_0}{\|\bfbeta\|}\right) = 
-\frac{1}{\|\bfbeta\|}y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)
+y_i\left(\inner{\bfx_i}{\frac{\bfbeta}{\|\bfbeta\|_ \hil}}_\hil+\frac{\beta_0}{\|\bfbeta\|_\hil}\right) = 
+\frac{1}{\|\bfbeta\|_\hil}y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)
  \geq C,\quad i=1,\dots,N
 \end{equation*}
 eller ekvivalent
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq C\|\bfbeta\|,\quad i=1,\dots,N,
+y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq C\|\bfbeta\|,\quad i=1,\dots,N,
 \end{equation*}
-där man valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\widehat{\beta}_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\|\bfbeta\|}$, då fås
+där man valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\widehat{\beta}_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\|\bfbeta\|_\hil}$, då fås
 \begin{equation*}
-y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
+y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{equation*}
 och eftersom $C=\frac{1}{\|\bfbeta\|}$ är en avtagande funktion med avseende på $\|\bfbeta\|$ är maximering av $C$ ekvivalent med minimering av $\|\bfbeta\|$ och motsvarande optimeringsproblemet blir
 \begin{equation*}%\label{opt:optimalmargin2}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\|\bfbeta\|\\
-\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
+\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
 Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen $\|\bfbeta\|$ (objektfunktionen kallas även \textit{kostfunktionen}), det vill säga man noterar att
@@ -396,7 +403,7 @@ Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen
 \begin{equation*}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2=\frac{1}{2}\bfbeta^\intercal\bfbeta=\bfbeta^\intercal\left(\frac{1}{2}I\right)\bfbeta\\
-\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
+\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{aligned}
 \end{equation*}
 där $\left( \frac{1}{2}I \right)$ är en \emph{positiv semi-definit} matris det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
@@ -411,14 +418,14 @@ Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & &C\\
-	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\beta_0)\geq C,\quad i=1,\dots,N
+	\text{så att} & & &y_i(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\beta_0)\geq C,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
 	konvext och ekvivalent med optimeringsproblemet %TODO är kanske inte ekvivalent?
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
-	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N.
+	\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1,\quad i=1,\dots,N.
 	\end{aligned}
 	\end{equation*}
 \end{thm}
@@ -446,19 +453,19 @@ Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{equation*}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
-\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1,\quad i=1,\dots,N
+\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1,\quad i=1,\dots,N
 \end{aligned}
 \end{equation*}
 ges då av
 \begin{equation}\label{eq:primallagrange}
-L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i\left(y_i \left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-1\right)
+L_P=\frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i\left(y_i \left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)-1\right)
 \end{equation}
 som ska minimeras med avseende på $\bfbeta$ och $\beta_0$.
 
 För att minimera $L_P$ sätts derivatorna med avseende på elementen $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_0$ till 0, och följande relationer erhålls:
 \begin{equation}\label{eq:derivprimal}
 \begin{aligned}
-	D_{ \left[\bfbeta\right]_j } (L_P) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \mathbf{x}_i^\intercal\bfbeta \right) + \lambda_i y_i \beta_0 - \lambda_i \right)\right)\\
+	D_{ \left[\bfbeta\right]_j } (L_P) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \inner{\bfx_i}{\bfbeta}_\hil \right) + \lambda_i y_i \beta_0 - \lambda_i \right)\right)\\
 	&= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \sum_{k=1}^{p} \left[\bfbeta\right]_k^2 \right) &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left(  \lambda_i y_i \left(\sum_{k=1}^{p}\left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + \lambda_i y_i \beta_0-\lambda_i \right)\\
 	&= [\bfbeta]_j &- &\sum_{i=1}^{N} D_{ \left[\bfbeta\right]_j } \left( \sum_{k=1}^{p} \lambda_i y_i \left[\mathbf{x}_i\right]_k\left[\bfbeta\right]_k \right) + 0\\
 	&= [\bfbeta]_j &- &\sum_{i=1}^{N}\lambda_i y_i \left[ \mathbf{x}_i \right]_j
@@ -495,7 +502,7 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 	Kraven (\ref{eq:krav1}) till (\ref{eq:krav4}) säger något om hurudan den optimala lösningen $\left(\bfbeta^*,\beta^*_0, \lambda_1^*,\dots,\lambda_N^*\right)$ måste vara:
 	\begin{itemize}
 		\item Krav (\ref{eq:krav1}) säger att vektorn $\bfbeta^*$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,\dots,N$.
-		\item Ifall $\lambda^*_i > 0$ så ger krav (\ref{eq:krav4}) att $y_i\left(\mathbf{x}_i^\intercal\bfbeta^*+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet (\ref{opt:optimalmargin1}) ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av punkterna som ligger närmast det separerande hyperplanet.
+		\item Ifall $\lambda^*_i > 0$ så ger krav (\ref{eq:krav4}) att $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil^*+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet (\ref{opt:optimalmargin1}) ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet, det vill säga punkten $\mathbf{x}_i$ är en av punkterna som ligger närmast det separerande hyperplanet.
 		\item Ifall $y_i\left(\mathbf{x}^\intercal_i\bfbeta^* + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
@@ -505,15 +512,15 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0\right) = 1$. Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \mathbf{x}_i^\intercal \bfbeta^* + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan. Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande. %TODO	källa för hur datorer representerar tal
 
 \section{Det oseparabla fallet}
-Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
+Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \mathbf{x}^\intercal \bfbeta + \beta_0 \right\}$ med $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0\right)>0$ för alla träningspar $(\mathbf{x}_i,y_i),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
 
 Ifall ett optimeringsproblems krav gör det olösbart kan man tillåta lösningar som strider mot kraven men samtidigt reglera hur långt från de ursprungliga kraven man tillåter lösningar. I praktiken åstadkoms detta med hjälp av \emph{slackvariabler} och lösningarna blir \emph{hyperplan med mjuka marginaler}.
 
 För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två omedelbara sätt att ändra på kraven, endera låter man
 \begin{align}
-	y_i\left(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0\right) &\geq C-s_i\label{eq:softändring1}\\
+	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0\right) &\geq C-s_i\label{eq:softändring1}\\
 	\intertext{eller så}
-	y_i\left(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right)\label{eq:softändring2}
+	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right)\label{eq:softändring2}
 \end{align}
 där slackvariablerna är nedåt begränsade av noll samt uppåt begränsade så att summan av alla slackvariabler blir mindre än någon konstant $K$, det vill säga \begin{equation*}
 \begin{aligned}
@@ -528,7 +535,7 @@ För hyperplan med mjuka marginaler blir då det ursprungliga optimeringsproblem
 \begin{equation}\label{opt:softmargin}
 \begin{aligned}
 \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1}& & &C\\
-\text{så att}& & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C\left(1-s_i\right),\quad i=1,\dots,N,\\
+\text{så att}& & &y_i(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0)\geq C\left(1-s_i\right),\quad i=1,\dots,N,\\
 & & &s_i\geq0,\quad i=1,\dots,N,\\
 & & &\sum_{i=1}^{N}s_i \leq K.
 \end{aligned}
@@ -538,7 +545,7 @@ En annan orsak till att det andra alternativet föredras är att om man försök
 \begin{equation*}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
-\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - \frac{s_i}{\|\bfbeta\|},\quad i=1,\dots,N,\\
+\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1 - \frac{s_i}{\|\bfbeta\|},\quad i=1,\dots,N,\\
 & & &s_i\geq0,\quad i=1,\dots N,\\
 & & &\sum_{i=1}^{N} s_i \leq K,
 \end{aligned}
@@ -551,7 +558,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\|\widehat{\bfbeta}\|=1} & & &C\\
-	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\widehat{\bfbeta}+\widehat{\beta}_0)\geq C\left(1-s_i\right),\quad i=1,\dots,N,\\
+	\text{så att} & & &y_i(\inner{\bfx_i}{\widehat{\bfbeta}}_\hil+\widehat{\beta}_0)\geq C\left(1-s_i\right),\quad i=1,\dots,N,\\
 	& & &s_i\geq0,\quad i=1,\dots,N,\\
 	& & &\sum_{i=1}^{N}s_i \leq K
 	\end{aligned}
@@ -560,7 +567,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2\\
-	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+	\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
 	& & &s_i\geq0,\quad i=1,\dots N,\\
 	& & &\sum_{i=1}^{N} s_i \leq K.
 	\end{aligned}
@@ -592,7 +599,7 @@ För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man anv�
 \begin{equation}\label{eq:softpenalty1}
 \begin{aligned}
 	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2 + \gamma\sum_{i=1}^{N} s_i\\
-	\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+	\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
 	& & &s_i\geq0,\quad i=1,\dots N,
 \end{aligned}
 \end{equation}
@@ -600,7 +607,7 @@ eller
 \begin{equation}\label{eq:softpenalty2}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\|\bfbeta\|^2 + \gamma\left(\sum_{i=1}^{N} s_i\right)^2\\
-\text{så att} & & &y_i(\mathbf{x}_i^\intercal\bfbeta+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
+\text{så att} & & &y_i(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0)\geq 1 - s_i,\quad i=1,\dots,N,\\
 & & &s_i\geq0,\quad i=1,\dots N,
 \end{aligned}
 \end{equation}
@@ -615,16 +622,16 @@ Av de två alternativen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är 
 \subsection{Primala och Duala Lagrangeproblem för mjuka marginaler}
 Precis som med separabelt data kan lösningen för optimeringsproblemet (\ref{eq:softpenalty1}) karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
 \begin{equation}\label{eq:softlagrangeprimal}
-	L_P = \frac{1}{2}\|\bfbeta\|^2+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
+	L_P = \frac{1}{2}\|\bfbeta\|^2+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
 \end{equation}
 som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut; om man följer liknande steg som i (\ref{eq:derivprimal}) får man:
 \begin{align*}
-	D_{ \bfbeta} \left(L_P\right) &= 	D_{ \bfbeta} \left( \frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i \left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) \right)\\
+	D_{ \bfbeta} \left(L_P\right) &= 	D_{ \bfbeta} \left( \frac{1}{2}\|\bfbeta\|^2 - \sum_{i=1}^{N} \lambda_i \left(y_i\left(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0\right)-\left(1-s_i\right)\right) \right)\\
 	&=\bfbeta - \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i,\\
-	D_{ \beta_0} \left(L_P\right) &= D_{\beta_0} \left(- \sum_{i=1}^{N} \lambda_i \left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right)\right)\\
+	D_{ \beta_0} \left(L_P\right) &= D_{\beta_0} \left(- \sum_{i=1}^{N} \lambda_i \left(y_i\left(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0\right)-\left(1-s_i\right)\right)\right)\\
 	&= -\sum_{i=1}^{N} \lambda_i y_i
 \intertext{och}
-	D_{ s_j} \left(L_P\right) &= D_{s_j} \left( \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i \right)\\
+	D_{ s_j} \left(L_P\right) &= D_{s_j} \left( \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i \right)\\
 	&= D_{s_j} \left( \gamma s_j - \lambda_j\left(y_j\left(\mathbf{x}_j^\intercal\bfbeta + \beta_0\right)-\left(1-s_j\right)\right)-\mu_js_j \right)\\
 	&= \gamma - \lambda_j - \mu_j.
 \end{align*}
@@ -642,16 +649,16 @@ Efter att man sedan kräver att derivatorna skall vara lika med 0 får man följ
 
 Insättning av kraven (\ref{eq:softkrav1}) till (\ref{eq:softkrav2}) och (\ref{eq:softkrav3}) i den primala Lagrangefunktionen (\ref{eq:softlagrangeprimal}) ger den duala Lagrangefunktionen
 \begin{align*}
-	L_D = &\frac{1}{2}\bfbeta^\intercal\bfbeta + \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) - \sum_{i=1}^{N}\mu_is_i\\
+	L_D = &\frac{1}{2}\bfbeta^\intercal\bfbeta + \gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0\right)-\left(1-s_i\right)\right) - \sum_{i=1}^{N}\mu_is_i\\
 	= &\frac{1}{2}\left(\sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i\right)^\intercal\left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right) - \left(\sum_{i=1}^{N}\lambda_iy_i\mathbf{x}_i\right)^\intercal\left(\sum_{j=1}^{N}\lambda_j y_j \mathbf{x}_j\right)\\
 	&-\sum_{i=1}^{N}\lambda_iy_i\beta_0 + \sum_{i=1}^{N}\lambda_i + \sum_{i=1}^{N}\left(\gamma - \lambda_i - \mu_i\right)s_i\\
 	= &\sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\mathbf{x}_i^\intercal\mathbf{x}_j
 \end{align*}
 som ska maximeras med avseende på $\lambda_i$ med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i=0$. Dessutom fås
 \begin{align}
-\label{eq:softkrav7}	\lambda_i\left( y_i\left(\mathbf{x}_i^\intercal\bfbeta + \beta_0\right) - \left(1-s_i\right)\right) &= 0, \quad & &i = 1,\dots,N,\\
+\label{eq:softkrav7}	\lambda_i\left( y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) - \left(1-s_i\right)\right) &= 0, \quad & &i = 1,\dots,N,\\
 \label{eq:softkrav8}	\mu_is_i&=0, \quad & &i = 1,\dots,N,\\
-\label{eq:softkrav9}	y_i\left(\mathbf{x}_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right) &\geq 0 \quad & &i = 1,\dots,N,
+\label{eq:softkrav9}	y_i\left(\inner{\bfx_i}{\bfbeta}_\hil+\beta_0\right)-\left(1-s_i\right) &\geq 0 \quad & &i = 1,\dots,N,
 \end{align}
 från Karush-Kuhn-Tucker kraven för konvexa problem.
 
