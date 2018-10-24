@@ -33,10 +33,12 @@
 
 \newcommand{\bfx}{\mathbf{x}}
 
+\newcommand{\bfy}{\mathbf{y}}
+
 \newcommand{\llangle}{\left\langle}
 \newcommand{\rrangle}{\right\rangle}
 
-\newcommand{\sephyp}{\{ \mathbf{x} : f\left(\mathbf{x}\right)\}=\inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}}
+\newcommand{\sephyp}{\{ \mathbf{x} : f\left(\mathbf{x}\right)=\inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}}
 
 \newcommand{\entsephyp}{\{ \mathbf{x} : f\left(\mathbf{x}\right)=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if\left(\mathbf{x}_i\right)\geq0,~i=1,\dots,~N,~\left\|\bfbeta\right\|=1\}}
 
@@ -87,7 +89,7 @@ Ofta vill man även hitta den bästa modellen, till exempel den modell som minim
 För att effektivt kunna resonera om hur rummet man arbetar i ser ut visar det sig att teorin om \emph{inreproduktrum}, eller närmare bestämt \emph{Hilbertrum}, ger många bra verktyg.
 Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emph{inreprodukt}, $\llangle \cdot, \cdot\rrangle$, som dessutom är \emph{fullständigt}.
 
-\begin{defi}\label{def:inreprodukt}
+\begin{defi}[Enligt \cite{Young}]\label{def:inreprodukt}
 	Låt $X$ vara ett vektorrum. En \emph{inreprodukt} är en funktion $\langle \cdot , \cdot \rangle: X\times X \longmapsto \mathbb{R}$ sådan att, för alla $\mathbf{x},~\mathbf{y},~\mathbf{z}~\in X$ och alla $\lambda \in \mathbb{R}$, gäller:
 	\begin{enumerate}[label=\textbf{IP\arabic*}]
 		\item \label{IP1} $\inprod{x}{y} = \inprod{y}{x}$,
@@ -108,7 +110,7 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 	\end{equation*}
 \end{rem}
 För att bevisa att normen definierad ovan är en norm krävs ett välkänt resultat:
-\begin{thm}[Cauchy-Scwharz olikhet \cite{Young}]\label{CauchySchwarz}
+\begin{thm}[Cauchy-Scwharz olikhet enligt \cite{Young}]\label{CauchySchwarz}
 	För $\bfx,~\mathbf{y}$ i ett inreproduktrum $X$ gäller
 	\begin{equation*}
 	\llangle\bfx, \mathbf{y}\rrangle^2 \leq \llangle\bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle
@@ -161,16 +163,49 @@ Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\ll
 	\end{enumerate}
 \end{proof}
 
-
-
 Hilbertrum kan definieras för många olika vektorrum, till exempel det $d$-dimensionella vektorrummet med den vanliga inreprodukten $\left\langle \mathbf{x}, \mathbf{y} \right\rangle_d = \mathbf{x}^\intercal\mathbf{y}$.
 Man kan även definiera en inreprodukt för vektorrum bestående av funktioner på intervallet $\left[a,b\right]$, då brukar inreprodukten definieras som
 \begin{equation*}
 \left\langle f, g \right\rangle_{\mathcal{L}^2}=\int_{a}^{b}f\left(x\right)g\left(x\right) dx,
 \end{equation*}
-men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet.
+men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet. För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
 
+\begin{defi}[Enligt \cite{Lang}]
+	Två vektorer $\bfx, ~\bfx'\in\hil$ är \emph{ortogonala} om $\inner{\bfx}{\bfx'}_\hil=0$. Dessutom är vektorerna \emph{ortonormala} ifall de är både ortogonala och normaliserade det vill säga $\left\|\bfx\right\|_\hil=\left\|\bfx'\right\|_\hil=1$.
+\end{defi}
+\begin{ex}
+	Låt $\bfx=\left[1,0\right]^\intercal$ och $\bfx'=\left[0,1\right]^\intercal$. Då är $\inner{\bfx}{\bfx'}_2=\bfx^\intercal\bfx'=\left[1,0\right]\left[0,1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är vinkelräta. Normen av vektorerna är också 1 så de är dessutom ortogonala.
+\end{ex}
 
+Med hjälp av ortogonaliteten kan man härleda konceptet för en komponenten av en vektor längs en annan vektor och projektionen av en vektor på en annan vektor.
+
+Låt $\bfx,~\bfy\in\hil$ vara två vektorer olika $\mathbf{0}$. Välj $\lambda\in\mathbb{R}$ så att vektorn $\left(\bfx-\lambda\bfy \right)$ är ortogonal till $\bfy$ det vill säga
+\begin{equation*}
+	\inner{\bfx-\lambda\bfy}{\bfy}_\hil=\inner{\bfx}{\bfy}_\hil-\lambda\inner{\bfy}{\bfy}_\hil=0.
+\end{equation*}
+När man löser för $\lambda$ får man då
+\begin{equation*}
+	\lambda=\frac{\inner{\bfx}{\bfy}_\hil}{\inner{\bfy}{\bfy}_\hil}.
+\end{equation*}
+Talet $\lambda$ är alltså hur långt längs med $\bfy$ man ska ta sig för att vektorn $\left(\bfx-\lambda\bfy\right)$ ska vara ortogonal till $\bfy$.
+Man kallar talet $\lambda$ för vektorn $\bfx$:s komponent i $\bfy$:s riktning.
+Vektorn $\lambda\bfy$ kallar man projektionen av $\bfx$ på $\bfy$.
+Man får alltså definitionen:
+\begin{defi}[Enligt \cite{Lang}]
+	För två vektorer $\bfx,~\bfy\in\mathcal{H}$ olika $\mathbf{0}$. Definiera \emph{komponenten} av $\bfx$ i $\bfy$:s riktning, $\operatorname{comp}_\bfy\left(\bfx\right)$, som talet  
+	\begin{equation*}
+		\operatorname{comp}_\bfy\left(\bfx\right)=\frac{\inner{\bfx}{\bfy}_\hil}{\inner{\bfy}{\bfy}_\hil}
+	\end{equation*}
+	och \emph{projektionen} av $\bfx$ på $\bfy$, $\operatorname{proj}_\bfy\left(\bfx\right)$, som
+	\begin{equation*}
+		\operatorname{proj}_\bfy\left(\bfx\right)=\operatorname{comp}_\bfy\left(\bfx\right)\bfy=\frac{\inner{\bfx}{\bfy}_\hil}{\inner{\bfy}{\bfy}_\hil}\bfy.
+	\end{equation*}
+\end{defi}
+\begin{rem}
+	Ifall vektorn $\bfy$ är normaliserad det vill säga $\left\|\bfy\right\|_\hil=1$ så är $\operatorname{comp}_\bfy\left(\bfx\right)=\left\|\operatorname{proj}_\bfy\left(\bfx\right)\right\|_\hil$ ifall $\operatorname{comp}_\bfy\left(\bfx\right)\geq0$ och $\operatorname{comp}_\bfy\left(\bfx\right)=-\left\|\operatorname{proj}_\bfy\left(\bfx\right)\right\|_\hil$ ifall $\operatorname{comp}_\bfy\left(\bfx\right)\leq0$.
+	Märk även att för $\bfx=\mathbf{0}$ så går det att definiera komponenter och projektioner på samma sätt men de är inte speciellt intressanta, $\operatorname{comp}_\bfy\left(\bfx\right)=0$ och $\operatorname{proj}_\bfy\left(\bfx\right)=\operatorname{comp}_\bfy\left(\bfx\right)\bfy=\mathbf{0}$.
+	Vektorn $\bfy$ måste däremot vara olika $\mathbf{0}$ för att undvika division med 0.
+\end{rem}
 
 \section{Klassificering med hjälp av separerande hyperplan}
 
@@ -182,14 +217,14 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 
 \begin{defi}
 	Ett \textit{hyperplan} i ett inreproduktrum $\mathcal{H}$ är ett delrum av $\mathcal{H}$ definierat som mängden $\{\mathbf{x}: \inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}$, med $\mathbf{x},~\bfbeta\in X,~\beta_0\in\mathbb{R}$.
-	\\Klassificeringsregeln $g$ för separerande hyperplan blir
-	\begin{equation*}
-	g\left(\mathbf{x}_i\right)=  
-	\begin{cases}
-	~~ 1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 \geq 0,\\
-	-1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0,
-	\end{cases}\qquad\text{där }\bfx_i\text{ är en observation.}
-	\end{equation*}
+%	\\Klassificeringsregeln $g$ för separerande hyperplan blir
+%	\begin{equation*}
+%	g\left(\mathbf{x}_i\right)=  
+%	\begin{cases}
+%	~~ 1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 \geq 0,\\
+%	-1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0,
+%	\end{cases}\qquad\text{där }\bfx_i\text{ är en observation.}
+%	\end{equation*}
 \end{defi}
 
 \begin{ex}
@@ -198,31 +233,38 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	Märk att ifall $\bfx = 0$ tillhör hyperplanet så är hyperplanet ett underrum.
 \end{ex}
 
-\begin{thm}\label{thm:hyperplan}
-	Ett hyperplan i ett inreproduktrum $\hil$ definierat som den affina mängden $L=\sephyp$ har följande egenskaper \cite{ESL}:
+För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relation till en punkt $\bfy$ i $\hil$:
+\begin{itemize}
+	\item Man säger att $\bfy$ ligger över hyperplanet $L$ om $f\left(\bfy\right)>0$ och under om $f\left(\bfy\right)<0$.
+	\item På samma sätt säger man att $\bfbeta$ pekar mot punkten $\bfy$ om $f\left(\bfy\right)>0$.
+	\item Med det signerade avståndet från vektorn $\bfy$ till hyperplanet $L$, $\operatorname{d}^\pm\left(\bfy,L\right)$, menar man $\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil$ om $f\left(\bfy\right)\geq0$ och $-\left(\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil\right)$ om $f\left(\bfy\right)\leq0$.
+	Med andra ord är $\operatorname{d}^\pm\left(\bfy,L\right)$ det kortaste avståndet (med avseende på den inducerade normen i $\hil$) från punkten $\bfy$ till alla punkter $\bfx\in L$ om $\bfy$ ligger över $L$ och minus det kortaste avståndet från $\bfy$ till $L$ om $\bfy$ ligger under $L$.
+\end{itemize}
+
+
+
+\begin{thm}[Enligt \cite{ESL}]\label{thm:hyperplan}
+	Ett hyperplan i ett inreproduktrum $\hil$ definierat som den affina mängden $L=\sephyp$ har följande egenskaper:
 	\begin{enumerate}
-		\item $\bfbeta$ är en normalvektor till $L$ och kan normaliseras genom
-		\begin{equation*}%TODO	Definiera normalvektor
-			\widehat{\bfbeta} = \frac{\bfbeta}{\left\|\bfbeta\right\|_p}.
+		\item $\bfbeta$ är en ortogonal till alla vektorer i $L$ och kan \emph{ortonormeras} (göras ortonormal) genom
+		\begin{equation*}
+			\widehat{\bfbeta} = \frac{\bfbeta}{\left\|\bfbeta\right\|_\hil}.
 		\end{equation*}
 		\item $\inner{\bfx_0}{\bfbeta}_\hil = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
-		\item %TODO		Definiera signerat avstånd
+		\item
 		Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$, $\operatorname{d}^\pm \left(\mathbf{x}, L\right)$, ges av
-		\begin{equation*}
-		\begin{aligned}
-			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil &= \frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\mathbf{x}}{\bfbeta}_\hil+\beta_0\right)\\
-			&= \frac{1}{\left\|f^\prime\left(\mathbf{x}\right)
-\right\|_p}f\left(\mathbf{x}\right)
-		\end{aligned}
-		\end{equation*}
+		\begin{align*}
+			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil &= \frac{1}{\left\|\bfbeta\right\|_\hil}\left(\inner{\mathbf{x}}{\bfbeta}_\hil+\beta_0\right)\\
+\intertext{och, ifall $\hil=\mathbb{R}^p$ med den vanliga inreprodukten,}
+			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_p &= \frac{1}{\left\|f^\prime\left(\mathbf{x}\right)\right\|_p}f\left(\mathbf{x}\right)
+		\end{align*}
 		där $\bfx_0$ är en godtycklig punkt i hyperplanet $L$.
 	\end{enumerate}
 \end{thm}
 \begin{proof}
 	\leavevmode
 \begin{enumerate}
-	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två punkter i $L$. Då gäller att $f\left(\mathbf{x}_1\right)=f\left(\mathbf{x}_2\right)=0$ och
+	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två godtyckliga punkter i $L$. Då gäller att $f\left(\mathbf{x}_1\right)=f\left(\mathbf{x}_2\right)=0$ och
 	\begin{align*}
 		0 &= f\left(\mathbf{x}_1\right)-f\left(\mathbf{x}_2\right)\\
 		&= \inner{\bfx_1}{\bfbeta}_\hil + \beta_0 - \inner{\bfx_2}{\bfbeta}_\hil - \beta_0\\
@@ -300,6 +342,15 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 \begin{proof}
 	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\inner{\bfx}{\bfbeta}_\hil + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 > 0$ och om $y_i=-1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0$. Detta betyder att $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0$. Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
 \end{proof}
+
+Klassificeringsregeln $g$ för separerande hyperplan blir
+\begin{equation*}
+g\left(\mathbf{x}_i\right)=  
+\begin{cases}
+~~ 1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 \geq 0,\\
+-1 &\text{ om } \inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0,
+\end{cases}\qquad\text{där }\bfx_i\text{ är en observation.}
+\end{equation*}
 
 \begin{ex}\label{exempel:mångahyperplan}
 	Låt observationsparen vara $\left(\left[2,~2\right]^\intercal,~1\right),~\left(\left[1,~2\right]^\intercal,-1\right)$, inreproduktrummet i fråga är då $\mathbb{R}^2$ och inreprodukten $\inner{\bfx}{\mathbf{y}}_2:=\bfx^\intercal\mathbf{y}$. Då är $$L_1=\{\mathbf{x}\in\mathbb{R}^2: \mathbf{x}^\intercal\begin{bmatrix}
