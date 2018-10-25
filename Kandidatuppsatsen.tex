@@ -104,7 +104,7 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 \end{defi}
 
 \begin{rem}
-	Den inducerade normen $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum $\mathcal{H}$ med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ kan definieras genom
+	Den inducerade normen $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum $\mathcal{H}$ med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ definieras genom
 	\begin{equation*}
 		\| \mathbf{x}\|_\mathcal{H} := \sqrt{\llangle \bfx, \bfx \rrangle_\mathcal{H}} \qquad \text{där } \bfx \in \mathcal{H}.
 	\end{equation*}
@@ -163,7 +163,7 @@ Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\ll
 	\end{enumerate}
 \end{proof}
 
-Hilbertrum kan definieras för många olika vektorrum, till exempel det $d$-dimensionella vektorrummet med den vanliga inreprodukten $\left\langle \mathbf{x}, \mathbf{y} \right\rangle_d = \mathbf{x}^\intercal\mathbf{y}$.
+Hilbertrum kan definieras för många olika vektorrum, till exempel det $p$-dimensionella vektorrummet med den vanliga inreprodukten $\left\langle \mathbf{x}, \mathbf{y} \right\rangle_d = \mathbf{x}^\intercal\mathbf{y}$.
 Man kan även definiera en inreprodukt för vektorrum bestående av funktioner på intervallet $\left[a,b\right]$, då brukar inreprodukten definieras som
 \begin{equation*}
 \left\langle f, g \right\rangle_{\mathcal{L}^2}=\int_{a}^{b}f\left(x\right)g\left(x\right) dx,
@@ -171,10 +171,10 @@ Man kan även definiera en inreprodukt för vektorrum bestående av funktioner p
 men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet. För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
 
 \begin{defi}[Enligt \cite{Lang}]
-	Två vektorer $\bfx, ~\bfx'\in\hil$ är \emph{ortogonala} om $\inner{\bfx}{\bfx'}_\hil=0$. Dessutom är vektorerna \emph{ortonormala} ifall de är både ortogonala och normaliserade det vill säga $\left\|\bfx\right\|_\hil=\left\|\bfx'\right\|_\hil=1$.
+	Två vektorer $\bfx, ~\bfy\in\hil$ är \emph{ortogonala} om $\inner{\bfx}{\bfy}_\hil=0$. Dessutom är vektorerna \emph{ortonormala} ifall de är både ortogonala och normaliserade det vill säga $\left\|\bfx\right\|_\hil=\left\|\bfy\right\|_\hil=1$.
 \end{defi}
 \begin{ex}
-	Låt $\bfx=\left[1,0\right]^\intercal$ och $\bfx'=\left[0,1\right]^\intercal$. Då är $\inner{\bfx}{\bfx'}_2=\bfx^\intercal\bfx'=\left[1,0\right]\left[0,1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är vinkelräta. Normen av vektorerna är också 1 så de är dessutom ortogonala.
+	Låt $\bfx=\left[1,0\right]^\intercal$ och $\bfy=\left[0,1\right]^\intercal$. Då är $\inner{\bfx}{\bfy}_2=\bfx^\intercal\bfy=\left[1,0\right]\left[0,1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är vinkelräta. Normen av vektorerna är också 1 så de är dessutom ortogonala.
 \end{ex}
 
 Med hjälp av ortogonaliteten kan man härleda konceptet för en komponenten av en vektor längs en annan vektor och projektionen av en vektor på en annan vektor.
@@ -233,35 +233,35 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	Märk att ifall $\bfx = 0$ tillhör hyperplanet så är hyperplanet ett underrum.
 \end{ex}
 
-För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relation till en punkt $\bfy$ i $\hil$:
+För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relation till en punkt
+\footnote{I resten av uppsatsen kommer begreppen \emph{punkter} och \emph{vektorer} att användas om vartannat. Egentligen är alla punkter också vektorer i samma vektorrum som resten av vektorerna men i litteraturen används ofta punkter eftersom att det är hur man intuitivt brukar tänka på uppmätta observationer. Vektorer brukar användas om man vill poängtera att riktningen är viktigt.}
+$\bfy$ i $\hil$:
 \begin{itemize}
 	\item Man säger att $\bfy$ ligger över hyperplanet $L$ om $f\left(\bfy\right)>0$ och under om $f\left(\bfy\right)<0$.
-	\item På samma sätt säger man att $\bfbeta$ pekar mot punkten $\bfy$ om $f\left(\bfy\right)>0$.
-	\item Med det signerade avståndet från vektorn $\bfy$ till hyperplanet $L$, $\operatorname{d}^\pm\left(\bfy,L\right)$, menar man $\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil$ om $f\left(\bfy\right)\geq0$ och $-\left(\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil\right)$ om $f\left(\bfy\right)\leq0$.
+%	\item På samma sätt säger man att $\bfbeta$ pekar mot punkten $\bfy$ om $f\left(\bfy\right)>0$.
+	\item Med det signerade avståndet från punkten $\bfy$ till hyperplanet $L$, $\operatorname{d}^\pm\left(\bfy,L\right)$, menar man $\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil$ om $f\left(\bfy\right)\geq0$ och $-\left(\inf_{\bfx\in L} \left\|\bfy-\bfx\right\|_\hil\right)$ om $f\left(\bfy\right)\leq0$.
 	Med andra ord är $\operatorname{d}^\pm\left(\bfy,L\right)$ det kortaste avståndet (med avseende på den inducerade normen i $\hil$) från punkten $\bfy$ till alla punkter $\bfx\in L$ om $\bfy$ ligger över $L$ och minus det kortaste avståndet från $\bfy$ till $L$ om $\bfy$ ligger under $L$.
 \end{itemize}
-
-
 
 \begin{thm}[Enligt \cite{ESL}]\label{thm:hyperplan}
 	Ett hyperplan i ett inreproduktrum $\hil$ definierat som den affina mängden $L=\sephyp$ har följande egenskaper:
 	\begin{enumerate}
-		\item $\bfbeta$ är en ortogonal till alla vektorer i $L$ och kan \emph{ortonormeras} (göras ortonormal) genom
+		\item Vektorn $\bfbeta$ är ortogonal till alla vektorer i $L$ (det vill säga alla vektorer sådana att ändpunkterna ligger i $L$) och kan \emph{ortonormeras} (göras ortonormal) genom
 		\begin{equation*}
 			\widehat{\bfbeta} = \frac{\bfbeta}{\left\|\bfbeta\right\|_\hil}.
 		\end{equation*}
 		\item $\inner{\bfx_0}{\bfbeta}_\hil = -\beta_0$ för alla $\mathbf{x}_0$ i $L$.
 		\item
-		Det signerade avståndet från en punkt $\mathbf{x}$ till hyperplanet $L$, $\operatorname{d}^\pm \left(\mathbf{x}, L\right)$, ges av
+		Det signerade avståndet från en punkt $\mathbf{y}$ till hyperplanet $L$, $\operatorname{d}^\pm \left(\mathbf{y}, L\right)$, ges av
 		\begin{align*}
-			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil &= \frac{1}{\left\|\bfbeta\right\|_\hil}\left(\inner{\mathbf{x}}{\bfbeta}_\hil+\beta_0\right)\\
-\intertext{och, ifall $\hil=\mathbb{R}^p$ med den vanliga inreprodukten,}
-			\inner{\mathbf{x}-\mathbf{x}_0}{\widehat{\bfbeta}}_p &= \frac{1}{\left\|f^\prime\left(\mathbf{x}\right)\right\|_p}f\left(\mathbf{x}\right)
+			\operatorname{d}^\pm \left(\mathbf{y}, L\right) &=\inner{\mathbf{y}-\mathbf{x}_0}{\widehat{\bfbeta}}_\hil\\
+			&=\frac{1}{\left\|\bfbeta\right\|_\hil}\left(\inner{\mathbf{y}}{\bfbeta}_\hil+\beta_0\right)\\
+\intertext{där $\bfx_0$ är en godtycklig punkt i hyperplanet $L$. Om $\hil$ är lika med $\mathbb{R}^p$ med den vanliga inreprodukten så fås dessutom}
+			\operatorname{d}^\pm \left(\mathbf{y}, L\right)			&=\frac{1}{\left\|f^\prime\left(\mathbf{y}\right)\right\|_p}f\left(\mathbf{y}\right).
 		\end{align*}
-		där $\bfx_0$ är en godtycklig punkt i hyperplanet $L$.
 	\end{enumerate}
 \end{thm}
-\begin{proof}
+\begin{proof} (Inte från \cite{ESL}.)
 	\leavevmode
 \begin{enumerate}
 	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två godtyckliga punkter i $L$. Då gäller att $f\left(\mathbf{x}_1\right)=f\left(\mathbf{x}_2\right)=0$ och
@@ -270,23 +270,29 @@ För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relati
 		&= \inner{\bfx_1}{\bfbeta}_\hil + \beta_0 - \inner{\bfx_2}{\bfbeta}_\hil - \beta_0\\
 		&= \inner{\mathbf{x}_1-\mathbf{x}_2}{\bfbeta}_\hil
 	\end{align*}
-	alltså uppfyller $\bfbeta$ kravet för normalvektorer och $\widehat{\bfbeta}:=\frac{\bfbeta}{\left\|\bfbeta
-\right\|_p}$ är den normaliserade normalvektorn till hyperplanet $L$. \hfill\qedsymbol
+	med andra ord är $\bfbeta$ ortogonal till vektorn $\left(\mathbf{x}_1-\mathbf{x}_2\right)$ som beskriver riktningen från en punkt i $L$ till en annan punkt i $L$.
+	Dessutom gäller för $\widehat{\bfbeta}:=\frac{\bfbeta}{\left\|\bfbeta
+	\right\|_p}$ att $\left\|\widehat{\bfbeta}\right\|_\hil=1$ så $\widehat{\bfbeta}$ är ortonormal till alla vektorer i $L$. \hfill\qedsymbol
+
 	\item \label{eq:egenskap2}Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f\left(\mathbf{x}_0\right)=\inner{\bfx_0}{\bfbeta}_\hil + \beta_0 = 0$ alltså är $\inner{\bfx_0}{\bfbeta}_\hil = - \beta_0$.\hfill \qedsymbol
-	\item %TODO		Definiera komponent och projektion
-	Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$. Då är avståndet från hyperplanet till punkten $\mathbf{x}$ lika med längden av projektionen av vektorn $\left(\mathbf{x}-\mathbf{x}_0\right)$ på hyperplanets normaliserade normal $\widehat{\bfbeta}$, $\operatorname{comp_{\widehat{\bfbeta}}} \left( \mathbf{x} - \mathbf{x}_0 \right)$. Vi får alltså att
+	
+	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$.
+	Då är avståndet från punkten $\bfx_0$ till punkten $\bfy$ minimerat om vektorn $\left(\bfy-\bfx_0\right)$ är ortogonal till hyperplanet, i $\mathbb{R}^2$ är detta principen att det kortaste avståndet från en linje till en punkt är avståndet mätt längs med en linje vinkelrät mot den ursprungliga linjen.
+	Eftersom att $\widehat{\bfbeta}$ är ortonormal till varje punkt i $L$ så blir det kortaste avståndet från $\bfy$ till $L$ längden av projektionen av vektorn från $\bfx_0\in L$ till $\bfy$ på $\widehat{\bfbeta}$ det vill säga $\operatorname{d}^\pm \left(\mathbf{y}, L\right)=\operatorname{comp_{\widehat{\bfbeta}}} \left( \bfy - \mathbf{x}_0 \right)$.
+	Vidare fås då
 	\begin{align*}
-		\operatorname{d^\pm} \left( \mathbf{x}, L \right) &= \operatorname{comp_{\widehat{\bfbeta}}} \left( \mathbf{x} - \mathbf{x}_0 \right)
-		=\underline{\underline{ \inner{\mathbf{x} - \mathbf{x}_0}{\widehat{\bfbeta}}_\hil}}\\
+		\operatorname{d^\pm} \left( \bfy, L \right) &= \operatorname{comp_{\widehat{\bfbeta}}} \left( \bfy - \mathbf{x}_0 \right)
+		=\underline{\underline{ \inner{\bfy - \mathbf{x}_0}{\widehat{\bfbeta}}_\hil}}\\
 		&= \frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil - \inner{\bfx_0}{\bfbeta}_\hil\right)=\underline{\underline{\frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil + \beta_0\right)}}
+\right\|_\hil}\left(\inner{\bfy}{\bfbeta}_\hil - \inner{\bfx_0}{\bfbeta}_\hil\right)=\underline{\underline{\frac{1}{\left\|\bfbeta
+\right\|_\hil}\left(\inner{\bfy}{\bfbeta}_\hil + \beta_0\right)}}
 	\end{align*}
-	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$. Om man vidare noterar att $f\left(\mathbf{x}\right)=\inner{\bfx}{\bfbeta}_\hil+\beta_0$ och $f^\prime\left(\mathbf{x}\right)=\bfbeta$ så fås även att
+	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$.
+	Om $\hil$ är lika med $\mathbb{R}^p$ och inreprodukten ges av $\inner{\bfx}{\bfy}_p=\bfx^\intercal\bfy$ kan man noterar att $f\left(\bfy\right)=\inner{\bfy}{\bfbeta}_p+\beta_0$ och $f^\prime\left(\bfy\right)=\bfbeta$, då fås även att
 	\begin{equation*}
-		\frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil + \beta_0\right)=\frac{1}{\left\|f^\prime\left(\mathbf{x}\right)
-\right\|_p}f\left(\mathbf{x}\right).
+		\operatorname{d^\pm} \left( \bfy, L \right)=\frac{1}{\left\|\bfbeta
+\right\|_p}\left(\inner{\bfy}{\bfbeta}_p + \beta_0\right)=\frac{1}{\left\|f^\prime\left(\bfy\right)
+\right\|_p}f\left(\bfy\right).
 	\end{equation*}
 	\qedhere
 \end{enumerate}
@@ -298,18 +304,18 @@ För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relati
 \begin{reas}
 	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g\left(\mathbf{x}\right)=\inner{\bfx}{-\bfbeta}_\hil + \left(-\beta_0\right) = 0\right\}$. Eftersom att $g\left(\mathbf{x}\right) = -f\left(\mathbf{x}\right)$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
 	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h\left(\mathbf{x}\right)=\frac{\inner{\bfx}{\bfbeta}_\hil}{\left\|\bfbeta
-\right\|_p} + \frac{\beta_0}{\left\|\bfbeta
-\right\|_p}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h\left(\mathbf{x}\right) = \frac{f\left(\mathbf{x}\right)}{\left\|\bfbeta
-\right\|_p}=0$. Notera även att $\frac{1}{\left\|\bfbeta
-\right\|_p}$ kunde ha varit vilket reellt tal som helst.
+\right\|_\hil} + \frac{\beta_0}{\left\|\bfbeta
+\right\|_\hil}=0\right\}$. Om $\mathbf{x}_0$ då tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_3$ eftersom att $h\left(\mathbf{x}\right) = \frac{f\left(\mathbf{x}\right)}{\left\|\bfbeta
+\right\|_\hil}=0$. Notera även att $\frac{1}{\left\|\bfbeta
+\right\|_\hil}$ kunde ha varit vilket reellt tal som helst.
 \end{reas}
 
 \begin{rem}
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta
-\right\|_p=1$ och $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där vektorn $\bfbeta$ ''pekar mot`` klassen där $y_i=1$ och $\beta_0$ anger det signerade avståndet (i relation till riktningen på $\bfbeta$) från origo till hyperplanet.
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $i=1,\dots,~N$, där $y_i$ är klasserna i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet medan observationerna $\bfx_i$ i klassen $y_i=-1$ ligger under.
+	Dessutom anger $\beta_0$ det signerade avståndet från origo till hyperplanet (i relation till riktningen på $\bfbeta$).
 \end{rem}
 \begin{reas}
-	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att avståndet från origo till planet är lika med
+	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att det signerade avståndet från origo till hyperplanet är lika med
 	\begin{equation*}
 	\frac{1}{\left\|\bfbeta
 \right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil+\beta_0\right)=\frac{1}{\left\|\bfbeta
@@ -324,23 +330,22 @@ För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relati
 \end{figure}
 
 \begin{defi}
-	Ett klassificeringsproblem eller en mängd observationspar $\left(\mathbf{x}_i, y_i\right)$ är \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ som separerar klasserna.
+	Ett klassificeringsproblem eller en mängd observationspar $\left(\mathbf{x}_i, y_i\right)$ är \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ sådant att punkten $\bfx_i$ ligger över hyperplanet om $y_i=1$ och under om $y_i=-1$. Ett sådant hyperplan kallas ett \emph{separerande hyperplan}.
 \end{defi}
-
-%TODO SKRIVA OM SATS OCH BEVIS ENLIGT BOYD
-\begin{thm}
-	För ett hyperplan $L=\sephyp$ som separerar två klasser gäller att \cite{Boyd}
+\begin{rem}
+	Genom att byta tecken på $\bfbeta$ och $\beta_0$ kan man se att ifall det existerar ett hyperplan $\sephyp$ sådant att punkten $\bfx_i$ ligger under hyperplanet om $y_i=1$ och över om $y_i=-1$ så finns även ett sådant att punkten $\bfx_i$ ligger över hyperplanet om $y_i=1$ och under om $y_i=-1$.
+	Som sagt tidigare så är konventionen att man väljer det hyperplan som passar ovanstående definition.
+\end{rem}
+\begin{thm}[Enligt \cite{Boyd}]
+	För ett separerande hyperplan $L=\sephyp$ gäller att 
 	\begin{equation*}
 		y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0
-	\end{equation*}
-	eller
-	\begin{equation*}
-		y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) < 0
 	\end{equation*}
 	för alla $i = 1, \dots,~N$.
 \end{thm}
 \begin{proof}
-	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av hyperplanet definierat genom $\inner{\bfx}{\bfbeta}_\hil + \beta_0$; eller så ligger alla observationer på fel sida av hyperplanet. Vilket betyder att ifall $y_i=1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 > 0$ och om $y_i=-1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0$. Detta betyder att $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0$. Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
+	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida av det separerande hyperplanet. Detta betyder att ifall $y_i=1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 > 0$ och om $y_i=-1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0$.
+	Då fås $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0$. Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
 \end{proof}
 
 Klassificeringsregeln $g$ för separerande hyperplan blir
@@ -406,7 +411,7 @@ g\left(\mathbf{x}_i\right)=
 Som syns i exempel \ref{exempel:mångahyperplan} finns det ofta många separerande hyperplan om ett klassificeringsproblem är linjärt separabelt och frågan är då vilket separerande hyperplan man borde välja.
 
 \section{Optimala separerande hyperplan}
-Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden för linjär regression, som är ekvivalent med minstakvadratmetoden. %TODO% REFERENS 
+Inom statistiken finns många olika metoder för att modellera data och metoderna kan ofta visas vara ekvivalenta med något optimeringsproblem, till exempel maximum likelihood-metoden för linjär regression, som är ekvivalent med minstakvadratmetoden \cite{MLEOLS}.
 Optimeringsproblemen kan ofta ändras genom att man lägger till eller tar bort termer i objektfunktionen eller ändrar på kraven och på så sätt får en ny metod (för att modellera data) med andra egenskaper.
 
 För metoden med optimalt separerande hyperplan är tanken att om man hittar ett hyperplan sådant att:
@@ -414,8 +419,8 @@ För metoden med optimalt separerande hyperplan är tanken att om man hittar ett
 	\item alla observationer klassificeras rätt och,
 	\item hyperplanet samtidigt maximerar det kortaste avståndet från hyperplanet till det närmsta observationsparet,
 \end{itemize}
-så borde hyperplanet även fungera bra för att separera och klassificera nya observationer \cite{VapnikLerner1963} \cite{Vapnik96}.
-Matematiskt kan man uttrycka problemet som följande optimeringsproblem %TODO	VAÅNIK96 DÅLIG REFERENS? Generealized portraits?
+så borde hyperplanet även fungera bra för att separera och klassificera nya observationer \cite{VapnikLerner1963}.
+Matematiskt kan man uttrycka problemet som följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
 	 \operatornamewithlimits{max}_{\widehat{\bfbeta},\widehat{\beta}_0,\left\|\widehat{\bfbeta}\right\|_p=1}& & &C\\
@@ -466,16 +471,17 @@ och eftersom $C=\frac{1}{\left\|\bfbeta
 \text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,\dots,N.
 \end{aligned}
 \end{equation*}
-Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen $\left\|\bfbeta
-\right\|_p$ (objektfunktionen kallas även \textit{kostfunktionen}), det vill säga man noterar att
-\begin{equation*}%TODO Definiera argmin
-\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \left\|\bfbeta
-\right\|_p=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\left\|\bfbeta
-\right\|_p^2.
-\end{equation*}
+Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen\footnote{Inom statistik- och maskinilärningslitteraturen kallas objektfunktionen ibland även för \textit{kostfunktionen}.} $\left\|\bfbeta\right\|_p$, det vill säga man noterar att om $\bfbeta^*$ är sådan att $\operatornamewithlimits{min}_{\bfbeta,\beta_0} \left\|\bfbeta\right\|_p=\left\|\bfbeta^*\right\|_p$ gäller så gäller även $\operatornamewithlimits{min}_{\bfbeta,\beta_0} \frac{1}{2}\left\|\bfbeta\right\|_p^2=\frac{1}{2}\left\|\bfbeta^*\right\|_p^2$ för samma $\bfbeta^*$.
+Detta brukar betecknas med funktionen $\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \left(f\left(\bfy\right)\right)$ som ger som resultat det $\bfy^*$ som minimerar funktionen $f\left(\bfy\right)$.
+
+%\begin{equation*}%TODO Definiera argmin
+%\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \left\|\bfbeta
+%\right\|_p=\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \frac{1}{2}\left\|\bfbeta
+%\right\|_p^2.
+%\end{equation*}
 En orsak till att göra den kvadratiska transformeringen är att man på så sätt kan garantera att objektfunktionen är deriverbar:
 \begin{ex}
-	Låt $f\left(x\right):=|x-x_0|$ och $g\left(x\right):=\left(f\left(x\right)\right)^2$. Då är $f\left(x\right)$ inte deriverbar i punkten $x_0$ medan $D_x\left(g\left(x\right)\right)=D_x\left(\left(x-x_0\right)^2\right)=D_x\left(x^2-2xx_0+x_0^2\right)=2x-2x_0=2\left(x-x_0\right)$ och $D_x\left(g\left(x_0\right)\right)=0$ det vill säga $\operatornamewithlimits{argmin}_x f\left(x\right) = x_0 = \operatornamewithlimits{argmin}_x g\left(x\right)$.
+	Låt $x\in\mathbb{R}$, $f\left(x\right):=|x-x_0|$ och $g\left(x\right):=\left(f\left(x\right)\right)^2$. Då är $f\left(x\right)$ inte deriverbar i punkten $x_0$ medan $D_x\left(g\left(x\right)\right)=D_x\left(\left(x-x_0\right)^2\right)=D_x\left(x^2-2xx_0+x_0^2\right)=2x-2x_0=2\left(x-x_0\right)$ och $D_x\left(g\left(x_0\right)\right)=0$ det vill säga $\operatornamewithlimits{argmin}_x f\left(x\right) = x_0 = \operatornamewithlimits{argmin}_x g\left(x\right)$.
 \end{ex}
 Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen 
 \begin{equation*}
@@ -488,7 +494,7 @@ Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen
 där $\left( \frac{1}{2}I \right)$ är en \emph{positiv semi-definit} matris det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
 
 Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
-\begin{thm}\label{thm:primallinearproblem}
+\begin{thm}[Enligt \cite{ESL}]\label{thm:primallinearproblem}
 	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom observationsparen $\left(\mathbf{x}_i, y_i\right)$ vara linjärt separabla. Då är optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
@@ -497,7 +503,7 @@ Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 	\text{så att} & & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\beta_0\right)\geq C,\quad i=1,\dots,N
 	\end{aligned}
 	\end{equation*}
-	konvext och ekvivalent med optimeringsproblemet %TODO är kanske inte ekvivalent?
+	konvext och man får en lösning $\left(\widehat{\bfbeta^*},\widehat{\beta^*}_0\right)=\left(\frac{\bfbeta^*}{\left\|\bfbeta^*\right\|_p}, \frac{\beta^*_0}{\left\|\bfbeta^*\right\|_p}\right)$ genom att lösa optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\left\|\bfbeta
@@ -555,7 +561,8 @@ där $j=1,\dots p$ och
 \begin{equation*}
 	D_{\beta_0}\left(L_P\right) = D_{\beta_0}\left( -\sum_{i=1}^{N} \lambda_i y_i \beta_0 \right) = -\sum_{i=1}^{N} \lambda_i y_i.
 \end{equation*}
-Vidare kan (\ref{eq:derivprimal}) skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }\left(L_p\right) \right]_j = D_{\left[ \bfbeta \right]_j}\left(L_p\right) $. Efter att man tar i beaktande kraven att $ D_{ \bfbeta }\left(L_p\right) = \mathbf{0} $ och $ D_{\beta_0}\left(L_p\right)=0 $ fås följande krav:
+Vidare kan (\ref{eq:derivprimal}) skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom att $ \left[ D_{ \bfbeta }\left(L_p\right) \right]_j = D_{\left[ \bfbeta \right]_j}\left(L_p\right) $. Efter att man löser derivatorna för nollställen får man följande krav:
+%tar i beaktande kraven att $ D_{ \bfbeta }\left(L_p\right) = \mathbf{0} $ och $ D_{\beta_0}\left(L_p\right)=0 $ fås följande krav:
 \begin{align}\label{eq:krav1}
 	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
 	0 &= \sum_{i=1}^{N} \lambda_i y_i.\label{eq:krav2}
@@ -586,12 +593,14 @@ som ska maximeras med avseende på $\lambda_i,~i=1,\dots,N,$ och kravet \begin{e
 		\item Ifall $y_i\left(\inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av de punkter som ligger närmast det separerande hyperplanet.
 		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \inner{\bfx_i}{\bfbeta^*} + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
-	Baserat på de tre tidigare slutsatserna kan vidare slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer specifikt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av marginalen. Dessa punkter kallas \emph{stödvektorer}.
+	Baserat på de tre tidigare slutsatserna kan man dra slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer exakt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av marginalen. Dessa punkter kallas \emph{stödvektorer}.
 \end{rem}
 
-Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) = 1$.
-Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan.%TODO	Dimensioner?
-Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna. Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på samma hyperplan är mycket liten, speciellt om man tar datorernas begränsade värderymd i beaktande. %TODO	källa för hur datorer representerar tal
+Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) = 1$ för något $i$.
+Detta kan tolkas som att punkten $\bfx_i$ ligger på randen av marginalen men behövs inte för att beskriva $\bfbeta^*$, punkten $\bfx_i$ är alltså redan en linjär kombination av andra punkter på marginalen och ligger på samma hyperplan som resten av punkterna på marginalen.
+%Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan.%TODO	Dimensioner?
+%Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna.
+Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på exakt samma hyperplan är mycket liten (sannolikheten är lika med 0 om punkternas koordinater dras från en kontinuerlig fördelning).
 
 \section{Det oseparabla fallet}
 Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \inner{\bfx}{\bfbeta}_p + \beta_0 = 0 \right\}$ med $y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)>0$ för alla träningspar $\left(\mathbf{x}_i,y_i\right),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara.
