@@ -83,7 +83,7 @@ Främst kommer teorin om kvadratiska optimeringsproblem och analys av duala prob
 
 %\chapter{Stödvektormaskiner (SVM)}
 
-\chapter{Lite Hilbertrumteori}
+\chapter{Lite Hilbertrumteori}\label{chap:hilbert}
 
 \section{Geometrisk begrepp}
 I många statistiska metoder används enkla geometriska koncept, till exempel plan eller linjer, för att dra slutsatser angående insamlat data.
@@ -840,8 +840,48 @@ Då får man situationen som illustreras nederst i figur \ref{fig:kvadratisk} oc
 Moralen är att hyperplan med mjuka marginaler inte alltid räcker till utan flera verktyg behövs. Ett sådant verktyg är olinjära utvidgningar av det ursprungliga rummet $\mathbf{x}_i\in \mathbb{R}^p$ till ett större rum där det kan vara enklare att hitta vettiga klassificeringsregler.
 \end{ex}
 %\FloatBarrier
-\chapter{Reproducerande kärnor}\label{chap:hilbert}
-Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. Klart är att man alltid kan bilda $n$:te gradens polynom men ifall den ursprungliga dimensionen $p$, mängden observationspar $N$ eller graden $n$ är stor så kan detta bli övermäktigt för även den snabbaste datorn. Det kommer att visa sig att eftersom observationerna $\mathbf{x}_i$ endast förekommer i inreprodukter (se till exempel korrolarium \ref{cor:inreproduktoptimering} och \ref{cor:mjukinreproduktoptimering}) så finns det ett behagligare alternativ.
+\chapter{Reproducerande kärnor}
+Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. I exemplet bildades andra gradens polynom för varje $\bfx_i$ så att de nya $\bfx_i'$:na blev $\left[\bfx_i, \bfx_i^2\right]^\intercal$. Att räkna ut de nya $\bfx_i'$:na kommer då ta $N$ multiplikationer (kvadrering av $\bfx_i$), om man hade bildat tredje gradens polynom hade det tagit $2N$ multiplikationer och för $n$:te gradens polynom $nN$ multiplikationer. Sedan löstes optimeringsproblemet 
+\begin{equation*}
+\begin{aligned}
+\operatornamewithlimits{min}_{\bfbeta,\beta_0} & & &\frac{1}{2}\left\|\bfbeta
+\right\|_2^2\\
+\text{så att} & & &y_i\left(\inner{\bfx_i'}{\bfbeta}_2+\beta_0\right)\geq 1,\quad i=1,\dots,N
+\end{aligned}
+\end{equation*}
+där $\bfbeta$ nu är en 2-dimensionell vektor. För att lösa ovanstående optimeringsproblem undersöks det duala Lagrangeproblemet
+\begin{equation*}
+		L_D= \sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\inner{\bfx_i'}{\bfx_j'}_2
+\end{equation*}
+där den sista dubbelsumman kan representeras som en matrismultiplikation:
+\begin{equation*}
+	\boldsymbol{\lambda}^\intercal\mathbf{K}\boldsymbol{\lambda}
+\end{equation*}
+där $\boldsymbol{\lambda}$ är en vektor bestående av värdena på $y_i\lambda_i$ och matrisen $\mathbf{K}$ är symmetrisk och har värdena $\mathbf{K}_{ij}=\inner{\bfx_i'}{\bfx_j'}_2$. För att räkna ut matrisen räknas $\inner{\bfx_i'}{\bfx_j'}_2$ ut för alla kombinationer men eftersom att inreprodukten är symmetrisk måste inte elementen under diagonalen beräknas. Inreprodukten tar 3 operationer i anspråk, 2 för att multiplicera $\bfx_i'$ och $\bfx_j'$:s komponenter komponentvis och 1 för att summera. Inreprodukten måste räknas ut $\frac{N(N+1)}{2}$ gånger (se figur \ref{fig:comb}) så totalt måste en dator genomföra åtminstone $N$ + $3\frac{N(N+1)}{2}$ operationer före optimeringsproblemet kan börja lösas.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth, trim={3.5cm 11mm 2.7cm 11mm}, clip]{KandFigur5.pdf}
+	\caption{\label{fig:comb}Visuellt bevis för hur många gånger man måste räkna ut inreprodukten $\inner{\bfx_i}{\bfx_j}_\hil$ där $i,~j=1,~\dots,~N$. Svaret blir $N^2-\frac{N(N-1)}{2}$ det vill säga antalet rutor i en $N\times N$ kvadrat minus antalet rutor under diagonalen som räknas till höger. Svaret ger antalet gröna rutor.}
+\end{figure}
+
+Hade man bildat $n$:te gradens polynom hade antalet operationer varit $nN$ för att räkna ut de nya $\bfx_i'$:na och $(n+n-1)\frac{N(N+1)}{2}$ operationer för matrisen. Dessutom måste inreprodukten $\inner{\bfx_i'}{\bfbeta}_n$ räknas ut flera gånger när problemet löses.
+
+Dimensionen på det ursprungliga rummet har inte ännu tagits i beaktande, här var dimensionen 1 men vad händer om dimensionen är 2 eller 3? Eller kanske man har $16\times16$ pixlar stora bilder. Det visar sig att om den ursprungliga dimensionen $p$ är stor så får till och med enkla utvidgningar en mycket stor dimension $P$ vilket gör det arbetsamt att räkna ut inreprodukten $\inner{\bfx_i'}{\bfx_j'}_P$. Om man till exempel vill samla alla monom av graden 5\footnote{Till exempel $\bfx_{i,1}\bfx_{i,2}\bfx_{i,3}^2$ är ett monom av graden 5 medan  $\bfx_{i,1}\bfx_{i,2}\bfx_{i,3}$ inte är det och inte $\bfx_{i,1}\bfx_{i,2}\bfx_{i,3}^4$ heller.} för en $16\times16$ pixlar stor bild blir dimensionen nästan $10^{10}$ \cite{LearningKernels}.
+
+Man kan dra slutsatsen att det borde finnas nån möjlighet att effektivera beräkningarna vilket visar sig vara sant. Istället för att först göra utvidgningarna kan man byta ut inreprodukten mot en annan funktion med vissa egenskaper. För exempel \ref{ex:olinjär} skulle den funktionen se ut på följande sätt:
+	
+	Betrakta funktionen $\phi:\left(\bfx\right)\longmapsto \left(\bfx^2,\sqrt{2}\bfx, 1\right)$ där $\bfx\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. Följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ ska beräknas:
+	\begin{align*}
+	\left\langle \phi\left(\mathbf{x}_1\right), \phi\left(\mathbf{x}_2\right) \right\rangle_3 &= \bfx_1^2\bfx_2^2 + 2\bfx_1\bfx_2 + 1\\
+	&= \langle \bfx_1, \bfx_2 \rangle_1^2 + 2\langle \bfx_1, \bfx_2 \rangle_1 + 1\\
+	&= \left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^2 = k\left(\bfx_1, \bfx_2\right)
+	\end{align*}
+	där $\langle \cdot, \cdot \rangle_p$ är den vanliga inreprodukten i $\mathbb{R}^p$. Man byter alltså ut inreprodukten $\inner{\phi\left(\bfx_i\right)}{\phi\left(\bfx_j\right)}_3$ mot funktionen $k\left(\bfx_i,\bfx_j\right)=\left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^2$ när man löser optimeringsproblemet. I det här fallet gör man inga större besparingar när man räknar ut matrisen $\mathbf{K}$, eftersom att inreprodukten $\inner{[\bfx_i^2, \bfx_i]^\intercal}{[\bfx_j^2, \bfx_j]^\intercal}_2$ endast tar 3 operationer att beräkna (här används en inreprodukten i $\mathbb{R}^2$  eftersom att den sista dimensionen i $\phi(\bfx)$ är konstant det vill säga onödig), lika många som funktionen $k$. Ifall man hade använt femte gradens polynom hade funktionen $k\left(\bfx_i,\bfx_j\right)=\left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^5$ tagit mellan 3 och 5 operationer att beräkna (beroende på hur exponetiering är implementerat\footnote{Antalet operationer blir 3 ifall datorn kan räkna ut $a^5$ med en operation, annars är $a^5=a^2a^2a$ där man inte behöver räkna ut $a^2$ två gånger och antalet operationer blir 5.}) medan inreprodukten $\inner{\cdot}{\cdot}_4$ tar 7 operationer att räkna.
+	
+	Man behöver dessutom inte på förhand räkna ut de nya komponenterna för alla observationer och sparar således in på $2N$ operationer i detta fall. För mera realistiska exempel med större dimensioner sparar man ofta mycket mera tid.
+
+Funktioner $k\left(\bfx_1, \bfx_2\right)$ som kan uttryckas som en inreprodukt av en funktion $\phi$ evaluerad i två olika punkter $\bfx_1$ och $\bfx_2$ brukar kallas \emph{kärnor} och studerades först av David Hilbert \cite{Hilbert} i samband med studien av integraloperatorn $T_k f\left(x\right)=\int_{X}k\left(x_1, x_2\right)f\left(x_2\right)dx_2$ där funktionen $k$ är operatorn $T_k$:s kärna \cite{LearningKernels}.
+
 
 %\section{Grundläggande teori}
 %Först några grundläggande definitioner angående \emph{Hilbertrum}, $\mathcal{H}$, det vill säga \emph{fullständiga} vektorrum $X$ försedda med en \emph{inreprodukt} $\langle \cdot , \cdot \rangle$.
@@ -941,31 +981,24 @@ Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga obs
 %\end{proof}
 
 %\section{Reproducerande Kärnor}
-\begin{ex}\label{ex:polynomkärna}
-Betrakta funktionen $\phi:\left(\bfx\right)\longmapsto \left(\bfx^2,\sqrt{2}\bfx, 1\right)$ där $\bfx\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. För att lösa exempel \ref{ex:olinjär} borde följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ beräknas:
-\begin{align*}
-	\left\langle \phi\left(\mathbf{x}_1\right), \phi\left(\mathbf{x}_2\right) \right\rangle_3 &= \bfx_1^2\bfx_2^2 + 2\bfx_1\bfx_2 + 1\\
-	&= \langle \bfx_1, \bfx_2 \rangle_1^2 + 2\langle \bfx_1, \bfx_2 \rangle_1 + 1\\
-	&= \left(\langle\bfx_1, \bfx_2 \rangle_1 + 1\right)^2 = k\left(\bfx_1, \bfx_2\right)
-\end{align*}
-där $\langle \cdot, \cdot \rangle_p$ är den vanliga inreprodukten i $\mathbb{R}^p$.
-\end{ex}
 
-Funktioner $k\left(\bfx_1, \bfx_2\right)$ som kan uttryckas som en inreprodukt av en funktion $\phi$ evaluerad i två olika punkter $\bfx_1$ och $\bfx_2$ brukar kallas \emph{kärnor} och studerades först av David Hilbert \cite{Hilbert} i samband med studien av integraloperatorn $T_k f\left(x\right)=\int_{X}k\left(x_1, x_2\right)f\left(x_2\right)dx_2$ där funktionen $k$ är operatorn $T_k$:s kärna \cite{LearningKernels}.
 
-Föregående exempel motiverar alltså definitionen av en \emph{kärna}:
+\section{Kärnor som inreprodukter}
+
+Ovanstående exempel motiverar studien samt definitionen av \emph{kärnor}:
 \begin{defi}\label{def:kärna}
-	Givet en funktion $\phi: \mathbb{R}^p \longmapsto \mathbb{R}^P$ definieras \emph{kärnan} $k$ som funktionen $k\left(\bfx, \bfy\right) = \langle \phi \left(\bfx\right), \phi\left(\bfy\right) \rangle_P$ där $\bfx, \bfy \in \mathbb{R}^p$ och $\langle \cdot, \cdot \rangle_P$ är den vanliga inreprodukten i $\mathbb{R}^P$. Vidare om man fixerar ett $\bfy\in\mathbb{R}^p$ så betecknar vi $\Phi_{\bfy}\left(\bfx\right) = k\left(\bfx, \bfy\right)$ där $\bfx\in\mathbb{R}^p$.
+	Givet en funktion $\phi: \mathbb{R}^p \longmapsto \mathbb{R}^P$ definieras \emph{kärnan} $k$ som funktionen $k\left(\bfx, \bfy\right) = \langle \phi \left(\bfx\right), \phi\left(\bfy\right) \rangle_P$ där $\bfx, \bfy \in \mathbb{R}^p$ och $\langle \cdot, \cdot \rangle_P$ är den vanliga inreprodukten i $\mathbb{R}^P$.
+	Vidare om man fixerar ett $\bfy\in\mathbb{R}^p$ så betecknar vi $\Phi_{\bfy}\left(\bfx\right) = k\left(\bfx, \bfy\right)$ där $\bfx\in\mathbb{R}^p$.
 \end{defi}
 Den sista delen i definition \ref{def:kärna} ger med andra ord att varje val av ett fixt $\bfy$ ger upphov till en reellvärd funktion $\Phi_{\bfy}$ av $\bfx$.
 
-Givet en mängd observationer $\bfx_i,~i=1,~\dots,~N$ samt kärnan i exempel \ref{ex:polynomkärna}, det vill säga den polynomiella kärnan $k\left(\bfx, \bfy\right):=\left(\langle \bfx, \bfy \rangle_1 + 1\right)^2 = \left(\bfx\bfy\right)^{2} + 2\bfx\bfy + 1$, kan man definiera ett vektorrum av funktioner genom
+Givet en mängd observationer $\bfx_i\in\mathbb{R},~i=1,~\dots,~N$ samt den polynomiella kärnan $k\left(\bfx, \bfy\right):=\left(\langle \bfx, \bfy \rangle_1 + 1\right)^2 = \left(\bfx\bfy\right)^{2} + 2\bfx\bfy + 1$, kan man definiera ett vektorrum av funktioner genom
 \begin{equation*}
 	f\left(\bfx\right):=\sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)\quad ,~\alpha_i\in\mathbb{R}.
 \end{equation*}
-Varje funktion $f\left(\bfx\right)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}\left(\bfx\right)$ där $\bfx_i,~i=1,~\dots,~N$. %TODO	Klumpigt formulerat
+Varje funktion $f\left(\bfx\right)$ är alltså en linjär kombination av funktionerna $\Phi_{\bfx_i}\left(\bfx\right)=k\left(\bfx,\bfx_i\right)$ där $\bfx_i,~i=1,~\dots,~N$ är fixerade. %TODO	Klumpigt formulerat
 
-För en annan funktion $g\left(\bfx\right)=\sum_{j=1}^{m}\beta_jk\left(\bfx, \bfx_j\right)$ i samma vektorrum kan man definiera inreprodukten
+För en annan funktion $g\left(\bfx\right):=\sum_{j=1}^{m}\beta_jk\left(\bfx, \bfx_j\right)$ i samma vektorrum kan man definiera inreprodukten
 \begin{equation}\label{eq:polykärnaprodukt}
 	\langle f , g\rangle_k := \sum_{i=j}^{N}\sum_{j=1}^{N} \alpha_i \beta_j k\left(\bfx_i, \bfx_j\right).
 \end{equation}
@@ -985,25 +1018,25 @@ så beror inte summan på vilka linjära kombinationer man väljer för funktion
 
 För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla att alla villkor i definitionen \ref{def:inreprodukt} är uppfyllda:
 \begin{enumerate}
-	\item $\langle f, g \rangle_k=\langle g, f \rangle_k$:
+	\item[\ref{IP1}] $\langle f, g \rangle_k=\langle g, f \rangle_k$:
 	\begin{align*}
 		\langle f, g \rangle_k = \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_i \beta_j k\left(\bfx_i, \bfx_j\right) \overset{(\ref{eq:expansion2})}{=} \sum_{j=1}^{N} \sum_{i=1}^{N}  \beta_j \alpha_i k\left(\bfx_j, \bfx_i\right) = \langle g, f \rangle_k
 	\end{align*}
 	där man kan kasta om summorna eftersom att de är ändliga. \hfill \qedsymbol
-	\item $\langle \lambda f, g \rangle_k=\lambda\langle f, g \rangle_k,~\lambda\in\mathbb{R}$:
+	\item[\ref{IP2}] $\langle \lambda f, g \rangle_k=\lambda\langle f, g \rangle_k,~\lambda\in\mathbb{R}$:
 	\begin{equation*}
 	\pushQED{\qed}
 		\langle \lambda f, g \rangle_k	\overset{\left(\ref{eq:expansion2}\right)}{=} \sum_{j=1}^{N} \beta_j \lambda f\left(\bfx_j\right) = \lambda \sum_{j=1}^{N} \beta_j f\left(\bfx_j\right) = \lambda\langle f, g \rangle_k \qedhere
 		\popQED
 	\end{equation*}
-	\item $\langle f+h, g\rangle_k = \langle f, g\rangle_k + \langle h, g\rangle_k$:
+	\item[\ref{IP3}] $\langle f+h, g\rangle_k = \langle f, g\rangle_k + \langle h, g\rangle_k$:
 	\begin{align*}
 		\langle f+h, g \rangle_k \overset{(\ref{eq:expansion2})}{=} &\sum_{j=1}^{N} \beta_j \left(f\left(\bfx_j\right) + g\left(\bfx_j\right)\right)\\
 		= &\sum_{j=1}^{N} \beta_j f\left(\bfx_j\right) + \sum_{j=1}^{N} \beta_j g\left(\bfx_j\right)\\
 		= &\langle f, g\rangle_k + \langle h, g\rangle_k
 	\end{align*}
 	där även $h$ kan skrivas som en linjär kombination men beviset beror inte på vilken kombination man väljer. \hfill \qedsymbol
-	\item $\langle f, f \rangle_k\geq0$:
+	\item[\ref{IP4}] $\langle f, f \rangle_k\geq0$:
 	\begin{align*}
 	\langle f, f \rangle_k &= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i,\bfx_j\right)
 	= \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_j\left\langle\phi\left(\bfx_i\right),\phi\left(\bfx_j\right)\right\rangle_3\\
@@ -1023,7 +1056,8 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	\begin{equation*}
 		f\left(\bfx\right) = \left\langle \phi\left(\bfx\right), \sum_{i=1}^{N}\alpha_i\phi\left(\bfx_i\right) \right\rangle_3 = \left\langle \phi\left(\bfx\right), \mathbf{0}\right\rangle_3=0.
 	\end{equation*}
-	Med andra ord är $\left\langle f,f\right\rangle\geq0$ där likhet gäller om och endast om $f=0$.\hfill\qedsymbol
+	Med andra ord är $\left\langle f,f\right\rangle\geq0$ där likhet gäller om och endast om $f\left(\bfx\right)=0$ för alla $\bfx$.
+	\qquad \hfill \qedsymbol
 	
 %	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsvarighet till Cauchy-Schwartz olikheten men formulerad för kärnor det vill säga
 %	\begin{thm}[Cauchy-Scwartz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
@@ -1066,8 +1100,9 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 %	\begin{equation*}
 %		|f\left(\bfx\right)|^2 = |\left\langle \Phi_{\bfx},f\right\rangle_k|^2 \leq k\left(\bfx, \bfx \right)\left\langle f, f \right\rangle_k
 %	\end{equation*}
+
 \end{enumerate}
-Eftersom att alla villkor i \ref{def:inreprodukt} är uppfyllda så är $\langle f, g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ där $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right), \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$ en inreprodukt. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i rummet så har man ett Hilbertrum vilket betyder att man enkelt kan definiera till exempel projektioner.
+Eftersom att alla villkor i \ref{def:inreprodukt} är uppfyllda så är $\langle f, g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ där $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right), \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$ en inreprodukt. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i rummet så har man ett Hilbertrum vilket betyder att allting i kapitel \ref{chap:hilbert} stämmer även här.
 
 I beviset användes egenskap (\ref{eq:expansion2}) flitigt. Det visar sig att det räcker med att kärnan $k$ är symmetrisk det vill säga $k\left(\bfx_i,\bfx_j\right)=k\left(\bfx_j,\bfx_i\right)$ som garanteras om kärnan kan definieras som den naturliga inreprodukten mellan någon funktion $\phi\left(\mathbf{x}\right)$ evaluerad i punkterna $\bfx_i$ och $\bfx_j$. Med andra ord kan man dra slutsatsen att följande sats gäller:
 \begin{thm}\label{thm:kärnainreprodukt}
@@ -1078,7 +1113,7 @@ Dessutom fås även följande korrolarium:
 	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
 \end{cor}
 
-Nu kan man fundera på om kärnan $k$ måste vara definierad genom en inreprodukt, det kan ju hända att även andra funktioner $X \times X \longmapsto \mathbb{R}$ ger upphov till ett liknande Hilbertrum. Som sagt så garanterar inreprodukten att $k$ är symmetrisk men det finns säkert symmetriska funktioner som inte kan definieras genom inreprodukter. På samma sätt så garanterade inreprodukten att egenskap 4 uppfylldes men man kan istället genast kräva att
+Nu kan man fundera på om kärnan $k$ måste vara definierad genom en inreprodukt, det kan ju hända att även andra funktioner $X \times X \longmapsto \mathbb{R}$ ger upphov till ett liknande Hilbertrum. Som sagt så garanterar inreprodukten att $k$ är symmetrisk men det finns säkert symmetriska funktioner som inte kan definieras genom inreprodukter. På samma sätt så garanterade inreprodukten att egenskap \ref{IP4} uppfylldes men man kan istället genast kräva att
 \begin{equation*}
 	\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i,\bfx_j\right) \geq 0
 \end{equation*}
@@ -1086,19 +1121,56 @@ med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultip
 \begin{equation}\label{eq:positivsemidefinit}
 \langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i,\bfx_j\right) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
 \end{equation}
-där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet}. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positiv semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$ är positiv semidefinit för alla val av $\bfx_i,~\bfx_j$. På så sätt kan man motivera följande definition av kärnor:
+där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positiv semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$ är positiv semidefinit för alla val av $\bfx_i,~\bfx_j$.
 
+\section{Kärnor som positiv semidefinita funktioner}
+
+Ovan gavs en motivering för varför man borde utvidga definitionen av kärnor.
 \begin{defi}
 	En kärna är en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$.
 \end{defi}
 
-Med modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt} och korrolarium \ref{cor:kärnahilbert} även för följande sats och korrolarium:
+Med små modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt} och korrolarium \ref{cor:kärnahilbert} även för följande sats och korrolarium:
 \begin{thm}
 	För en kärna det vill säga en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f\left(x\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ ett inreproduktrum.
 \end{thm}
 \begin{cor}
 	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
 \end{cor}
+Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)=\sum_{j=1}^{N}\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars och $\bfx_l$ är fixerat.
+	\begin{equation*}
+		\langle \Phi_{\bfx_l}, f\rangle_k = \langle k\left(\cdot, \bfx_i\right), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k\left(\bfx_j, \bfx_i\right)
+	\end{equation*}
+	där $\beta_j = 0$ om $j\neq l$ och $1$ om $j=l$, det vill säga
+	\begin{equation}\label{eq:reproducing1}
+		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k\left(\bfx_l, \bfx_i\right) = f\left(\bfx_l\right).
+	\end{equation}
+	och speciellt fås att
+	\begin{equation*}
+		\langle \Phi_{\bfx_l}, \Phi_{\bfx_h} \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)
+	\end{equation*}
+	där $\alpha_i=\beta_j=1$ endast om $i=l$ och $j=h$, $\alpha_i=\beta_j=0$ annars. Då fås
+	\begin{equation*}
+	\langle \Phi_{\bfx_l}, \Phi_{\bfx_h} \rangle_k = \alpha_l\beta_hk\left(\bfx_l,\bfx_h\right) = k\left(\bfx_l, \bfx_h\right).
+	\end{equation*}
+
+\begin{ex}
+	Låt $\bfx_i,~\bfx_j\in\mathbb{R}$ och betrakta funktionen
+	\begin{align*}
+		k\left(\bfx_i,\bfx_j\right)&=e^{-\frac{\left\| \bfx_i-\bfx_j\right\|^2}{2\sigma^2}}=e^{-\frac{\inner{\bfx_i-\bfx_j}{\bfx_i-\bfx_j}_1}{2\sigma^2}}\\
+		&=e^{-\frac{\bfx_i^2+\bfx_j^2-2\bfx_i\bfx_j}{2\sigma^2}}=e^{-\frac{\bfx_i^2+\bfx_j^2}{2\sigma^2}}\cdot e^{\frac{2\bfx_i\bfx_j}{2\sigma^2}}\\
+		&= e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2}\cdot e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2}\cdot e^{\frac{\bfx_i\bfx_j}{\sigma^2}}
+	\end{align*}
+	Genom Taylorutvecklingen för $e^{z}$ fås
+	\begin{align*}
+		k\left(\bfx_i,\bfx_j\right)&= e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2}\cdot e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2}\cdot \sum_{n=0}^{\infty}\frac{\bfx_i^n\bfx_j^n}{n!}\\
+		&= \sum_{n=0}^{\infty} \left(\frac{e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2} \bfx_i^n}{\sqrt{n!}}\right)\left(\frac{e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2} \bfx_j^n}{\sqrt{n!}}\right)\\
+		&= \inner{\phi\left(\bfx_i\right)}{\phi\left(\bfx_j\right)}_{\mathcal{l}^2}
+	\end{align*}
+	där $\phi\left(\bfx\right)=\left[\frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^0}{\sqrt{0!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^1}{\sqrt{1!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^2}{\sqrt{2!}},\dots\right]^\intercal$.
+	
+	Implikationen är att motsvarande olinjära transformation skulle ge ett oändligtdimensionellt rum att jobba med om man gör transformationen direkt medan man genom kärnfunktionen $k$ kan implicit jobba i ett oändligtdimensionellt rum, något som inte hade varit möjligt utan kärnfunktionen.
+\end{ex}
 
 \chapter{Avslutning}
 Har hittills inte gått in på statistiska detaljer, till exempel tränings/validerings-data eller gränser på felklassificering.
