@@ -57,7 +57,7 @@
 \maketitle
 
 \begin{abstract}
-	Skrivs till sist
+	I denna uppsats presenteras stödvektormaskiner (SVM) med fokus på att noggrant förklara motiveringarna bakom de steg som oftast presenteras i introduktionslitteraturen, både för den ursprungliga algoritmen med hårda marginaler och algoritmen med mjuka marginaler. Speciellt läggs vikt på analys av lösningen som karaktäriseras med hjälp av Lagrangemultiplikatorer. Till sist presenteras också en introduktion till teorin för Hilbertrum med reproducerande kärnor där huvudresultatet är verifieringen av att den funktion som vanligtvis presenteras som inreprodukt uppfyller kraven för inreprodukter. Som följd visas att varje symmetrisk positiv semidefinit funktion $k\left(\bfx,\bfy\right)$ kan ses som en inreprodukt i något rum.
 \end{abstract}
 
 \chapter{Inledning}
@@ -83,7 +83,7 @@ Främst kommer teorin om kvadratiska optimeringsproblem och analys av duala prob
 
 %\chapter{Stödvektormaskiner (SVM)}
 
-\chapter{Lite Hilbertrumteori}\label{chap:hilbert}
+\chapter{Hilbertrumteori}\label{chap:hilbert}
 
 \section{Geometrisk begrepp}
 I många statistiska metoder används enkla geometriska koncept, till exempel plan eller linjer, för att dra slutsatser angående insamlat data.
@@ -146,7 +146,7 @@ Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\ll
 			\| \bfx + \mathbf{y}\|_\mathcal{H}^2 &= \llangle \bfx + \mathbf{y}, \bfx + \mathbf{y}\rrangle_\mathcal{H}\\
 			&= \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2 \llangle \bfx, \mathbf{y}\rrangle_\mathcal{H} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
 			&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \mathbf{y}\rrangle^2_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
-			\text{(Enligt Caucy-Scwarz \ref{CauchySchwarz})}\quad&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \bfx\rrangle_ \mathcal{H} \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
+			\text{(Enligt sats \ref{CauchySchwarz})}\quad&\leq \llangle \bfx, \bfx \rrangle_\mathcal{H} + 2\sqrt{\llangle \bfx, \bfx\rrangle_ \mathcal{H} \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}} + \llangle \mathbf{y}, \mathbf{y} \rrangle_\mathcal{H}\\
 			&=\left\|\bfx \right\|^2_\mathcal{H} + 2\left\|\bfx \right\|_\mathcal{H}\left\|\mathbf{y} \right\|_\mathcal{H}  + \left\| \mathbf{y}\right\|^2_\mathcal{H}\\
 			&= \left(\left\|\bfx \right\|_\mathcal{H}+ \left\| \mathbf{y}\right\|_\mathcal{H}\right)^2
 		\end{align*}
@@ -271,8 +271,7 @@ Inom statistiken och maskininlärningen finns många olika metoder för att för
 	Märk att ifall $\bfx = 0$ tillhör hyperplanet så är hyperplanet ett underrum.
 \end{ex}
 
-För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relation till en punkt
-\footnote{I resten av uppsatsen kommer begreppen \emph{punkter} och \emph{vektorer} att användas om vartannat. Egentligen är alla punkter också vektorer i samma vektorrum som resten av vektorerna men i litteraturen används ofta punkter eftersom att det är hur man intuitivt brukar tänka på uppmätta observationer. Vektorer brukar användas om man vill poängtera att riktningen är viktigt.}
+För nästa sats behövs några konventioner för hyperplan $L=\sephyp$ i relation till en punkt\footnote{I resten av uppsatsen kommer begreppen \emph{punkter} och \emph{vektorer} att användas om vartannat. Egentligen är alla punkter också vektorer i samma vektorrum som resten av vektorerna men i litteraturen används ofta punkter eftersom att det är hur man intuitivt brukar tänka på uppmätta observationer. Vektorer brukar användas om man vill poängtera att riktningen är viktigt.}
 $\bfy$ i $\hil$:
 \begin{itemize}
 	\item Man säger att $\bfy$ ligger över hyperplanet $L$ om $f\left(\bfy\right)>0$ och under om $f\left(\bfy\right)<0$.
@@ -646,7 +645,7 @@ Detta kan tolkas som att punkten $\bfx_i$ ligger på randen av marginalen men be
 %Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan.%TODO	Dimensioner?
 %Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna.
 Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på exakt samma hyperplan är mycket liten (sannolikheten är lika med 0 om punkternas koordinater dras från en kontinuerlig fördelning).
-
+\newpage
 \section{Det oseparabla fallet}
 Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt separabla, det vill säga inget hyperplan $\left\{\mathbf{x} : f\left(\mathbf{x}\right) = \inner{\bfx}{\bfbeta}_p + \beta_0 = 0 \right\}$ med $y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)>0$ för alla träningspar $\left(\mathbf{x}_i,y_i\right),~i=1,~\dots,~N$ existerar. Oseparabla observationspar leder till att optimeringsproblemet (\ref{opt:optimalmargin1}) samt optimeringsproblemen i sats \ref{thm:primallinearproblem} inte längre är lösbara eftersom att det inte existerar något hyperplan som satisfierar alla krav.
 
@@ -1102,7 +1101,7 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 %	\end{equation*}
 
 \end{enumerate}
-Eftersom att alla villkor i \ref{def:inreprodukt} är uppfyllda så är $\langle f, g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ där $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right), \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$ en inreprodukt. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i rummet så har man ett Hilbertrum vilket betyder att allting i kapitel \ref{chap:hilbert} stämmer även här.
+Eftersom att alla villkor i definition \ref{def:inreprodukt} är uppfyllda så definierar $\langle f, g\rangle_k:=\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ en inreprodukt. Här är $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right), \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i samma rum så har man ett Hilbertrum vilket betyder att allting i kapitel \ref{chap:hilbert} gäller även här.
 
 I beviset användes egenskap (\ref{eq:expansion2}) flitigt. Det visar sig att det räcker med att kärnan $k$ är symmetrisk det vill säga $k\left(\bfx_i,\bfx_j\right)=k\left(\bfx_j,\bfx_i\right)$ som garanteras om kärnan kan definieras som den naturliga inreprodukten mellan någon funktion $\phi\left(\mathbf{x}\right)$ evaluerad i punkterna $\bfx_i$ och $\bfx_j$. Med andra ord kan man dra slutsatsen att följande sats gäller:
 \begin{thm}\label{thm:kärnainreprodukt}
@@ -1122,7 +1121,7 @@ med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultip
 \langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i,\bfx_j\right) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
 \end{equation}
 där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positiv semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i,\bfx_j\right)$ är positiv semidefinit för alla val av $\bfx_i,~\bfx_j$.
-
+\newpage
 \section{Kärnor som positiv semidefinita funktioner}
 
 Ovan gavs en motivering för varför man borde utvidga definitionen av kärnor.
@@ -1132,50 +1131,66 @@ Ovan gavs en motivering för varför man borde utvidga definitionen av kärnor.
 
 Med små modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt} och korrolarium \ref{cor:kärnahilbert} även för följande sats och korrolarium:
 \begin{thm}
-	För en kärna det vill säga en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f\left(x\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ ett inreproduktrum.
+	För en kärna det vill säga en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)$ ett inreproduktrum.
 \end{thm}
 \begin{cor}
 	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
 \end{cor}
-Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)=\sum_{j=1}^{N}\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars och $\bfx_l$ är fixerat.
+Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\left(\bfx, \bfy\right)$ är en symmetrisk positiv semidefinit funktion.  Funktionen $\Phi_{\bfx_l}(\bfx)$ kan skrivas som $\sum_{j=1}^{N}\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars för att passa in i definitionen för inreprodukten $\inner{\cdot}{\cdot}_k$. För $\Phi_{\bfx_l}(\bfx)$ och en annan funktion $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ gäller att
 	\begin{equation*}
 		\langle \Phi_{\bfx_l}, f\rangle_k = \langle k\left(\cdot, \bfx_i\right), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k\left(\bfx_j, \bfx_i\right)
 	\end{equation*}
 	där $\beta_j = 0$ om $j\neq l$ och $1$ om $j=l$, det vill säga
 	\begin{equation}\label{eq:reproducing1}
-		\langle \Phi_{\bfx_k}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k\left(\bfx_l, \bfx_i\right) = f\left(\bfx_l\right).
+		\langle \Phi_{\bfx_l}, f\rangle_k = \sum_{i=1}^{N}\alpha_i k\left(\bfx_l, \bfx_i\right) = f\left(\bfx_l\right).
 	\end{equation}
-	och speciellt fås att
+	Speciellt fås för en annan funktion $\Phi_{\bfx_h}(\bfx):=k\left(\bfx, \bfx_h\right)$ att
 	\begin{equation*}
 		\langle \Phi_{\bfx_l}, \Phi_{\bfx_h} \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i,\bfx_j\right)
 	\end{equation*}
 	där $\alpha_i=\beta_j=1$ endast om $i=l$ och $j=h$, $\alpha_i=\beta_j=0$ annars. Då fås
-	\begin{equation*}
-	\langle \Phi_{\bfx_l}, \Phi_{\bfx_h} \rangle_k = \alpha_l\beta_hk\left(\bfx_l,\bfx_h\right) = k\left(\bfx_l, \bfx_h\right).
-	\end{equation*}
+	\begin{equation}\label{eq:reproducing2}
+	\begin{aligned}
+	\langle \Phi_{\bfx_l}, \Phi_{\bfx_h} \rangle_k &= \inner{k\left(\cdot, \bfx_l\right)}{k\left(\cdot,\bfx_h\right)}_k\\ &= \alpha_l\beta_hk\left(\bfx_l,\bfx_h\right)\\&= k\left(\bfx_l, \bfx_h\right).
+	\end{aligned}
+	\end{equation}
+Tolkningen av ekvation (\ref{eq:reproducing1}) är att inreprodukten mellan en funktion $f$ och $k\left(\cdot, \bfx_i\right)$ är samma sak som evaluering av funktionen $f$ i punkten $\bfx_i$ men $\bfx_i$ måste vara en av de punkterna som man byggde upp inreprodukten av.
+
+För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l, \bfx_h\right)$ inte är definierad genom en inreprodukt så kan $k$ tolkas som en inreprodukt i något (olinjärt) rum. De här två egenskaperna är orsaken till att man pratar om \emph{reproducerande} kärnor, den första ekvationen brukar också ibland användas som definitionen på en reproducerande kärna. Med andra ord borde man givet en symmetrisk positiv semidefinit funktion $k$ kunna skriva den som en inreprodukt i något rum, nedan följer ett exempel som på samma gång visar en av de största fördelarna med att använda kärnor istället för att räkna ut en olinjär utvidgning på förhand.
 
 \begin{ex}
 	Låt $\bfx_i,~\bfx_j\in\mathbb{R}$ och betrakta funktionen
 	\begin{align*}
-		k\left(\bfx_i,\bfx_j\right)&=e^{-\frac{\left\| \bfx_i-\bfx_j\right\|^2}{2\sigma^2}}=e^{-\frac{\inner{\bfx_i-\bfx_j}{\bfx_i-\bfx_j}_1}{2\sigma^2}}\\
-		&=e^{-\frac{\bfx_i^2+\bfx_j^2-2\bfx_i\bfx_j}{2\sigma^2}}=e^{-\frac{\bfx_i^2+\bfx_j^2}{2\sigma^2}}\cdot e^{\frac{2\bfx_i\bfx_j}{2\sigma^2}}\\
+		k\left(\bfx_i,\bfx_j\right)&=e^{-\frac{\left\| \bfx_i-\bfx_j\right\|^2}{2\sigma^2}}\\&=e^{-\frac{\inner{\bfx_i-\bfx_j}{\bfx_i-\bfx_j}_1}{2\sigma^2}}\\
+		&=e^{-\frac{\bfx_i^2+\bfx_j^2-2\bfx_i\bfx_j}{2\sigma^2}}\\&=e^{-\frac{\bfx_i^2+\bfx_j^2}{2\sigma^2}}\cdot e^{\frac{2\bfx_i\bfx_j}{2\sigma^2}}\\
 		&= e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2}\cdot e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2}\cdot e^{\frac{\bfx_i\bfx_j}{\sigma^2}}
 	\end{align*}
 	Genom Taylorutvecklingen för $e^{z}$ fås
 	\begin{align*}
 		k\left(\bfx_i,\bfx_j\right)&= e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2}\cdot e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2}\cdot \sum_{n=0}^{\infty}\frac{\bfx_i^n\bfx_j^n}{n!}\\
 		&= \sum_{n=0}^{\infty} \left(\frac{e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2} \bfx_i^n}{\sqrt{n!}}\right)\left(\frac{e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2} \bfx_j^n}{\sqrt{n!}}\right)\\
-		&= \inner{\phi\left(\bfx_i\right)}{\phi\left(\bfx_j\right)}_{\mathcal{l}^2}
+		&= \inner{\phi\left(\bfx_i\right)}{\phi\left(\bfx_j\right)}_{\ell^2}
 	\end{align*}
-	där $\phi\left(\bfx\right)=\left[\frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^0}{\sqrt{0!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^1}{\sqrt{1!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^2}{\sqrt{2!}},\dots\right]^\intercal$.
+	där $\inner{\bfx}{\bfy}_{\ell^2}$ är inreprodukten given av summan $\sum_{i=1}^{\infty}\bfx_i\bfy_i$ om den är ändlig. Här betecknar $\bfx_i,~\bfy_i$ de $i$:te komponenterna av de oändliga vektorerna $\bfx$ och $\bfy$. Summan konvergera om $\bfx$ och $\bfy$ tillhör Hilbertrummet $\ell^2$ det vill säga rummet av alla följder $\bfx$ för vilka summan $\sum_{i=1}^{\infty}\bfx_i^2=\inner{\bfx}{\bfx}_{\ell^2}=\left\|\bfx\right\|_{\ell^2}^2$ är ändlig, detta eftersom att $|\inner{\bfx}{\bfy}_{\ell^2}|^2$.
 	
-	Implikationen är att motsvarande olinjära transformation skulle ge ett oändligtdimensionellt rum att jobba med om man gör transformationen direkt medan man genom kärnfunktionen $k$ kan implicit jobba i ett oändligtdimensionellt rum, något som inte hade varit möjligt utan kärnfunktionen.
+	Kärnan $k\left(\bfx,\bfy\right)=e^{-\frac{\left\| \bfx-\bfy\right\|^2}{2\sigma^2}}$ kan med andra ord skrivas som inreprodukten $\inner{\phi\left(\bfx\right)}{\phi\left(\bfy\right)}_{\ell^2}$ i rummet som ges av utvidgningen
+	\begin{equation*}
+	\phi\left(\bfx\right)=\left[\frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^0}{\sqrt{0!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^1}{\sqrt{1!}}, \frac{e^{-\left(\frac{\bfx}{\sqrt{2}\sigma}\right)^2} \bfx^2}{\sqrt{2!}},\dots\right]^\intercal.
+	\end{equation*}
+	
+	Implikationen är att motsvarande olinjära transformation skulle ge ett oändligtdimensionellt rum att jobba med om man gör transformationen direkt medan man genom kärnan $k$ implicit kan jobba i ett oändligtdimensionellt rum, något som inte hade varit möjligt om man försökte operera med vanliga inreprodukter på det utvidgade rummet.
 \end{ex}
 
-\chapter{Avslutning}
-Har hittills inte gått in på statistiska detaljer, till exempel tränings/validerings-data eller gränser på felklassificering.
 
-Kan också nämna andra varianter som till exempel användning inom regression, "glesa" (sparse) varianter.
+
+\chapter{Avslutning}
+Det finns också andra sätt att härleda stödvektormaskinernas optimeringsproblem, till exempel genom Tikhonov-regularisation, de här härledningarna kan ge nya insikter, till exempel kan man se stödvektormaskiner som en medlem i en större grupp av modeller innefattande bland annat splin-modeller \cite{ESL}. Med några små förändringar kan man också använda stödvektormaskiner för regression. Man kan också ändra på objektfunktionen för att uppmuntra lösningarna att ha vissa egenskaper, till exempel bara vara olika 0 i ett fåtal dimensioner (gles) \cite{LearningKernels}.
+
+Stödvektormaskinerna utvecklades under 1990-talet ungefär på samma gång som Vapnik-Chervonenkis teorin där man försöker karaktärisera när och varför metoder inom maskininlärning och statistik generaliserar väl till nya observationer \cite{VC}. Vapnik-Chervonenkis teorin kan ses som ett försök att möjliggöra till exempel analys av konfidensintervall för mera komplicerade algoritmer än linjär regression. För stödvektormaskiner med mjuka marginaler och kärnor forskas det ännu i vilka teoretiska gränser man kan ge för generalisering till ny data \cite{theoretical}.
+
+För att algoritmerna skall generaliser så väl som möjligt måste man också ofta bestämma olika parametrar som inte kan lösas genom vanlig optimering. Till exempel måste parametern $\gamma$ och kärnan bestämmas på något sätt. Oftast görs detta genom att man optimerar algoritmen på till exempel 80 \% av observationerna för olika val av kärna och $\gamma$ för att sedan välja den kombination som fungerar bäst på de resterande 20 \%:en av observationerna \cite{ESL}.
+
+De reproducerande kärnorna kan också användas för att göra andra algoritmer mera flexibla, det huvudsakliga kravet är att observationerna ska förekomma endast i inreprodukter \cite{ESL}\cite{LearningKernels}. Till exempel finns det versioner av huvudkomponentsanalys (principal component analysis, PCA) och linjär diskriminantanalys (linear discriminant analysis, LDA) som gjorts olinjära med hjälp av reproducerande kärnor \cite{ESL}.
 
 \bibliographystyle{sweplain}
 \bibliography{bibliografi}
