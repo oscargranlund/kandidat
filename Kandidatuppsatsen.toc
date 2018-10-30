@@ -1,0 +1,14 @@
+\babel@toc {swedish}{}
+\contentsline {chapter}{\numberline {1}Inledning}{2}
+\contentsline {chapter}{\numberline {2}Hilbertrumteori}{4}
+\contentsline {section}{\numberline {2.1}Geometrisk begrepp}{4}
+\contentsline {chapter}{\numberline {3}St\IeC {\"o}dvektormaskiner (SVM)}{9}
+\contentsline {section}{\numberline {3.1}Klassificering med hj\IeC {\"a}lp av separerande hyperplan}{9}
+\contentsline {section}{\numberline {3.2}Optimala separerande hyperplan}{14}
+\contentsline {subsection}{\numberline {3.2.1}Primala och duala problem}{17}
+\contentsline {section}{\numberline {3.3}Det oseparabla fallet}{20}
+\contentsline {subsection}{\numberline {3.3.1}Primala och Duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{23}
+\contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{27}
+\contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{29}
+\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positiv semidefinita funktioner}{33}
+\contentsline {chapter}{\numberline {5}Avslutning}{36}
