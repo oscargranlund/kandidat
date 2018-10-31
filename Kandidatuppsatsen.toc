@@ -10,5 +10,5 @@
 \contentsline {subsection}{\numberline {3.3.1}Primala och Duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{23}
 \contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{27}
 \contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{29}
-\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positiv semidefinita funktioner}{33}
+\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positivt semidefinita funktioner}{33}
 \contentsline {chapter}{\numberline {5}Avslutning}{36}

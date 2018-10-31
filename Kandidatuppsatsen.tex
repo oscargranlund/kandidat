@@ -201,7 +201,7 @@ Figur \ref{fig:proj} illustrerar konceptet.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth, trim={2.1cm 17mm 2cm 20mm}, clip]{KandFigur4.pdf}
-	\caption{\label{fig:proj}Två vektorer, $\bfx$ i blått och $\bfy$ i oranget, samt projektionen av $\bfx$ på $\bfy$ streckat i blått och projektionen av $\bfy$ på $\bfx$ streckat i oranget. Streckat i svart finns de ortogonala vektorerna.}
+	\caption{\label{fig:proj}Två vektorer, $\bfx$ i blått och $\bfy$ i orange, samt projektionen av $\bfx$ på $\bfy$ streckat i blått och projektionen av $\bfy$ på $\bfx$ streckat i orange. Streckat i svart finns de ortogonala vektorerna.}
 \end{figure}
 
 Låt $\bfx,~\bfy\in\hil$ vara två vektorer olika $\mathbf{0}$. Välj $\lambda\in\mathbb{R}$ så att vektorn $\left(\bfx-\lambda\bfy \right)$ är ortogonal till $\bfy$ det vill säga
@@ -230,6 +230,7 @@ Man får alltså definitionen:
 	Ifall vektorn $\bfy$ är normaliserad det vill säga $\left\|\bfy\right\|_\hil=1$ så är $\operatorname{comp}_\bfy\left(\bfx\right)=\left\|\operatorname{proj}_\bfy\left(\bfx\right)\right\|_\hil$ ifall $\operatorname{comp}_\bfy\left(\bfx\right)\geq0$ och $\operatorname{comp}_\bfy\left(\bfx\right)=-\left\|\operatorname{proj}_\bfy\left(\bfx\right)\right\|_\hil$ ifall $\operatorname{comp}_\bfy\left(\bfx\right)\leq0$.
 	Märk även att för $\bfx=\mathbf{0}$ så går det att definiera komponenter och projektioner på samma sätt men de är inte speciellt intressanta, $\operatorname{comp}_\bfy\left(\bfx\right)=0$ och $\operatorname{proj}_\bfy\left(\bfx\right)=\operatorname{comp}_\bfy\left(\bfx\right)\bfy=\mathbf{0}$.
 	Vektorn $\bfy$ måste däremot vara olika $\mathbf{0}$ för att undvika division med 0.
+	Ifall vektorerna $\bfx,~\bfy$ är parallella det vill säga $\bfy=\lambda\bfx$ gäller $\operatorname{comp}_\bfx\left(\bfy\right) = \operatorname{comp}_\bfx\left(\lambda\bfx\right) = \frac{\inner{\lambda \bfx}{\bfx}_\hil}{\inner{\bfx}{\bfx}_\hil} = \frac{\lambda \inner{\bfx}{\bfx}_\hil}{\inner{\bfx}{\bfx}_\hil}=\lambda$ och $\operatorname{proj}_\bfx\left(\bfy\right)=\lambda\bfx=\bfy$. För $\operatorname{proj}_\bfy\left(\bfx\right)$ gäller $\operatorname{proj}_\bfy\left(\bfx\right) = \operatorname{proj}_\bfy\left(\frac{1}{\lambda}\bfy\right)=\operatorname{comp}_\bfy\left(\bfx\right)\bfy = \frac{\inner{\frac{1}{\lambda}\bfy}{\bfy}_\hil}{\inner{\bfy}{\bfy}_\hil}\bfy= \frac{1}{\lambda}\bfy=\bfx$.
 \end{rem}
 
 Märk hur dimensionen på vektorrummet $X$ inte nämns i definitionen för inreprodukten och därför kan Hilbertrum även vara oändligtdimensionella. Många av de bekanta egenskaperna för ändligtdimensionella inreproduktrum gäller även för oändligtdimensionella inreproduktrum, ett exempel är Hilbertrummet $\mathcal{L}^2$ med inreprodukten $\inner{f}{g}_{\mathcal{L}^2}$ som behandlades tidigare. För $\mathcal{L}^2$ gäller fortfarande att två funktioner $f$ och $g$ är ortogonala om
@@ -238,7 +239,21 @@ Märk hur dimensionen på vektorrummet $X$ inte nämns i definitionen för inrep
 \end{equation*}
 även om det kan vara svårt att visualisera för oändligtdimensionella rum.
 
-För att hjälpa till med visualiseringen av oändligtdimensionella rum finns ett till verktyg som ger en parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. Det visar sig att inte alla Hilbertrum har en motsvarighet till basvektorer men ifall Hilbertrummet är \emph{separabelt} så existerar det en ortonormal följd vektorer $\mathbf{e}_i$, det vill säga $\inner{\mathbf{e}_i}{\mathbf{e}_j}_\hil=0$ om $i\neq j$ och $\left\|\mathbf{e}_i\right\|_\hil=1$, sådan att för varje vektor $\mathbf{x}\in \mathcal{H}$  gäller \cite{Young}:
+För att hjälpa till med visualiseringen av oändligtdimensionella rum finns ett till verktyg som ger en parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. För att undersöka saken är det naturligt att leta efter något som kunde agera som motsvarighet till basvektorerna. Ett sådant koncept finns om det existerar en \emph{ortonormal följd} av vektorer, $\mathbf{e}_i$, $i=1,~2,~3,~\dots$, det vill säga en följd vektorer sådana att $\left\|\mathbf{e}_i\right\|_\hil=1$, $i=1,~2,~3,~\dots$, och $\inner{\mathbf{e}_i}{\mathbf{e}_j}_\hil=0$ om $i\neq j$.
+
+\begin{ex}
+I $\mathcal{L}^2$, $x\in\left[-\pi,\pi\right]$ är följande en ortonormal följd \cite{Young}:
+\begin{equation*}
+	\mathbf{e}_1=\frac{1}{\sqrt{2\pi}},\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(x\right),\quad\mathbf{e}_3=\frac{1}{\sqrt{\pi}}\sin\left(x\right),\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(2x\right),~\dots
+\end{equation*}
+\end{ex}
+
+
+\begin{defi}[Enligt \cite{Young}]
+	En ortonormal följd basvektorer $\mathbf{e}_i$ i ett Hilbertrum $\hil$ är \emph{fullständig} (inte samma som definition \ref{def:Cfull}) ifall nollvektorn $\mathbf{0}$ är den enda vektorn i $\hil$ ortogonal till varje basvektor $\mathbf{e}_i$. Vidare är ett Hilbertrum \emph{separabelt} ifall det existerar en fullständig ortonormal följd basvektorer $\mathbf{e}_i\in\hil$.
+\end{defi}
+
+Det visar sig att inte alla Hilbertrum har en motsvarighet till basvektorer men ifall Hilbertrummet är separabelt så existerar det en ortonormal följd vektorer sådan att för varje vektor $\mathbf{x}\in \mathcal{H}$  gäller \cite{Young}:
 \begin{equation*}
 \mathbf{x}=\sum_{i=1}^{\infty}\left\langle \mathbf{x}, \mathbf{e}_i \right\rangle_\hil \mathbf{e}_i,
 \end{equation*}
@@ -246,18 +261,18 @@ där vektorerna $\mathbf{e}_i$ agerar bas och koefficienten $\left\langle \mathb
 Märk att man projicerar $\bfx$ på varje basvektor $\mathbf{e}_i$ och summerar de resulterande projektionerna.
 Antalet basvektorer $\mathbf{e}_i$ bestämmer i princip dimensionen på Hilbertrummet.
 
-\begin{ex}
-I $\mathcal{L}^2$, $x\in\left[-\pi,\pi\right]$ är följande en ortonormal följd basvektorer \cite{Young}:
-\begin{equation*}
-	\mathbf{e}_1=\frac{1}{\sqrt{2\pi}},\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(x\right),\quad\mathbf{e}_3=\frac{1}{\sqrt{\pi}}\sin\left(x\right),\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(2x\right),~\dots
-\end{equation*}
-\end{ex}
+%\begin{ex}
+%I $\mathcal{L}^2$, $x\in\left[-\pi,\pi\right]$ är följande en ortonormal följd basvektorer \cite{Young}:
+%\begin{equation*}
+%	\mathbf{e}_1=\frac{1}{\sqrt{2\pi}},\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(x\right),\quad\mathbf{e}_3=\frac{1}{\sqrt{\pi}}\sin\left(x\right),\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(2x\right),~\dots
+%\end{equation*}
+%\end{ex}
 
-\begin{defi}[Enligt \cite{Young}]
-	En ortonormal följd basvektorer $\mathbf{e}_i$ i ett Hilbertrum $\hil$ är \emph{fullständig} (inte samma som definition \ref{def:Cfull}) ifall nollvektorn $\mathbf{0}$ är den enda vektorn i $\hil$ ortogonal till varje basvektor $\mathbf{e}_i$. Vidare är ett Hilbertrum \emph{separabelt} ifall det existerar en fullständig ortonormal följd basvektorer $\mathbf{e}_i\in\hil$.
-\end{defi}
+%\begin{defi}[Enligt \cite{Young}]
+%	En ortonormal följd basvektorer $\mathbf{e}_i$ i ett Hilbertrum $\hil$ är \emph{fullständig} (inte samma som definition \ref{def:Cfull}) ifall nollvektorn $\mathbf{0}$ är den enda vektorn i $\hil$ ortogonal till varje basvektor $\mathbf{e}_i$. Vidare är ett Hilbertrum \emph{separabelt} ifall det existerar en fullständig ortonormal följd basvektorer $\mathbf{e}_i\in\hil$.
+%\end{defi}
 
-I fortsättningen behandlas bara separabla Hilbertrum, så att varje vektor $\mathbf{x}$ kan skrivas som en linjär kombination av basvektorerna.
+%I fortsättningen behandlas bara separabla Hilbertrum, så att varje vektor $\mathbf{x}$ kan skrivas som en linjär kombination av basvektorerna.
 
 \chapter{Stödvektormaskiner (SVM)}
 
@@ -549,7 +564,7 @@ Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen
 \text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N
 \end{aligned}
 \end{equation*}
-där $\left( \frac{1}{2}I \right)$ är en \emph{positiv semi-definit} matris det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
+där $\left( \frac{1}{2}I \right)$ är en \emph{positivt semi-definit} matris det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
 
 Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 \begin{thm}[Enligt \cite{ESL}]\label{thm:primallinearproblem}
@@ -1077,13 +1092,13 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 	
 %	För att visa att $\langle f, f\rangle = 0$ om och endast om $f=0$ det vill säga alla $\alpha_i, i=1,~\dots,~N$ krävs en motsvarighet till Cauchy-Scwharz olikheten men formulerad för kärnor det vill säga
 %	\begin{thm}[Cauchy-Scwharz olikhet för kärnor \cite{LearningKernels}]\label{thm:cauchy}
-%		För en \emph{positiv definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
+%		För en \emph{positivt definit} kärna $k$ och $\bfx_1,~\bfx_2\in V$ där $V$ är något vektorrum gäller att
 %		\begin{equation}
 %		|k\left(\bfx_1,\bfx_2\right)|^2 \leq k\left(\bfx_1,\bfx_1\right) k\left(\bfx_2,\bfx_2\right)
 %		\end{equation}
 %	\end{thm}
 %	\begin{proof}
-%		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k\left(\bfx_1, \bfx_2\right)$. Eftersom att $k$ är positiv definit är även $\mathbf{K}$ positiv definit alltså är alla egenvärden positiva och då även determinanten positiv \left(se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
+%		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k\left(\bfx_1, \bfx_2\right)$. Eftersom att $k$ är positivt definit är även $\mathbf{K}$ positivt definit alltså är alla egenvärden positivta och då även determinanten positivt \left(se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
 %		\begin{equation*}
 %			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
 %		\end{equation*}
@@ -1134,26 +1149,26 @@ Nu kan man fundera på om kärnan $k$ måste vara definierad genom en inreproduk
 	\langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i, \bfx_j\right) \geq 0
 \end{equation*}
 med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultiplikation:
-\begin{equation}\label{eq:positivsemidefinit}
+\begin{equation}\label{eq:positivtsemidefinit}
 \langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i, \bfx_j\right) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
 \end{equation}
-där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positiv semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positiv semidefinit för alla val av $\bfx_i,~\bfx_j$.
+där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivtsemidefinit}) brukar användas som definition på \emph{positivt semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positivt semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positivt semidefinit för alla val av $\bfx_i,~\bfx_j$.
 \newpage
-\section{Kärnor som positiv semidefinita funktioner}
+\section{Kärnor som positivt semidefinita funktioner}
 
 Ovan gavs en motivering för varför man borde utvidga definitionen av kärnor.
 \begin{defi}[Enligt \cite{LearningKernels}]
-	En kärna är en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$.
+	En kärna är en symmetrisk positivt semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$.
 \end{defi}
 
 Med små modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt} och korollarium \ref{cor:kärnahilbert} även för följande sats och korollarium:
 \begin{thm}[Enligt \cite{LearningKernels}]
-	För en kärna det vill säga en symmetrisk positiv semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk\left(\bfx_i, \bfx_j\right)$ ett inreproduktrum.
+	För en kärna det vill säga en symmetrisk positivt semidefinit funktion $k: X \times X \longmapsto \mathbb{R}$ är rummet med funktioner definierade genom $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ och inreprodukten $\langle f,g\rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N} \alpha_i\beta_jk\left(\bfx_i, \bfx_j\right)$ ett inreproduktrum.
 \end{thm}
 \begin{cor}[Enligt \cite{LearningKernels}]
 	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
 \end{cor}
-Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\left(\bfx, \bfy\right)$ är en symmetrisk positiv semidefinit funktion.  Funktionen $\Phi_{\bfx_l}(\bfx)$ kan skrivas som $\sum_{j=1}^{N}\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars, för att passa in i definitionen för inreprodukten $\inner{\cdot}{\cdot}_k$. För $\Phi_{\bfx_l}(\bfx)$ och en annan funktion $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ gäller då att
+Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\left(\bfx, \bfy\right)$ är en symmetrisk positivt semidefinit funktion.  Funktionen $\Phi_{\bfx_l}(\bfx)$ kan skrivas som $\sum_{j=1}^{N}\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars, för att passa in i definitionen för inreprodukten $\inner{\cdot}{\cdot}_k$. För $\Phi_{\bfx_l}(\bfx)$ och en annan funktion $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ gäller då att
 	\begin{equation*}
 		\langle \Phi_{\bfx_l}, f\rangle_k = \langle k\left(\cdot, \bfx_i\right), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k\left(\bfx_j, \bfx_i\right)
 	\end{equation*}
@@ -1173,7 +1188,7 @@ Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\
 	\end{equation}
 Tolkningen av ekvation (\ref{eq:reproducing1}) är att inreprodukten mellan en funktion $f$ och $k\left(\cdot, \bfx_i\right)$ är samma sak som evaluering av funktionen $f$ i punkten $\bfx_i$ men $\bfx_i$ måste vara en av de punkterna som man byggde upp inreprodukten av.
 
-För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l, \bfx_h\right)$ inte är definierad genom en inreprodukt så kan $k$ tolkas som en inreprodukt i något (olinjärt) rum. De här två egenskaperna är orsaken till att man pratar om \emph{reproducerande} kärnor, den första ekvationen brukar också ibland användas som definitionen på en reproducerande kärna. Med andra ord borde man givet en symmetrisk positiv semidefinit funktion $k$ kunna skriva den som en inreprodukt i något rum, nedan följer ett exempel som på samma gång visar en av de största fördelarna med att använda kärnor istället för att räkna ut en olinjär utvidgning på förhand.
+För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l, \bfx_h\right)$ inte är definierad genom en inreprodukt så kan $k$ tolkas som en inreprodukt i något (olinjärt) rum. De här två egenskaperna är orsaken till att man pratar om \emph{reproducerande} kärnor, den första ekvationen brukar också ibland användas som definitionen på en reproducerande kärna. Med andra ord borde man givet en symmetrisk positivt semidefinit funktion $k$ kunna skriva den som en inreprodukt i något rum, nedan följer ett exempel som på samma gång visar en av de största fördelarna med att använda kärnor istället för att räkna ut en olinjär utvidgning på förhand.
 
 \begin{ex}
 	Låt $\bfx_i,~\bfx_j\in\mathbb{R}$ och betrakta funktionen
@@ -1201,7 +1216,7 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 
 
 \chapter{Avslutning}
-Det finns också andra sätt att härleda stödvektormaskinernas optimeringsproblem, till exempel genom Tikhonov-regularisation. Andra härledningar kan ge nya insikter, till exempel kan man se stödvektormaskiner som en medlem i en större grupp av modeller innefattande bland annat splin-modeller \cite{ESL}. Med några små förändringar kan man också använda stödvektormaskiner för regression. Man kan också ändra på objektfunktionen för att uppmuntra lösningarna att ha vissa egenskaper, till exempel bara vara olika 0 i ett fåtal dimensioner (gles) \cite{LearningKernels}.
+Det finns också andra sätt att härleda stödvektormaskinernas optimeringsproblem, till exempel genom Tikhonov-regularisation. Andra härledningar kan ge nya insikter, till exempel kan man se stödvektormaskiner som en medlem i en större grupp av modeller innefattande bland annat spline-modeller \cite{ESL}. Med några små förändringar kan man också använda stödvektormaskiner för regression. Man kan också ändra på objektfunktionen för att uppmuntra lösningarna att ha vissa egenskaper, till exempel bara vara olika 0 i ett fåtal dimensioner (gles) \cite{LearningKernels}.
 
 Stödvektormaskinerna utvecklades under 1990-talet ungefär på samma gång som Vapnik-Chervonenkis teorin där man försöker karaktärisera när och varför metoder inom maskininlärning och statistik generaliserar väl till nya observationer \cite{VC}. Vapnik-Chervonenkis teorin kan ses som ett försök att möjliggöra till exempel analys av konfidensintervall för mera komplicerade algoritmer än linjär regression. För stödvektormaskiner med mjuka marginaler och kärnor forskas det ännu i vilka teoretiska gränser man kan ge för generalisering till ny data \cite{theoretical}.
 
