@@ -355,7 +355,7 @@ $\bfy$ i $\hil$:
 	\item \label{eq:egenskap2}Låt $\mathbf{x}_0$ vara en punkt i $L$. Då gäller att $f\left(\mathbf{x}_0\right)=\inner{\bfx_0}{\bfbeta}_\hil + \beta_0 = 0$ alltså är $\inner{\bfx_0}{\bfbeta}_\hil = - \beta_0$.\hfill \qedsymbol
 	
 	\item Låt $\mathbf{x}_0$ vara en punkt i hyperplanet $L$, då är avståndet från punkten $\bfx_0$ till punkten $\bfy$ minimerat om vektorn $\left(\bfy-\bfx_0\right)$ är ortogonal till hyperplanet -- i $\mathbb{R}^2$ är detta principen att det kortaste avståndet från en linje till en punkt är avståndet mätt längs med en linje vinkelrät mot den ursprungliga linjen.
-	eftersom $\widehat{\bfbeta}$ är ortonormal till varje punkt i $L$ så blir det kortaste avståndet från $\bfy$ till $L$ längden av projektionen av vektorn från $\bfx_0$ till $\bfy$ på $\widehat{\bfbeta}$ det vill säga $\operatorname{d}^\pm \left(\mathbf{y}, L\right)=\operatorname{comp_{\widehat{\bfbeta}}} \left( \bfy - \mathbf{x}_0 \right)$.
+	Eftersom $\widehat{\bfbeta}$ är ortonormal till varje punkt i $L$ så blir det kortaste avståndet från $\bfy$ till $L$ längden av projektionen av vektorn från $\bfx_0$ till $\bfy$ på $\widehat{\bfbeta}$ det vill säga $\operatorname{d}^\pm \left(\mathbf{y}, L\right)=\operatorname{comp_{\widehat{\bfbeta}}} \left( \bfy - \mathbf{x}_0 \right)$.
 	Vidare fås då
 	\begin{align*}
 		\operatorname{d^\pm} \left( \bfy, L \right) &= \operatorname{comp_{\widehat{\bfbeta}}} \left( \bfy - \mathbf{x}_0 \right)
@@ -510,7 +510,7 @@ Matematiskt kan man uttrycka problemet som följande optimeringsproblem
 \end{equation}
 där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste observationerna. Här betecknar $\left(\bfx_i, y_i\right)$ observationsparen i träningsdatat där $\bfx_i\in\mathbb{R}^p$ och $y_i\in\left\{-1, 1 \right\}$ för $i=1,~\dots,~N$, detta gäller även för resten av kapitlet om inte annat anges.
 \begin{rem}
-	Ifall alla punkter är rätt klassificerade ger sats \ref{thm:hyperplan} och \ref{thm:sephyppositive} att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ ger det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+	Ifall alla punkter är rätt klassificerade ger sats \ref{thm:hyperplan} och \ref{thm:sephyppositive} att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 \end{rem}
 
 Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext \cite{ESL}. %TODO definiera konvext
@@ -681,7 +681,7 @@ som ska maximeras med avseende på $\lambda_i,~i=1,~\dots,~N,$ och kravet \begin
 \end{rem}
 
 Kvar finns också möjligheten att $\lambda^*_i = 0$ och $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) = 1$ för något $i$.
-Detta kan tolkas som att punkten $\bfx_i$ ligger på randen av marginalen men behövs inte för att beskriva vektorn $\bfbeta^*$, punkten $\bfx_i$ är alltså redan en linjär kombination av andra punkter på marginalen och ligger på samma hyperplan som resten av punkterna på marginalen.
+Detta kan tolkas som att punkten $\bfx_i$ ligger på randen av marginalen men inte behövs för att beskriva vektorn $\bfbeta^*$, punkten $\bfx_i$ är alltså redan en linjär kombination av andra punkter på marginalen och ligger på samma hyperplan som resten av punkterna på marginalen.
 %Detta är endast möjligt om åtminstone $p+1$ stycken punkter med $y_i\left( \inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0 \right) = 1$ existerar och dessutom måste punkterna ligga på samma $p$-dimensionella hyperplan.%TODO	Dimensioner?
 %Då kan vilken som helst av punkterna skrivas som en linjär kombination av de andra punkterna.
 Existensen av en entydig lösning till optimeringsproblemet kan då inte garanteras men sannolikheten att punkterna som ligger närmast det optimala separerande hyperplanet ligger på exakt samma hyperplan är mycket liten (sannolikheten är lika med 0 om punkternas koordinater dras från en kontinuerlig fördelning).
@@ -717,7 +717,7 @@ För hyperplan med mjuka marginaler blir det ursprungliga optimeringsproblemet:
 \end{aligned}
 \end{equation}
 
-En annan orsak till att det andra alternativet föredras är att om man försöker skriva om motsvarande optimeringsproblem på samma sätt som i beviset för sats \ref{thm:primallinearproblem} så stöter man på problem; efter att man sätter $\widehat{\bfbeta}=\frac{\bfbeta}{\left\|\bfbeta
+En annan orsak till att det andra alternativet föredras är att om man försöker skriva om motsvarande optimeringsproblem på samma sätt som i beviset för sats \ref{thm:primallinearproblem} så stöter man på problem -- efter att man sätter $\widehat{\bfbeta}=\frac{\bfbeta}{\left\|\bfbeta
 \right\|_p}$ och $C=\frac{1}{\left\|\bfbeta
 \right\|_p}$ får man optimeringsproblemet
 \begin{equation*}
@@ -773,7 +773,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 %\end{proof}
 
 \begin{rem}
-	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla; man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
+	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla, man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
 \end{rem}
 
 För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden vid optimering för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
@@ -803,12 +803,12 @@ En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och (\
 
 Av de två alternativen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är (\ref{eq:softpenalty1}) vanligare och behandlas således i resten av avhandlingen.
 
-\subsection{Primala och Duala Lagrangeproblem för mjuka marginaler}
+\subsection{Primala och duala Lagrangeproblem för mjuka marginaler}
 Precis som med separabelt data kan lösningen för optimeringsproblemet (\ref{eq:softpenalty1}) karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
 \begin{equation}\label{eq:softlagrangeprimal}
 	L_P = \frac{1}{2}\inner{\bfbeta}{\bfbeta}_p+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\inner{\bfx_i}{\bfbeta}_p + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
 \end{equation}
-som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut; om man följer liknande steg som i (\ref{eq:derivprimal}) får man:
+som ska minimeras med avseende på $\bfbeta,~\beta_0$ och $s_i$. För att hitta extrempunkterna räknas först derivatorna med avseende på $\bfbeta$, $\beta_0$ och $s_i$ ut, om man följer liknande steg som i (\ref{eq:derivprimal}) får man:
 \begin{align*}
 	D_{ \bfbeta} \left(L_P\right) &= 	D_{ \bfbeta} \left( \frac{1}{2}\bfbeta^\intercal\bfbeta - \sum_{i=1}^{N} \lambda_i \left(y_i\left(\bfx_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right) \right) =\bfbeta - \sum_{i=1}^{N}\lambda_i y_i \mathbf{x}_i,\\
 	D_{ \beta_0} \left(L_P\right) &= D_{\beta_0} \left(- \sum_{i=1}^{N} \lambda_i \left(y_i\left(\bfx_i^\intercal\bfbeta+\beta_0\right)-\left(1-s_i\right)\right)\right) = -\sum_{i=1}^{N} \lambda_i y_i
@@ -1106,7 +1106,7 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 %		\end{equation}
 %	\end{thm}
 %	\begin{proof}
-%		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k\left(\bfx_1, \bfx_2\right)$. eftersom $k$ är positivt definit är även $\mathbf{K}$ positivt definit alltså är alla egenvärden positivta och då även determinanten positivt \left(se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
+%		Betrakta matrisen $\mathbf{K}$ med elementen $\mathbf{K}_{ij}=k\left(\bfx_1, \bfx_2\right)$. Eftersom $k$ är positivt definit är även $\mathbf{K}$ positivt definit alltså är alla egenvärden positivta och då även determinanten positivt \left(se till exempel \cite{Axler} eller nästan vilken bok om linjär algebra/matristeori som helst), det vill säga
 %		\begin{equation*}
 %			\mathbf{K}_{11} \mathbf{K}_{22} - \mathbf{K}_{12} \mathbf{K}_{21} \geq 0.
 %		\end{equation*}
@@ -1230,7 +1230,7 @@ Stödvektormaskinerna utvecklades under 1990-talet ungefär på samma gång som 
 
 För att algoritmerna skall generalisera så väl som möjligt måste man ofta bestämma olika parametrar som inte kan lösas genom vanlig optimering. Till exempel måste parametern $\gamma$ och kärnan bestämmas på något sätt. Oftast görs detta genom att man löser algoritmen för till exempel 80 \% av observationerna med olika val av kärna och $\gamma$ för att sedan välja den kombination som fungerar bäst på de resterande 20 \%:en av observationerna \cite{ESL}.
 
-De reproducerande kärnorna kan också användas för att göra andra algoritmer mera flexibla, det huvudsakliga kravet är att observationerna ska förekomma endast i inreprodukter \cite{ESL, LearningKernels}. Till exempel finns det versioner av huvudkomponentsanalys (principal component analysis, PCA) och linjär diskriminantanalys (linear discriminant analysis, LDA) som gjorts olinjära med hjälp av reproducerande kärnor \cite{ESL}.
+De reproducerande kärnorna kan också användas för att göra andra algoritmer mera flexibla, det huvudsakliga kravet är att observationerna ska förekomma endast i inreprodukter \cite{ESL, LearningKernels}. Till exempel finns det versioner av principalkomponentsanalys (principal component analysis, PCA) och linjär diskriminantanalys (linear discriminant analysis, LDA) som gjorts olinjära med hjälp av reproducerande kärnor \cite{ESL}.
 
 \bibliographystyle{sweplain}
 \bibliography{bibliografi}
