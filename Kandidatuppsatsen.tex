@@ -67,27 +67,27 @@
 \maketitle
 
 \begin{abstract}
-	I denna avhandling presenteras stödvektormaskiner (SVM) med fokus på att noggrant förklara motiveringarna bakom de steg som oftast presenteras i introduktionslitteraturen, både för den ursprungliga algoritmen med hårda marginaler och algoritmen med mjuka marginaler. Speciellt läggs vikt på analys av lösningen som karaktäriseras med hjälp av Lagrangemultiplikatorer. Till sist presenteras också en introduktion till teorin för Hilbertrum med reproducerande kärnor där huvudresultatet är verifieringen av att den funktion som vanligtvis presenteras som inreprodukt uppfyller kraven för inreprodukter. Som följd visas att varje symmetrisk positiv semidefinit funktion $k\left(\bfx, \bfy\right)$ kan ses som en inreprodukt i något rum.
+	I denna avhandling presenteras stödvektormaskiner (SVM) med fokus på att noggrant förklara motiveringarna bakom de steg som oftast presenteras i introduktionslitteraturen, både för den ursprungliga algoritmen med hårda marginaler och algoritmen med mjuka marginaler. Speciellt läggs vikt på analys av lösningen som karaktäriseras med hjälp av Lagrangemultiplikatorer. Till sist presenteras också en introduktion till teorin för Hilbertrum med reproducerande kärnor där huvudresultatet är verifieringen av att den funktion som vanligtvis presenteras som inreprodukt uppfyller kraven för inreprodukter. Som följd visas att varje symmetrisk positivt semidefinit funktion $k\left(\bfx, \bfy\right)$ kan ses som en inreprodukt i något rum.
 \end{abstract}
 
 \tableofcontents
 
 \chapter{Inledning}
-Tack vare en ökande beräkningsförmåga samt användbarhet hos datorer under senare delar av 1900-talet forskades det flitigt om hur man bästa använder datorer för beräkning och lösning av statistiska metoder och problem.
+Tack vare en ökande beräkningsförmåga samt användbarhet hos datorer under senare delen av 1900-talet forskades det flitigt om hur man bäst använder datorer för beräkning och lösning av statistiska metoder och problem.
 I samband med detta uppstod även forskningsområdet maskininlärning där tyngdpunkten låg mera på datorerna.
 En tidig algoritm var Frank Rosenblatts \emph{Perceptron} (år 1957) \cite{Rosenblatt} där man med inspiration från hjärnans neuroner försökt klassificera \emph{observationer} $\mathbf{x}$ genom att dra ett \emph{hyperplan} mellan klasserna.
 År 1963 gav Aleksandr Lerner och Vladimir Vapnik en variant av Rosenblatts perceptron där \emph{optimala separerande hyperplan} används för att klassificera observationerna \cite{VapnikLerner1963}.
-Lerner och Vapniks algoritm är matematiskt mera tilltalande än Rosenblatts eftersom att den optimala lösningen kan visas vara unik men det finns fortfarande några problem, bland annat går algoritmen bara att använda om observationsparen är \emph{linjärt separabla}.
+Lerner och Vapniks algoritm är matematiskt mera tilltalande än Rosenblatts eftersom den optimala lösningen kan visas vara unik, men det finns fortfarande några problem, bland annat går algoritmen bara att använda om observationsparen är \emph{linjärt separabla}.
 År 1968 föreslog Fred Smith \cite{Smith} en generaliserad algoritm som använde \emph{slackvariabler} för att även fungera för icke linjärt separabla observationspar.
 Smiths arbete med slackvariabler undersöktes vidare av Kristin Bennet och Olvi Mangasarian år 1992 \cite{BennetMangasarian}.
 
-Parallellt med forskningen i de linjära optimalt separerande hyperplanen forskades om tillämpningar av funktioner kallade \emph{kärnor}, med avstamp i James Mercers forskning (1909) i \emph{positiva} funktioner \cite{Mercer} och Nachman Aronszajns fortsatta forskning (1950) om \emph{reproducerande} kärnor \cite{Aronszajn}.
+Parallellt med forskningen i de linjära optimalt separerande hyperplanen forskades det om tillämpningar av funktioner kallade \emph{kärnor}, med avstamp i James Mercers forskning (1909) i \emph{positiva} funktioner \cite{Mercer} och Nachman Aronszajns fortsatta forskning (1950) om \emph{reproducerande} kärnor \cite{Aronszajn}.
 Kärnor föreslogs av Mark Aizerman, Emmanuil Braverman och Lev Rozonoer \cite{Aizerman} för att generalisera perceptron-algoritmen till en algoritm för olinjär klassificering.
-Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel Grace Wahbas bok om splin-modeller (1990) \cite{Grace} tillämpades kärnor även på den ursprungliga algoritmen med optimalt separerande av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
-Snart därefter generaliserades även Bennet och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är algoritmen som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
+Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel Grace Wahbas bok om spline-modeller (1990) \cite{Grace} tillämpades kärnor även på den ursprungliga algoritmen med optimalt separerande hyperplan av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
+Snart därefter generaliserades även Bennets och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är algoritmen som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
 
-I avhandlingen kommer till först den ursprungliga algoritmen att undersökas för att sedan modifieras med slackvariabler, upplägget följer långt Trevor Hastie, Robert Tibshirani och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler.
-Därefter kommer de reproducerande kärnorna att undersökas, för det följs i stora drag Bernhard Schölkopf och Alexander Smolas bok \cite{LearningKernels}.
+I avhandlingen kommer till först den ursprungliga algoritmen att undersökas för att sedan modifieras med slackvariabler, upplägget följer långt Trevor Hasties, Robert Tibshiranis och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler.
+Därefter kommer de reproducerande kärnorna att undersökas, för det följs i stora drag Bernhard Schölkopfs och Alexander Smolas bok \cite{LearningKernels}.
 
 Precis som många andra metoder inom statistiken och maskininlärningen bygger stödvektormaskinen på ett konvext optimeringsproblem och på grund av detta borde läsaren vara bekant med koncept ur konvex optimering.
 En bra introduktion är Stephen Boyd och Lieven Vandenberghes bok \cite{Boyd}.
@@ -165,14 +165,14 @@ Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\ll
 		där olikheten fås efter att man tagit kvadratrötter av båda sidorna.
 		\item $\left\| \lambda\bfx \right\|_\mathcal{H} = \left|\lambda\right|\left\| \bfx \right\|_\mathcal{H}$ (absolut homogen):
 		\begin{equation}
-			\left\| \lambda\bfx \right\|_\mathcal{H}^2 = \llangle \lambda \bfx, \bfx \rrangle_\mathcal{H}
+			\left\| \lambda\bfx \right\|_\mathcal{H}^2 = \llangle \lambda \bfx, \lambda \bfx \rrangle_\mathcal{H}
 			= \lambda^2 \llangle \bfx, \bfx \rrangle_\mathcal{H},
 		\end{equation}
 		efter att man tar kvadratrötter på båda sidorna fås då
 		\begin{equation*}
 			\left\| \lambda\bfx \right\|_\mathcal{H} = \sqrt{\lambda^2}\left\| \bfx \right\|_\mathcal{H} = \left|\lambda\right| \left\| \bfx \right\|_\mathcal{H}.
 		\end{equation*}
-		\item $\left\| \bfx \right\|_\mathcal{H}=0$ om och endast om $\bfx = \mathbf{0}$ (positiv definit):\\
+		\item $\left\| \bfx \right\|_\mathcal{H}=0$ om och endast om $\bfx = \mathbf{0}$ (positivt definit):\\
 		Detta följer genast ur $\left\| \bfx \right\|_\mathcal{H} = \sqrt{\llangle \bfx, \bfx \rrangle_\mathcal{H}}$ och \ref{IP4}. \qedhere
 	\end{enumerate}
 \end{proof}
@@ -182,13 +182,17 @@ Man kan även definiera en inreprodukt för vektorrum bestående av funktioner p
 \begin{equation*}
 \left\langle f, g\right\rangle_{\mathcal{L}^2}=\int_{a}^{b}f\left(x\right)g\left(x\right) \, dx ,
 \end{equation*}
-men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2\,dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet. För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
+men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2\,dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet.
+%För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
+
+Ett hjälpmedel när man jobbar med Hilbertrum kan vara kunna visualisera och föreställa sig relationer mellan vektorer, speciellt räta vinklar är viktiga och spelar en betydande roll. I Hilbertrum säger man att vinkeln mellan två vektorer är $90^\circ$ om de är ortogonala:
+
 
 \begin{defi}[Enligt \cite{Lang}]
 	Två vektorer $\bfx, ~\bfy\in\hil$ är \emph{ortogonala} om $\inner{\bfx}{\bfy}_\hil=0$. Dessutom är vektorerna \emph{ortonormala} ifall de är både ortogonala och normaliserade det vill säga $\left\|\bfx\right\|_\hil=\left\|\bfy\right\|_\hil=1$.
 \end{defi}
 \begin{ex}%TODO	komma? semikolon?
-	Låt $\bfx=\left[1, 0\right]^\intercal$ och $\bfy=\left[0, 1\right]^\intercal$. Då är $\inner{\bfx}{\bfy}_2=\bfx^\intercal\bfy=\left[1, 0\right]\left[0, 1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är vinkelräta. Normen av vektorerna är också 1 så de är dessutom ortogonala.
+	Låt $\bfx=\left[1, 0\right]^\intercal$ och $\bfy=\left[0, 1\right]^\intercal$. Då är $\inner{\bfx}{\bfy}_2=\bfx^\intercal\bfy=\left[1, 0\right]\left[0, 1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är ortogonala. Normen av vektorerna är också 1 så de är dessutom ortonormala.
 \end{ex}
 
 Med hjälp av ortogonaliteten kan man härleda konceptet för en komponenten av en vektor längs en annan vektor och projektionen av en vektor på en annan vektor.
