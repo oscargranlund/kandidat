@@ -1193,7 +1193,7 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 \begin{ex}
 	Låt $\bfx_i,~\bfx_j\in\mathbb{R}$ och betrakta funktionen
 	\begin{align*}
-		k\left(\bfx_i, \bfx_j\right)&=e^{-\frac{\left\| \bfx_i-\bfx_j\right\|^2}{2\sigma^2}}\\&=e^{-\frac{\inner{\bfx_i-\bfx_j}{\bfx_i-\bfx_j}_1}{2\sigma^2}}\\
+		k\left(\bfx_i, \bfx_j\right)&=e^{-\frac{\left\| \bfx_i-\bfx_j\right\|_1^2}{2\sigma^2}}\\&=e^{-\frac{\inner{\bfx_i-\bfx_j}{\bfx_i-\bfx_j}_1}{2\sigma^2}}\\
 		&=e^{-\frac{\bfx_i^2+\bfx_j^2-2\bfx_i\bfx_j}{2\sigma^2}}\\&=e^{-\frac{\bfx_i^2+\bfx_j^2}{2\sigma^2}}\cdot e^{\frac{2\bfx_i\bfx_j}{2\sigma^2}}\\
 		&= e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2}\cdot e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2}\cdot e^{\frac{\bfx_i\bfx_j}{\sigma^2}}.
 	\end{align*}
