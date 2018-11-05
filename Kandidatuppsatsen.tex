@@ -375,30 +375,55 @@ $\bfy$ i $\hil$:
 \end{enumerate}
 \end{proof}
 
-\begin{rem}
-	Definitionen $L=\{ \mathbf{x} : f\left(\mathbf{x}\right)=\inner{\bfx}{\bfbeta}_\hil + \beta_0=0\}$ för hyperplanet $L$ är inte entydig.
-\end{rem}
-\begin{reas}
+Från beviset av egenskap 1 i sats \ref{thm:hyperplan} och efter man arbetat med definitionen för ett hyperplan $L$ lite kan man ana att parametrarna $\bfbeta$ och $\beta_0$ inte är entydigt bestämda, med andra ord kanske det finns andra parametrar som ger samma hyperplan. Detta reds ut i följande exempel.
+
+\begin{ex}\label{ex:entydig}
 	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g\left(\mathbf{x}\right)=\inner{\bfx}{-\bfbeta}_\hil + \left(-\beta_0\right) = 0\right\}$. Eftersom $g\left(\mathbf{x}\right) = -f\left(\mathbf{x}\right)$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
 	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h\left(\mathbf{x}\right)=\frac{\inner{\bfx}{\bfbeta}_\hil}{\left\|\bfbeta
-\right\|_\hil} + \frac{\beta_0}{\left\|\bfbeta
-\right\|_\hil}=0\right\}$. Om punkten $\mathbf{x}_0$ tillhör $L_1$ så tillhör punkten $\mathbf{x}_0$ även $L_3$ eftersom $h\left(\mathbf{x}\right) = \frac{f\left(\mathbf{x}\right)}{\left\|\bfbeta
-\right\|_\hil}=0$. Notera även att $\frac{1}{\left\|\bfbeta
-\right\|_\hil}$ kunde ha varit vilket reellt tal som helst.
-\end{reas}
+		\right\|_\hil} + \frac{\beta_0}{\left\|\bfbeta
+		\right\|_\hil}=0\right\}$. Om punkten $\mathbf{x}_0$ tillhör $L_1$ så tillhör punkten $\mathbf{x}_0$ även $L_3$ eftersom $h\left(\mathbf{x}\right) = \frac{f\left(\mathbf{x}\right)}{\left\|\bfbeta
+		\right\|_\hil}=0$. Notera även att $\frac{1}{\left\|\bfbeta
+		\right\|_\hil}$ kunde ha varit vilket reellt tal som helst.
+\end{ex}
 
-\begin{rem}
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $i=1,~\dots,~N$, där $\left(\bfx_i, y_i\right)$ är observationsparen i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet medan observationerna $\bfx_i$ i klassen $y_i=-1$ ligger under.
-	Dessutom anger $\beta_0$ det signerade avståndet från origo till hyperplanet (i relation till riktningen på $\bfbeta$).
-\end{rem}
-\begin{reas}
-	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att det signerade avståndet från origo till hyperplanet är lika med
+
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $\bfx_i$ med $y_i=1$, där $\left(\bfx_i, y_i\right)$ är observationsparen i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet.
+	De extra villkoren gör att hyperplanen $L_1$ och $L_3$ har samma parametrar eftersom att $\left\|\bfbeta\right\|_\hil=1$. Vidare är endera $L_1$ eller $L_2$ sådant att det andra tilläggsvillkoret inte uppfylls.
+	De extra villkoren gör alltså att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man dessutom sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att det signerade avståndet från origo till hyperplanet (i relation till riktningen på $\bfbeta$) är lika med
 	\begin{equation*}
 	\frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil+\beta_0\right)=\frac{1}{\left\|\bfbeta
-\right\|_p}\left(\inner{\mathbf{0}}{\bfbeta}_\hil+\beta_0\right)=\beta_0.
+		\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil+\beta_0\right)=\frac{1}{\left\|\bfbeta
+		\right\|_p}\left(\inner{\mathbf{0}}{\bfbeta}_\hil+\beta_0\right)=\beta_0.
 	\end{equation*}
-\end{reas}
+
+
+
+
+
+%\begin{rem}
+%	Definitionen $L=\{ \mathbf{x} : f\left(\mathbf{x}\right)=\inner{\bfx}{\bfbeta}_\hil + \beta_0=0\}$ för hyperplanet $L$ är inte entydig.
+%\end{rem}
+%\begin{reas}
+%	Betrakta hyperplanen $L_1 = \sephyp$ och $L_2 = \left\{\mathbf{x}: g\left(\mathbf{x}\right)=\inner{\bfx}{-\bfbeta}_\hil + \left(-\beta_0\right) = 0\right\}$. Eftersom $g\left(\mathbf{x}\right) = -f\left(\mathbf{x}\right)$ så gäller att om $\mathbf{x}_0$ tillhör $L_1$ så tillhör $\mathbf{x}_0$ även $L_2$.
+%	Betrakta vidare hyperplanet $L_3= \left\{\mathbf{x}: h\left(\mathbf{x}\right)=\frac{\inner{\bfx}{\bfbeta}_\hil}{\left\|\bfbeta
+%\right\|_\hil} + \frac{\beta_0}{\left\|\bfbeta
+%\right\|_\hil}=0\right\}$. Om punkten $\mathbf{x}_0$ tillhör $L_1$ så tillhör punkten $\mathbf{x}_0$ även $L_3$ eftersom $h\left(\mathbf{x}\right) = \frac{f\left(\mathbf{x}\right)}{\left\|\bfbeta
+%\right\|_\hil}=0$. Notera även att $\frac{1}{\left\|\bfbeta
+%\right\|_\hil}$ kunde ha varit vilket reellt tal som helst.
+%\end{reas}
+
+%\begin{rem}
+%	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $i=1,~\dots,~N$, där $\left(\bfx_i, y_i\right)$ är observationsparen i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet medan observationerna $\bfx_i$ i klassen $y_i=-1$ ligger under.
+%	Dessutom anger $\beta_0$ det signerade avståndet från origo till hyperplanet (i relation till riktningen på $\bfbeta$).
+%\end{rem}
+%\begin{reas}
+%	De extra villkoren gör att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att det signerade avståndet från origo till hyperplanet är lika med
+%	\begin{equation*}
+%	\frac{1}{\left\|\bfbeta
+%\right\|_p}\left(\inner{\bfx}{\bfbeta}_\hil+\beta_0\right)=\frac{1}{\left\|\bfbeta
+%\right\|_p}\left(\inner{\mathbf{0}}{\bfbeta}_\hil+\beta_0\right)=\beta_0.
+%	\end{equation*}
+%\end{reas}
 
 \begin{figure}[h]
 \centering
@@ -409,10 +434,12 @@ $\bfy$ i $\hil$:
 \begin{defi}
 	Ett klassificeringsproblem eller en mängd observationspar $\left(\mathbf{x}_i, y_i\right)$ är \textit{linjärt separabelt} om det existerar ett hyperplan $L=\sephyp$ sådant att punkten $\bfx_i$ ligger över hyperplanet om $y_i=1$ och under om $y_i=-1$. Ett sådant hyperplan kallas ett \emph{separerande hyperplan}.
 \end{defi}
-\begin{rem}
 	Genom att byta tecken på $\bfbeta$ och $\beta_0$ kan man se att ifall det existerar ett hyperplan $\sephyp$ sådant att punkten $\bfx_i$ ligger under hyperplanet om $y_i=1$ och över om $y_i=-1$ så finns även ett sådant att punkten $\bfx_i$ ligger över hyperplanet om $y_i=1$ och under om $y_i=-1$.
 	Konventionen är att man väljer det hyperplan som passar ovanstående definition.
-\end{rem}
+%\begin{rem}
+%	Genom att byta tecken på $\bfbeta$ och $\beta_0$ kan man se att ifall det existerar ett hyperplan $\sephyp$ sådant att punkten $\bfx_i$ ligger under hyperplanet om $y_i=1$ och över om $y_i=-1$ så finns även ett sådant att punkten $\bfx_i$ ligger över hyperplanet om $y_i=1$ och under om $y_i=-1$.
+%	Konventionen är att man väljer det hyperplan som passar ovanstående definition.
+%\end{rem}
 \begin{thm}[Enligt \cite{Boyd}]\label{thm:sephyppositive}
 	För ett separerande hyperplan $L=\sephyp$ gäller att 
 	\begin{equation*}
@@ -509,10 +536,12 @@ Matematiskt kan man uttrycka problemet som följande optimeringsproblem
 \end{aligned}
 \end{equation}
 där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste observationerna. Här betecknar $\left(\bfx_i, y_i\right)$ observationsparen i träningsdatat där $\bfx_i\in\mathbb{R}^p$ och $y_i\in\left\{-1, 1 \right\}$ för $i=1,~\dots,~N$, detta gäller även för resten av kapitlet om inte annat anges.
-\begin{rem}
-	Ifall alla punkter är rätt klassificerade ger sats \ref{thm:hyperplan} och \ref{thm:sephyppositive} att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
-\end{rem}
+%\begin{rem}
+%	Ifall alla punkter är rätt klassificerade ger sats \ref{thm:hyperplan} och \ref{thm:sephyppositive} att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
+%\end{rem}
 
+Kraven $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C, ~i=1,~\dots,~N$ ska tolkas med hjälp av sats \ref{thm:hyperplan} och \ref{thm:sephyppositive}. 
+Tolkningen blir att ifall alla punkter är rätt klassificerade ger satserna att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$, som man kräver att är större än $C$, det man försöker maximera.
 Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext \cite{ESL}. %TODO definiera konvext
 
 För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext} måste det skrivas om. Idén är att man låter inversen av längden på vektorn $\bfbeta$ beskriva avståndet till närmast punkt, då skapas en direktare länk mellan kraven och objektfunktionen i optimeringsproblemet.
@@ -612,7 +641,7 @@ Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
 %Framställningen i korollarium \ref{cor:inreproduktoptimering} används i många källor, bland annat i den ursprungliga framställningen för stödvektormaskinen, %TODO referens
 %och är en av de mer generella framställningarna för optimeringsproblemet som stödvektormaskinen bygger på. %TODO Ha kvar det här?
 
-\subsection{Primala och duala problem}
+\subsection{Primala och duala Lagrangeproblem}
 
 För att hitta alla extrempunkter till ett optimeringsproblem, det vill säga lösa ett konvext optimeringsproblem, används Lagrangemultiplikatorer \cite{Boyd}. %TODO Förklara mera utförligt? Glader vill ha förklaring för utvidgning till olikhetsvillkor men Boyd använder genast olikhetsvillkor, Tahns bok?
 Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
@@ -772,9 +801,15 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 %	Se beviset för korollarium \ref{cor:inreproduktoptimering}.
 %\end{proof}
 
-\begin{rem}
-	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla, man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
-\end{rem}
+
+Eftersom att kraven för optimeringsproblemen i sats \ref{thm:primalsoftmargin} är mer tillåtande än motsvarande krav i sats \ref{thm:primallinearproblem} så kan hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla. Man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$, då måste alla $s_i$ vara lika med 0 och då är kraven i sats \ref{thm:primalsoftmargin} de samma som de i \ref{thm:primallinearproblem} (man måste givetvis också kräva att observationsparen $\left(\bfx_i, y_i\right)$ är sådana att problemet är linjärt separabelt).
+
+Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
+
+
+%\begin{rem}
+%	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla, man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
+%\end{rem}
 
 För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden vid optimering för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
 \begin{equation}\label{eq:softpenalty1}
