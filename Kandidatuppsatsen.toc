@@ -6,9 +6,9 @@
 \contentsline {section}{\numberline {3.1}Klassificering med hj\IeC {\"a}lp av separerande hyperplan}{9}
 \contentsline {section}{\numberline {3.2}Optimala separerande hyperplan}{14}
 \contentsline {subsection}{\numberline {3.2.1}Primala och duala Lagrangeproblem}{17}
-\contentsline {section}{\numberline {3.3}Det oseparabla fallet}{21}
-\contentsline {subsection}{\numberline {3.3.1}Primala och duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{24}
-\contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{28}
-\contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{30}
-\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positivt semidefinita funktioner}{34}
-\contentsline {chapter}{\numberline {5}Avslutning}{37}
+\contentsline {section}{\numberline {3.3}Det oseparabla fallet}{20}
+\contentsline {subsection}{\numberline {3.3.1}Primala och duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{23}
+\contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{27}
+\contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{29}
+\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positivt semidefinita funktioner}{33}
+\contentsline {chapter}{\numberline {5}Avslutning}{36}

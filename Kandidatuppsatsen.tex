@@ -74,7 +74,7 @@
 	I denna avhandling undersöks och härleds metoden med start i ett enkelt optimeringsproblem som i tre steg görs mera allmänt.
 	Först undersöks ett optimeringsproblem som kräver att alla observationer går att klassificera rätt, speciellt läggs vikt på att med Lagrangemultiplikatorer karaktärisera den optimala lösningen.
 	Till näst undersöks några varianter av det första optimeringsproblemet där man tillåter att observationerna klassificeras fel, igen karaktäriseras den optimala lösningen.
-	Till sist presenteras en introduktion till teorin om Hilbertrum med reproducerande kärnor som ger ett sätt att generalisera de hittills linjära klassificeringsmetoderna (samt andra linjära metoder) till en olinjär klassificeringsmetod.
+	Till sist presenteras en introduktion till teorin om Hilbertrum med reproducerande kärnor som ger ett sätt att generalisera de hittills linjära klassificeringsmetoderna (samt andra linjära metoder) till en olinjär klassificeringsmetod, det är denna metod som man vanligtvis avser med stödvektormaskinen.
 %	I denna avhandling presenteras stödvektormaskiner (SVM) med fokus på att noggrant förklara motiveringarna bakom de steg som oftast presenteras i introduktionslitteraturen, både för den ursprungliga algoritmen med hårda marginaler och algoritmen med mjuka marginaler. Speciellt läggs vikt på analys av lösningen som karaktäriseras med hjälp av Lagrangemultiplikatorer. Till sist presenteras också en introduktion till teorin för Hilbertrum med reproducerande kärnor där huvudresultatet är verifieringen av att den funktion som vanligtvis presenteras som inreprodukt uppfyller kraven för inreprodukter. Som följd visas att varje symmetrisk positivt semidefinit funktion $k\left(\bfx, \bfy\right)$ kan ses som en inreprodukt i något rum.
 \end{abstract}
 
@@ -82,19 +82,22 @@
 
 \chapter{Inledning}
 Tack vare en ökande beräkningsförmåga samt användbarhet hos datorer under senare delen av 1900-talet forskades det flitigt om hur man bäst använder datorer för beräkning och lösning av statistiska metoder och problem.
-I samband med detta uppstod även forskningsområdet maskininlärning där tyngdpunkten låg mera på datorerna.
-En tidig algoritm var Frank Rosenblatts \emph{Perceptron} (år 1957) \cite{Rosenblatt} där man med inspiration från hjärnans neuroner försökt klassificera \emph{observationer} $\mathbf{x}$ genom att dra ett \emph{hyperplan} mellan klasserna.
+I samband med detta uppstod forskningsområdet maskininlärning som ett forskningsområde gemensamt för statistiken och datavetenskapen.
+En tidig algoritm var Frank Rosenblatts \emph{perceptron}-algoritm (år 1957) \cite{Rosenblatt} där man med inspiration från hjärnans neuroner försökt klassificera \emph{observationer} $\mathbf{x}$ genom att dra ett \emph{hyperplan} mellan klasserna.
 År 1963 gav Aleksandr Lerner och Vladimir Vapnik en variant av Rosenblatts perceptron där \emph{optimala separerande hyperplan} används för att klassificera observationerna \cite{VapnikLerner1963}.
 Lerner och Vapniks algoritm är matematiskt mera tilltalande än Rosenblatts eftersom den optimala lösningen kan visas vara unik, men det finns fortfarande några problem, bland annat går algoritmen bara att använda om observationsparen är \emph{linjärt separabla}.
-År 1968 föreslog Fred Smith \cite{Smith} en generaliserad algoritm som använde \emph{slackvariabler} för att även fungera för icke linjärt separabla observationspar.
+År 1968 föreslog Fred Smith \cite{Smith} en generaliserad algoritm som använde \emph{slackvariabler} för att även fungera för linjärt oseparabla observationspar.
 Smiths arbete med slackvariabler undersöktes vidare av Kristin Bennet och Olvi Mangasarian år 1992 \cite{BennetMangasarian}.
 
-Parallellt med forskningen i de linjära optimalt separerande hyperplanen forskades det om tillämpningar av funktioner kallade \emph{kärnor}, med avstamp i James Mercers forskning (1909) i \emph{positiva} funktioner \cite{Mercer} och Nachman Aronszajns fortsatta forskning (1950) om \emph{reproducerande} kärnor \cite{Aronszajn}.
+Parallellt med forskningen i de linjära optimala separerande hyperplanen forskades det om tillämpningar av funktioner kallade \emph{kärnor}, med avstamp i James Mercers forskning (1909) i \emph{positiva} funktioner \cite{Mercer} och Nachman Aronszajns fortsatta forskning (1950) om \emph{reproducerande} kärnor \cite{Aronszajn}.
 Kärnor föreslogs av Mark Aizerman, Emmanuil Braverman och Lev Rozonoer \cite{Aizerman} för att generalisera perceptron-algoritmen till en algoritm för olinjär klassificering.
-Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel Grace Wahbas bok om spline-modeller (1990) \cite{Grace} tillämpades kärnor även på den ursprungliga algoritmen med optimalt separerande hyperplan av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
-Snart därefter generaliserades även Bennets och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är algoritmen som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
+Efter att användningen av olinjära kärnor visades endera ge bra resultat vid tillämpningar eller ge nya sätt att analysera algoritmer, se till exempel Grace Wahbas bok om spline-modeller (1990) \cite{Grace}, tillämpades kärnor även på den ursprungliga algoritmen med optimala separerande hyperplan av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
+Snart därefter generaliserades även Bennets och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är algoritmen som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och med andra ord den algoritm som i denna avhandling behandlas.
 
-I avhandlingen kommer till först den ursprungliga algoritmen att undersökas för att sedan modifieras med slackvariabler, upplägget följer långt Trevor Hasties, Robert Tibshiranis och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimalt separerande hyperplan samt den mjuka utvidgningen med slackvariabler.
+%Efter att kärnorna visades vara nyttiga för andra algoritmer, se till exempel Grace Wahbas bok om spline-modeller (1990) \cite{Grace} tillämpades kärnor även på den ursprungliga algoritmen med optimalt separerande hyperplan av Bernhard Boser, Isabelle Gyuon och Vladimir Vapnik i 1992 \cite{BoserGyuonVapnik}.
+%Snart därefter generaliserades även Bennets och Mangasarians algoritm av Corinna Cortes och Vladimir Vapnik i 1995 \cite{CortesVapnik}, detta är algoritmen som vanligtvis associeras med begreppet \emph{stödvektormaskin} (Support Vector Machine, SVM) och därmed är det den jag vill härleda.
+
+I avhandlingen kommer till först den ursprungliga algoritmen att undersökas för att sedan modifieras med slackvariabler, upplägget följer långt Trevor Hasties, Robert Tibshiranis och Jerome Friedmans bok \cite{ESL}, speciellt kapitlet om optimala separerande hyperplan samt kapitlet som börjar med utvidgningen med hjälp av slackvariabler.
 Därefter kommer de reproducerande kärnorna att undersökas, för det följs i stora drag Bernhard Schölkopfs och Alexander Smolas bok \cite{LearningKernels}.
 
 Precis som många andra metoder inom statistiken och maskininlärningen bygger stödvektormaskinen på ett konvext optimeringsproblem och på grund av detta borde läsaren vara bekant med koncept ur konvex optimering.
@@ -108,7 +111,7 @@ Främst kommer teorin om kvadratiska optimeringsproblem och analys av duala prob
 \section{Geometrisk begrepp}
 I många statistiska metoder används enkla geometriska koncept, till exempel plan eller linjer, för att dra slutsatser angående insamlat data.
 Ofta vill man även hitta den bästa modellen, till exempel den modell som minimerar avståndet mellan observationerna och modellens predikterade värden (tänk som i linjär regression) eller den modell som maximerar det minsta avståndet mellan två klasser.
-För att effektivt kunna resonera om hur rummet man arbetar i ser ut visar det sig att teorin om \emph{inreproduktrum}, eller närmare bestämt \emph{Hilbertrum}, ger många bra verktyg.
+För att effektivt kunna resonera om hur rummen man arbetar i ser ut visar det sig att teorin om \emph{inreproduktrum}, eller närmare bestämt \emph{Hilbertrum}, ger många bra verktyg.
 Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emph{inreprodukt}, $\llangle \cdot, \cdot\rrangle$, som dessutom är \emph{fullständigt}.
 
 \begin{defi}[Enligt \cite{Young}]\label{def:inreprodukt}
@@ -125,12 +128,12 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 	Ett inreproduktrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar (med avseende på normen inducerad av inreprodukten) till en punkt $\mathbf{x}$ i $X$.
 \end{defi}
 
-\begin{rem}
-	Den inducerade normen $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum $\mathcal{H}$ med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ definieras genom
+\begin{defi}
+	Den \emph{inducerade normen} $\|\cdot\|_\mathcal{H}$ i ett Hilbertrum $\mathcal{H}$ med en inreprodukt $\llangle \cdot, \cdot\rrangle_\mathcal{H}$ definieras genom
 	\begin{equation*}
 		\| \mathbf{x}\|_\mathcal{H} := \sqrt{\llangle \bfx, \bfx \rrangle_\mathcal{H}} \qquad \text{där } \bfx \in \mathcal{H}.
 	\end{equation*}
-\end{rem}
+\end{defi}
 För att bevisa att normen definierad ovan är en norm krävs ett välkänt resultat:
 \begin{thm}[Cauchy-Scwharz olikhet enligt \cite{Young}]\label{CauchySchwarz}
 	För $\bfx,~\mathbf{y}$ i ett inreproduktrum $X$ gäller
@@ -152,7 +155,7 @@ För att bevisa att normen definierad ovan är en norm krävs ett välkänt resu
 	&= \llangle \bfx, \bfx \rrangle + \llangle \bfx , - \lambda \mathbf{y} \rrangle + \llangle - \lambda \mathbf{y} , \bfx \rrangle + \llangle -\lambda\mathbf{y}, -\lambda\mathbf{y}\rrangle\\
 	&=  \llangle\mathbf{y}, \mathbf{y} \rrangle \lambda^2 - 2 \llangle \bfx, \mathbf{y}\rrangle \lambda + \llangle \bfx, \bfx \rrangle
 	\end{align*}
-	där sista raden är en kvadratisk ekvation av $\lambda$ med högst en unik reell rot. Då följer att diskriminanten $\Delta=\left(-2\llangle\bfx,\mathbf{y}\rrangle\right)^2 - 4 \llangle \mathbf{y}, \mathbf{y}\rrangle\llangle\bfx,\bfx\rrangle\leq0$. Efter omarrangerande och division med $4$ fås då
+	där sista raden är en kvadratisk ekvation av $\lambda$ med högst en unik reell rot. Då följer att diskriminanten $\Delta=\left(-2\llangle\bfx, \mathbf{y}\rrangle\right)^2 - 4 \llangle \mathbf{y}, \mathbf{y}\rrangle\llangle\bfx, \bfx\rrangle\leq0$. Efter omarrangerande och division med $4$ fås då
 	\begin{equation*}
 	\llangle \bfx, \mathbf{y}\rrangle^2 \leq \llangle \bfx, \bfx \rrangle \llangle \mathbf{y}, \mathbf{y} \rrangle. \qedhere
 	\end{equation*}
@@ -160,7 +163,7 @@ För att bevisa att normen definierad ovan är en norm krävs ett välkänt resu
 Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\llangle \bfx , \bfx \rrangle_\mathcal{H}}$, $\bfx \in\mathcal{H}$ är en norm:
 \begin{proof}
 	Låt $\lambda \in \mathbb{R}$, $\bfx,~\mathbf{y}\in \mathcal{M}$:
-	\begin{enumerate}[label=\textbf{N\arabic*}:]
+	\begin{enumerate}[label=\textbf{N\arabic*}]
 		\item $\| \bfx + \mathbf{y}\|_\mathcal{H} \leq \| \bfx \|_\mathcal{H} + \| \mathbf{y}\|_\mathcal{H}$ (subadditiv alternativt uppfyller triangel-olikheten): 
 		\begin{align*}
 			\| \bfx + \mathbf{y}\|_\mathcal{H}^2 &= \llangle \bfx + \mathbf{y}, \bfx + \mathbf{y}\rrangle_\mathcal{H}\\
@@ -186,14 +189,14 @@ Nedan följer ett bevis för att $\left\| \bfx \right\|_\mathcal{H} := \sqrt{\ll
 \end{proof}
 
 Hilbertrum kan definieras för många olika vektorrum, till exempel det $p$-dimensionella vektorrummet med den vanliga inreprodukten $\left\langle \mathbf{x}, \mathbf{y} \right\rangle_d = \mathbf{x}^\intercal\mathbf{y}$.
-Man kan även definiera en inreprodukt för vektorrum bestående av funktioner på intervallet $\left[a,b\right]$, då brukar inreprodukten definieras som
+Man kan även definiera en inreprodukt för vektorrum bestående av funktioner på intervallet $\left[a, b\right]$, då brukar inreprodukten definieras som
 \begin{equation*}
 \left\langle f, g\right\rangle_{\mathcal{L}^2}=\int_{a}^{b}f\left(x\right)g\left(x\right) \, dx ,
 \end{equation*}
 men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2\,dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet.
 %För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
 
-Ett hjälpmedel när man jobbar med Hilbertrum kan vara kunna visualisera och föreställa sig relationer mellan vektorer, speciellt räta vinklar är viktiga och spelar en betydande roll. I Hilbertrum säger man att vinkeln mellan två vektorer är $90^\circ$ om de är ortogonala:
+Ett hjälpmedel när man jobbar med Hilbertrum kan vara att kunna visualisera och föreställa sig relationer mellan vektorer, speciellt räta vinklar är viktiga och spelar en betydande roll. I Hilbertrum säger man att vinkeln mellan två vektorer är $90^\circ$ om de är ortogonala:
 
 
 \begin{defi}[Enligt \cite{Lang}]
@@ -203,7 +206,7 @@ Ett hjälpmedel när man jobbar med Hilbertrum kan vara kunna visualisera och f�
 	Låt $\bfx=\left[1, 0\right]^\intercal$ och $\bfy=\left[0, 1\right]^\intercal$. Då är $\inner{\bfx}{\bfy}_2=\bfx^\intercal\bfy=\left[1, 0\right]\left[0, 1\right]^\intercal = 1\cdot0 + 0\cdot1=0$ och vektorerna är ortogonala. Normen av vektorerna är också 1 så de är dessutom ortonormala.
 \end{ex}
 
-Med hjälp av ortogonaliteten kan man härleda konceptet för en komponenten av en vektor längs en annan vektor och projektionen av en vektor på en annan vektor.
+Med hjälp av ortogonaliteten kan man härleda konceptet för komponenten av en vektor längs en annan vektor och projektionen av en vektor på en annan vektor.
 Figur \ref{fig:proj} illustrerar konceptet.
 
 \begin{figure}[h]
@@ -250,7 +253,7 @@ Märk hur dimensionen på vektorrummet $X$ inte nämns i definitionen för inrep
 För att hjälpa till med visualiseringen av oändligtdimensionella rum finns ett till verktyg som ger en parallell till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. För att undersöka saken är det naturligt att leta efter något som kunde agera som motsvarighet till basvektorerna. Ett sådant koncept finns om det existerar en \emph{ortonormal följd} av vektorer, $\mathbf{e}_i$, $i=1,~2,~3,~\dots$, det vill säga en följd vektorer sådana att $\left\|\mathbf{e}_i\right\|_\hil=1$, $i=1,~2,~3,~\dots$, och $\inner{\mathbf{e}_i}{\mathbf{e}_j}_\hil=0$ om $i\neq j$.
 
 \begin{ex}
-I $\mathcal{L}^2$, $x\in\left[-\pi,\pi\right]$ är följande en ortonormal följd \cite{Young}:
+I $\mathcal{L}^2$, $x\in\left[-\pi, \pi\right]$ är följande en ortonormal följd \cite{Young}:
 \begin{equation*}
 	\mathbf{e}_1=\frac{1}{\sqrt{2\pi}},\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(x\right),\quad\mathbf{e}_3=\frac{1}{\sqrt{\pi}}\sin\left(x\right),\quad\mathbf{e}_2=\frac{1}{\sqrt{\pi}}\cos\left(2x\right),~\dots
 \end{equation*}
@@ -283,6 +286,8 @@ Antalet basvektorer $\mathbf{e}_i$ bestämmer i princip dimensionen på Hilbertr
 %I fortsättningen behandlas bara separabla Hilbertrum, så att varje vektor $\mathbf{x}$ kan skrivas som en linjär kombination av basvektorerna.
 
 \chapter{Stödvektormaskiner (SVM)}
+
+
 
 \section{Klassificering med hjälp av separerande hyperplan}
 
@@ -339,7 +344,7 @@ $\bfy$ i $\hil$:
 		\end{align*}
 	\end{enumerate}
 \end{thm}
-\begin{proof} (Inte från \cite{ESL}.)
+\begin{proof}% (Inte från \cite{ESL}.)
 	\leavevmode
 \begin{enumerate}
 	\item Låt $\mathbf{x}_1$ och $\mathbf{x}_2$ vara två godtyckliga punkter i $L$. Då gäller att $f\left(\mathbf{x}_1\right)=f\left(\mathbf{x}_2\right)=0$ och
@@ -365,7 +370,7 @@ $\bfy$ i $\hil$:
 \right\|_\hil}\left(\inner{\bfy}{\bfbeta}_\hil + \beta_0\right)}}
 	\end{align*}
 	där det sista steget följer från egenskap \ref{eq:egenskap2} då $\mathbf{x}_0$ är en punkt i $L$.
-	Om $\hil$ är lika med $\mathbb{R}^p$ och inreprodukten ges av $\inner{\bfx}{\bfy}_p=\bfx^\intercal\bfy$ kan man noterar att $f\left(\bfy\right)=\inner{\bfy}{\bfbeta}_p+\beta_0$ och $f^\prime\left(\bfy\right)=\bfbeta$, då fås även att
+	Om $\hil$ är lika med $\mathbb{R}^p$ och inreprodukten ges av $\inner{\bfx}{\bfy}_p=\bfx^\intercal\bfy$ kan man notera att $f\left(\bfy\right)=\inner{\bfy}{\bfbeta}_p+\beta_0$ och $f^\prime\left(\bfy\right)=\bfbeta$, då fås även att
 	\begin{equation*}
 		\operatorname{d^\pm} \left( \bfy, L \right)=\frac{1}{\left\|\bfbeta
 \right\|_p}\left(\inner{\bfy}{\bfbeta}_p + \beta_0\right)=\frac{1}{\left\|f^\prime\left(\bfy\right)
@@ -387,8 +392,8 @@ Från beviset av egenskap 1 i sats \ref{thm:hyperplan} och efter man arbetat med
 \end{ex}
 
 
-	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right)\geq0$ för alla $\bfx_i$ med $y_i=1$, där $\left(\bfx_i, y_i\right)$ är observationsparen i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet.
-	De extra villkoren gör att hyperplanen $L_1$ och $L_3$ har samma parametrar eftersom att $\left\|\bfbeta\right\|_\hil=1$. Vidare är endera $L_1$ eller $L_2$ sådant att det andra tilläggsvillkoret inte uppfylls.
+	För att få entydiga hyperplan för klassificering kan man lägga till villkor. Om man kräver att $\left\|\bfbeta\right\|_\hil=1$ och $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\geq0$ för alla $i$:n sådana att $y_i=1$, där $\left(\bfx_i, y_i\right)$ är observationsparen i klassificeringsproblemet, så får man en entydig definition av hyperplanet där observationerna $\bfx_i$ i klassen $y_i=1$ ligger över hyperplanet.
+	Det första villkoret gör att hyperplanen $L_1$ och $L_3$ har samma parametrar eftersom att $\left\|\bfbeta\right\|_\hil=1$. Vidare är endera $L_1$ eller $L_2$ sådant att det andra tilläggsvillkoret inte uppfylls.
 	De extra villkoren gör alltså att man inte längre kan göra manipulationerna som påvisade icke-entydigheten. Om man dessutom sätter $\mathbf{x}=\mathbf{0}$ så får man med hjälp av sats \ref{thm:hyperplan} att det signerade avståndet från origo till hyperplanet (i relation till riktningen på $\bfbeta$) är lika med
 	\begin{equation*}
 	\frac{1}{\left\|\bfbeta
@@ -428,7 +433,7 @@ Från beviset av egenskap 1 i sats \ref{thm:hyperplan} och efter man arbetat med
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur1.pdf}
-\caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linje) där klassen $y_i=1$ framställs som blå fyrkanter och klassen $y_i=-1$ som orangea cirklar.}
+\caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linjer) där klassen $y_i=1$ framställs som blå fyrkanter och klassen $y_i=-1$ som orangea cirklar.}
 \end{figure}
 
 \begin{defi}
@@ -443,13 +448,12 @@ Från beviset av egenskap 1 i sats \ref{thm:hyperplan} och efter man arbetat med
 \begin{thm}[Enligt \cite{Boyd}]\label{thm:sephyppositive}
 	För ett separerande hyperplan $L=\sephyp$ gäller att 
 	\begin{equation*}
-		y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0
+		y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0, \qquad i = 1,~\dots,~N.
 	\end{equation*}
-	för alla $i = 1,~\dots,~N$.
 \end{thm}
 \begin{proof}
 	Ifall ett klassificeringsproblem är linjärt separabelt så ligger alla observationer $y_i$ på rätt sida om det separerande hyperplanet. Detta betyder att ifall $y_i=1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 > 0$ och om $y_i=-1$ så är $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 < 0$.
-	Då fås $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0$. Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
+	Då fås $y_i\left(\inner{\bfx_i}{\bfbeta}_\hil + \beta_0\right) > 0,i = 1,~\dots,~N.$ Ifall $\inner{\bfx_i}{\bfbeta}_\hil + \beta_0 = 0$ är problemet inte linjärt separabelt.
 \end{proof}
 
 Klassificeringsregeln $g$ för separerande hyperplan blir
@@ -540,16 +544,16 @@ där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet til
 %	Ifall alla punkter är rätt klassificerade ger sats \ref{thm:hyperplan} och \ref{thm:sephyppositive} att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$.
 %\end{rem}
 
-Kraven $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C, ~i=1,~\dots,~N$ ska tolkas med hjälp av sats \ref{thm:hyperplan} och \ref{thm:sephyppositive}. 
-Tolkningen blir att ifall alla punkter är rätt klassificerade ger satserna att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$, som man kräver att är större än $C$, det man försöker maximera.
-Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta även ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext \cite{ESL}. %TODO definiera konvext
+Kraven $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C, ~i=1,~\dots,~N,$ ska tolkas med hjälp av satserna \ref{thm:hyperplan} och \ref{thm:sephyppositive}. 
+Ifall alla punkter är rätt klassificerade ger satserna att $y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)$ är det absoluta avståndet mellan hyperplanet och punkten $\mathbf{x}_i$, som man kräver att är större än $C$, det man försöker maximera.
+Förhoppningen är att om man väljer det separerande hyperplan som befinner sig så långt som möjligt från båda klasserna får man ett hyperplan som även generaliserar väl till ny data. Dessutom är detta ett unikt sätt att välja ett separerande hyperplan det vill säga optimeringsproblemet är konvext \cite{ESL} vilket ska visas. %TODO definiera konvext
 
-För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är \textit{konvext} måste det skrivas om. Idén är att man låter inversen av längden på vektorn $\bfbeta$ beskriva avståndet till närmast punkt, då skapas en direktare länk mellan kraven och objektfunktionen i optimeringsproblemet.
+För att visa att optimeringsproblemet (\ref{opt:optimalmargin1}) är konvext måste det skrivas om. Idén är att man låter inversen av längden på vektorn $\bfbeta$ beskriva avståndet till närmast punkt, då skapas en direktare länk mellan kraven och objektfunktionen i optimeringsproblemet.
 
 Först måste alltså kravet $\left\|\widehat{\bfbeta}
 \right\|_p=1$ bytas ut. Detta görs genom att man byter ut kraven
 \begin{equation*}
-y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C,\quad i=1,~\dots,~N
+y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C,\quad i=1,~\dots,~N,
 \end{equation*}
 mot kraven
 \begin{equation*}
@@ -558,7 +562,7 @@ y_i\left(\inner{\bfx_i}{\frac{\bfbeta}{\left\|\bfbeta
 \right\|_p}\right) = 
 \frac{1}{\left\|\bfbeta
 \right\|_p}y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)
- \geq C,\quad i=1,~\dots,~N
+ \geq C,\quad i=1,~\dots,~N,
 \end{equation*}
 eller ekvivalent
 \begin{equation*}
@@ -568,7 +572,7 @@ y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq C\left\|\bfbeta
 där man valt en av de andra representationerna för samma hyperplan genom att skala om $\widehat{\bfbeta}$ och $\widehat{\beta}_0$. Vidare kan $C$ elimineras genom att man väljer $C=\frac{1}{\left\|\bfbeta
 \right\|_p}$, då fås
 \begin{equation*}
-y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N
+y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N,
 \end{equation*}
 och eftersom $C=\frac{1}{\left\|\bfbeta
 \right\|_p}$ är en avtagande funktion med avseende på $\left\|\bfbeta
@@ -581,8 +585,8 @@ och eftersom $C=\frac{1}{\left\|\bfbeta
 \text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N.
 \end{aligned}
 \end{equation*}
-Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen\footnote{Inom statistik- och maskinilärningslitteraturen kallas objektfunktionen ibland även för \textit{kostfunktionen}.} $\left\|\bfbeta\right\|_p$, det vill säga man noterar att om $\bfbeta^*$ är sådan att $\operatornamewithlimits{min}_{\bfbeta, \beta_0} \left\|\bfbeta\right\|_p=\left\|\bfbeta^*\right\|_p$ gäller så gäller även $\operatornamewithlimits{min}_{\bfbeta, \beta_0} \frac{1}{2}\left\|\bfbeta\right\|_p^2=\frac{1}{2}\left\|\bfbeta^*\right\|_p^2$ för samma $\bfbeta^*$.
-Detta brukar betecknas med funktionen $\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \left(f\left(\bfy\right)\right)$ som ger som resultat det $\bfy^*$ som minimerar funktionen $f\left(\bfy\right)$.
+Därefter görs ännu en konvexitetsbevarande kvadratisk transformering av objektfunktionen\footnote{Inom statistik- och maskinilärningslitteraturen kallas objektfunktionen ibland även för \textit{kostfunktionen}.} $\left\|\bfbeta\right\|_p$, det vill säga man noterar att om $\bfbeta^*$ är sådan att $\operatornamewithlimits{min}_{\bfbeta, \beta_0} \left\|\bfbeta\right\|_p=\left\|\bfbeta^*\right\|_p$, så gäller även $\operatornamewithlimits{min}_{\bfbeta, \beta_0} \frac{1}{2}\left\|\bfbeta\right\|_p^2=\frac{1}{2}\left\|\bfbeta^*\right\|_p^2$ för samma $\bfbeta^*$.
+Detta brukar betecknas med funktionen $\operatornamewithlimits{argmin}_{\bfy} \left(f\left(\bfy\right)\right)$ som ger som resultat det $\bfy^*$ som minimerar funktionen $f\left(\bfy\right)$.
 
 %\begin{equation*}%TODO Definiera argmin
 %\operatornamewithlimits{argmin}_{\bfbeta,\beta_0} \left\|\bfbeta
@@ -593,24 +597,24 @@ En orsak till att göra den kvadratiska transformeringen är att man på så sä
 \begin{ex}
 	Låt $x\in\mathbb{R}$, $f\left(x\right):=|x-x_0|$ och $g\left(x\right):=\left(f\left(x\right)\right)^2$. Då är $f\left(x\right)$ inte deriverbar i punkten $x_0$ medan $D_x\left(g\left(x\right)\right)=D_x\left(\left(x-x_0\right)^2\right)=D_x\left(x^2-2xx_0+x_0^2\right)=2x-2x_0=2\left(x-x_0\right)$ och $D_x\left(g\left(x_0\right)\right)=0$ det vill säga $\operatornamewithlimits{argmin}_x f\left(x\right) = x_0 = \operatornamewithlimits{argmin}_x g\left(x\right)$.
 \end{ex}
-Optimeringsproblemet \ref{opt:optimalmargin1} kan alltså skrivas på formen 
+Optimeringsproblemet (\ref{opt:optimalmargin1}) kan alltså skrivas på formen 
 \begin{equation*}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta, \beta_0} & & &\frac{1}{2}\left\|\bfbeta
 \right\|_p^2=\frac{1}{2}\inner{\bfbeta}{\bfbeta}_p=\frac{1}{2}\bfbeta^\intercal\bfbeta=\bfbeta^\intercal\left(\frac{1}{2}I\right)\bfbeta\\
-\text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N
+\text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N,
 \end{aligned}
 \end{equation*}
 där $\left( \frac{1}{2}I \right)$ är en \emph{positivt semi-definit} matris, det vill säga den uppfyller kraven för att ett kvadratiskt optimeringsproblem med linjära lösbara krav ska vara konvext \cite{Boyd}.
 
-Ovanstående resonemang är ett bevis för sats \ref{thm:primallinearproblem}.
+Ovanstående resonemang ger ett bevis för sats \ref{thm:primallinearproblem}:
 \begin{thm}[Enligt \cite{ESL}]\label{thm:primallinearproblem}
 	Låt $\widehat{\bfbeta},~\bfbeta \in \mathbb{R}^p$ och $\widehat{\beta}_0,~\beta_0 \in \mathbb{R}$. Låt dessutom observationsparen $\left(\mathbf{x}_i, y_i\right)$ vara linjärt separabla. Då är optimeringsproblemet
 	\begin{equation*}
 	\begin{aligned}
 	\operatornamewithlimits{max}_{\widehat{\bfbeta}, \widehat{\beta}_0, \left\|\widehat{\bfbeta}
 \right\|_p=1} & & &C\\
-	\text{så att} & & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\beta_0\right)\geq C,\quad i=1,~\dots,~N
+	\text{så att} & & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\beta_0\right)\geq C,\quad i=1,~\dots,~N,
 	\end{aligned}
 	\end{equation*}
 	konvext och man får en lösning $\left(\widehat{\bfbeta^*}, \widehat{\beta_0^*}\right)=\left(\frac{\bfbeta^*}{\left\|\bfbeta^*\right\|_p}, \frac{\beta^*_0}{\left\|\bfbeta^*\right\|_p}\right)$ genom att lösa optimeringsproblemet
@@ -649,7 +653,7 @@ Den primala Lagrangefunktionen $L_P$ för optimeringsproblemet
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta, \beta_0} & & &\frac{1}{2}\left\|\bfbeta
 \right\|_p^2=\frac{1}{2}\inner{\bfbeta}{\bfbeta}_p\\
-\text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N
+\text{så att} & & &y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)\geq 1,\quad i=1,~\dots,~N,
 \end{aligned}
 \end{equation*}
 ges av
@@ -658,7 +662,7 @@ L_P=\frac{1}{2}\inner{\bfbeta}{\bfbeta}_p - \sum_{i=1}^{N} \lambda_i\left(y_i \l
 \end{equation}
 som ska minimeras med avseende på $\bfbeta$ och $\beta_0$. %TODO	Och maximeras på $\lambda$?
 
-För att minimera $L_P$ sätts derivatorna med avseende på elementen $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_0$ till 0, och följande relationer erhålls:
+För att minimera $L_P$ sätts derivatorna med avseende på komponenterna $\left[\bfbeta\right]_j$ av $\bfbeta$ och $\beta_0$ till 0, och följande relationer erhålls:
 \begin{equation}\label{eq:derivprimal}
 \begin{aligned}
 	D_{ \left[\bfbeta\right]_j } \left(L_P\right) &= D_{ \left[\bfbeta\right]_j } \left( \frac{1}{2} \bfbeta^\intercal \bfbeta \right) &- &D_{ \left[\bfbeta\right]_j } \left( \sum_{i=1}^{N} \left( \lambda_i y_i \left( \bfx_i^\intercal\bfbeta \right) + \lambda_i y_i \beta_0 - \lambda_i \right)\right)\\
@@ -677,7 +681,7 @@ där $j=1,~\dots,~p$ och
 Vidare kan (\ref{eq:derivprimal}) skrivas om som derivatan med avseende på hela $\bfbeta$ eftersom $ \left[ D_{ \bfbeta }\left(L_p\right) \right]_j = D_{\left[ \bfbeta \right]_j}\left(L_p\right) $. Efter att man löser derivatorna för nollställen får man följande krav:
 %tar i beaktande kraven att $ D_{ \bfbeta }\left(L_p\right) = \mathbf{0} $ och $ D_{\beta_0}\left(L_p\right)=0 $ fås följande krav:
 \begin{align}\label{eq:krav1}
-	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i\\
+	\bfbeta &= \sum_{i=1}^{N} \lambda_i y_i \mathbf{x}_i,\\
 	0 &= \sum_{i=1}^{N} \lambda_i y_i.\label{eq:krav2}
 \end{align}
 
@@ -704,7 +708,7 @@ som ska maximeras med avseende på $\lambda_i,~i=1,~\dots,~N,$ och kravet \begin
 		\item Krav (\ref{eq:krav1}) säger att vektorn $\bfbeta^*$ är en linjär kombination av vektorerna $\mathbf{x}_i,~i=1,~\dots,~N$.
 		\item Ifall $\lambda^*_i > 0$ så ger krav (\ref{eq:krav4}) att $y_i\left(\inner{\bfx_i}{\bfbeta^*}_p+\beta^*_0\right) = 1$ vilket enligt det ursprungliga optimeringsproblemet (\ref{opt:optimalmargin1}) ska tolkas som att punkten $\mathbf{x}_i$ ligger på avståndet $C$ från det separerande hyperplanet. Punkten $\mathbf{x}_i$ är med andra ord en av punkterna som ligger närmast det separerande hyperplanet.
 		\item Ifall $y_i\left(\inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) > 1$ så är $\lambda^*_i = 0$ och punkten $\mathbf{x}_i$ är inte en av punkterna som ligger närmast det separerande hyperplanet.
-		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left( \inner{\bfx_i}{\bfbeta^*} + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
+		\item Parametern $\beta^*_0$ kan bestämmas genom att man utnyttjar relationen $y_i\left(\inner{\bfx_i}{\bfbeta^*}_p + \beta^*_0\right) = 1$ för någon av punkterna där $\lambda^*_i > 0$.
 	\end{itemize}
 	Baserat på de tre tidigare slutsatserna kan man dra slutsatsen att $\bfbeta^*$ inte bara är en linjär kombination av observationerna $\mathbf{x}_i$, utan mer exakt en linjär kombination av endast de punkter $\mathbf{x}_{i}$ som ligger på randen av marginalen. En punkt som ligger på randen av marginalen kallas \emph{stödvektor}.
 \end{rem}
@@ -720,15 +724,15 @@ Antag att observationsparen $\left(\mathbf{x}_i, y_i\right)$ inte är linjärt s
 
 Ifall ett optimeringsproblems krav gör det olösbart kan man tillåta lösningar som strider mot kraven och samtidigt försöka reglera hur långt från de ursprungliga kraven man tillåter lösningar. I praktiken åstadkoms detta med hjälp av \emph{slackvariabler} och lösningarna blir (separerande) \emph{hyperplan med mjuka marginaler}.
 
-För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två omedelbara sätt att ändra på kraven \cite{ESL}, endera låter man
+För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två naturliga sätt att ändra på kraven \cite{ESL}, endera låter man
 \begin{align}
-	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C-s_i\label{eq:softändring1}\\
+	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C-s_i,\label{eq:softändring1}\\
 	\intertext{eller}
-	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right)\label{eq:softändring2}
+	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right),\label{eq:softändring2}
 \end{align}
 där slackvariablerna $s_i\in\mathbb{R}$ är nedåt begränsade av noll samt uppåt begränsade så att summan av alla slackvariabler blir mindre än någon konstant $K$, det vill säga \begin{equation*}
 \begin{aligned}
-s_i&\geq0,~i=1,~\dots,~N,\\
+s_i&\geq0,\qquad i=1,~\dots,~N,\\
 \sum_{i=1}^{N}s_i&\leq K.
 \end{aligned}
 \end{equation*}
@@ -758,7 +762,7 @@ En annan orsak till att det andra alternativet föredras är att om man försök
 & & &\sum_{i=1}^{N} s_i \leq K,
 \end{aligned}
 \end{equation*}
-där slackvariablerna direkt beror på $\left\|\bfbeta\right\|_p$ och beräkningar blir mera komplicerade.
+där slackvariablerna direkt beror på $\left\|\bfbeta\right\|_p$ som man indirekt försöker minimera. Beräkningar blir då mera komplicerade.
 
 För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats \ref{thm:primallinearproblem} istället ett bevis för sats \ref{thm:primalsoftmargin}:
 \begin{thm}[Enligt \cite{ESL}]\label{thm:primalsoftmargin}
@@ -769,7 +773,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 \right\|_p=1} & & &C\\
 	\text{så att} & & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C\left(1-s_i\right),\quad i=1,~\dots,~N,\\
 	& & &s_i\geq0,\quad i=1,~\dots,~N,\\
-	& & &\sum_{i=1}^{N}s_i \leq K
+	& & &\sum_{i=1}^{N}s_i \leq K,
 	\end{aligned}
 	\end{equation*}
 	konvext och man får en lösning $\left(\widehat{\bfbeta^*},  \widehat{\beta^*_0}\right)=\left(\frac{\bfbeta^*}{\left\|\bfbeta^*\right\|_p}, \frac{\beta^*_0}{\left\|\bfbeta^*\right\|_p}\right)$ genom att lösa optimeringsproblemet
@@ -802,7 +806,7 @@ För optimeringsproblemet (\ref{opt:softmargin}) ger stegen i beviset för sats 
 %\end{proof}
 
 
-Eftersom att kraven för optimeringsproblemen i sats \ref{thm:primalsoftmargin} är mer tillåtande än motsvarande krav i sats \ref{thm:primallinearproblem} så kan hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla. Man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$, då måste alla $s_i$ vara lika med 0 och då är kraven i sats \ref{thm:primalsoftmargin} de samma som de i \ref{thm:primallinearproblem} (man måste givetvis också kräva att observationsparen $\left(\bfx_i, y_i\right)$ är sådana att problemet är linjärt separabelt).
+Eftersom att kraven för optimeringsproblemen i sats \ref{thm:primalsoftmargin} är mer tillåtande än motsvarande krav i sats \ref{thm:primallinearproblem} så kan hyperplan med mjuka marginaler användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla. Man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$, då måste alla $s_i$ vara lika med 0 och då är kraven i sats \ref{thm:primalsoftmargin} de samma som de i sats \ref{thm:primallinearproblem} (man måste givetvis också kräva att observationsparen $\left(\bfx_i, y_i\right)$ är linjärt separabla).
 
 Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
 
@@ -811,7 +815,7 @@ Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om
 %	Hyperplan med mjuka marginaler kan användas även ifall observationsparen $\left(\mathbf{x}_i, y_i\right)$ är linjärt separabla, man kan till och med få det optimala separerande hyperplanet som lösning genom att välja $K=0$. Att använda hyperplan med mjuka marginaler kan vara en bra idé till exempel om man har outliers eller felklassificerade observationer som väljs till stödvektorer. I sådana fall kan man få ett hyperplan som generaliserar bättre om man inte kräver att alla observationer klassificeras rätt.
 %\end{rem}
 
-För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden vid optimering för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
+För optimeringsproblem med krav av typen $\sum_{i=1}^{N}s_i\leq K$ kan man använda barriärmetoden för att approximera kravet med en term i objektfunktionen \cite{Boyd}. I \cite{CortesVapnik} används en liknande approximation där man istället för att följa uppdateringsstrategin för vägningen av straffunktionen använder andra metoder för att bestämma vägningen. Optimeringsproblemet som oftast löses för hyperplan med mjuka marginaler blir då
 \begin{equation}\label{eq:softpenalty1}
 \begin{aligned}
 	\operatornamewithlimits{min}_{\bfbeta, \beta_0} & & &\frac{1}{2}\left\|\bfbeta
@@ -832,14 +836,14 @@ eller
 där $\gamma$ är en på förhand bestämd parameter.
 Märk att båda problemen är kvadratiska optimeringsproblem och kan således lösas relativt enkelt.
 
-Tolkningen av optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,~\dots,~N$. Märk att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet. Avvägningen mellan minskning av straff eller ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så är det viktigare att slackvariablerna hålls små. Det separabla fallet fås när $\gamma$ går mot $\infty$.
+Tolkningen av optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är att man istället för kravet $\sum_{i=1}^{N}s_i\leq K$ ger ett straff baserat på storleken av slackvariablerna $s_i,~i=1,~\dots,~N$. Märk att om marginalen ökar så ökar även straffet medan om marginalen minskar så minskar straffet. Avvägningen mellan minskning av straff och ökning av marginal bestäms med hjälp av parametern $\gamma$ som kan jämföras med parametern $K$ i sats \ref{thm:primalsoftmargin}. Skillnaden är att om $\gamma$ är litet så tillåts slackvariablerna vara större och ifall $\gamma$ är stort så är det viktigare att slackvariablerna hålls små. Det separabla fallet fås när $\gamma$ går mot $\infty$.
 
-En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och (\ref{eq:softpenalty1}) är att optimeringsproblemet (\ref{eq:softpenalty1}) alltid är lösbart medan optimeringsproblemen i sats \ref{thm:primalsoftmargin} är lösbara endast om $K$ väljs tillräckligt stort.
+En viktig skillnad mellan formuleringen i sats \ref{thm:primalsoftmargin} och optimeringsproblemet (\ref{eq:softpenalty1}) är att optimeringsproblemet (\ref{eq:softpenalty1}) alltid är lösbart medan optimeringsproblemen i sats \ref{thm:primalsoftmargin} är lösbara endast om $K$ väljs tillräckligt stort.
 
-Av de två alternativen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är (\ref{eq:softpenalty1}) vanligare och behandlas således i resten av avhandlingen.
+Av de två optimeringsproblemen (\ref{eq:softpenalty1}) och (\ref{eq:softpenalty2}) är (\ref{eq:softpenalty1}) vanligare och behandlas således i resten av avhandlingen.
 
 \subsection{Primala och duala Lagrangeproblem för mjuka marginaler}
-Precis som med separabelt data kan lösningen för optimeringsproblemet (\ref{eq:softpenalty1}) karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
+Precis som med linjärt separabla observationspar kan lösningen för optimeringsproblemet (\ref{eq:softpenalty1}) karaktäriseras med hjälp av Lagrangemultiplikatorer. Den primala Lagrangefunktionen ges av
 \begin{equation}\label{eq:softlagrangeprimal}
 	L_P = \frac{1}{2}\inner{\bfbeta}{\bfbeta}_p+\gamma\sum_{i=1}^{N}s_i - \sum_{i=1}^{N}\lambda_i\left(y_i\left(\inner{\bfx_i}{\bfbeta}_p + \beta_0\right)-\left(1-s_i\right)\right)-\sum_{i=1}^{N}\mu_is_i
 \end{equation}
@@ -857,11 +861,11 @@ Efter att man löser för nollställen får man följande krav:
 \begin{align}
 \label{eq:softkrav1}	\bfbeta &= \sum_{i=1}^{N} \lambda_iy_i\mathbf{x}_i, & &\\
 \label{eq:softkrav2}	0 &= \sum_{i=1}^{N} \lambda_iy_i, & &\\
-\label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad& &i = 1,~\dots,~N
+\label{eq:softkrav3}	\lambda_i &= \gamma - \mu_i \quad& &i = 1,~\dots,~N,
 \intertext{samt kraven}
 \label{eq:softkrav4}	\lambda_i&\geq0,\quad& &i = 1,~\dots,~N,\\
 \label{eq:softkrav5}	\mu_i&\geq0, \quad& &i = 1,~\dots,~N,\\
-\label{eq:softkrav6}	s_i&\geq0 \quad& &i = 1,~\dots,~N.
+\label{eq:softkrav6}	s_i&\geq0, \quad& &i = 1,~\dots,~N.
 \end{align}
 
 Insättning av kraven (\ref{eq:softkrav1}), (\ref{eq:softkrav2}) och (\ref{eq:softkrav3}) i den primala Lagrangefunktionen (\ref{eq:softlagrangeprimal}) ger den duala Lagrangefunktionen
@@ -871,11 +875,11 @@ Insättning av kraven (\ref{eq:softkrav1}), (\ref{eq:softkrav2}) och (\ref{eq:so
 	&-\sum_{i=1}^{N}\lambda_iy_i\beta_0 + \sum_{i=1}^{N}\lambda_i + \sum_{i=1}^{N}\left(\gamma - \lambda_i - \mu_i\right)s_i\\
 	= &\sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\inner{\bfx_i}{\bfx_j}_p
 \end{align*}
-som ska maximeras med avseende på $\lambda_i$ med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i=0$. Dessutom fås
+som ska maximeras med avseende på $\lambda_i$, med kraven $0\leq\lambda_i\leq\gamma$ och $\sum_{i=1}^{N}\lambda_iy_i=0$. Dessutom fås
 \begin{align}
 \label{eq:softkrav7}	\lambda_i\left( y_i\left(\inner{\bfx_i}{\bfbeta}_p + \beta_0\right) - \left(1-s_i\right)\right) &= 0, \quad & &i = 1,~\dots,~N,\\
 \label{eq:softkrav8}	\mu_is_i&=0, \quad & &i = 1,~\dots,~N,\\
-\label{eq:softkrav9}	y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)-\left(1-s_i\right) &\geq 0 \quad & &i = 1,~\dots,~N,
+\label{eq:softkrav9}	y_i\left(\inner{\bfx_i}{\bfbeta}_p+\beta_0\right)-\left(1-s_i\right) &\geq 0, \quad & &i = 1,~\dots,~N,
 \end{align}
 från Karush-Kuhn-Tucker kraven för konvexa problem.
 
@@ -898,7 +902,7 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 	\includegraphics[width=0.8\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur2.pdf}
 	\caption{\label{fig:mjukamarginaler}Löst exempel för linjärt oseparabelt data för 3 olika värden på $\gamma$. De streckade linjerna är marginalernas ränder.}
 \end{figure}
-Låt observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana som i figur \ref{fig:mjukamarginaler} där blåa rutor är klassen $y_i=1$ och orangea cirklar är klassen $y_i=-1$. Axlarna motsvarar här $\mathbf{x}_i$:s första respektive andra komponenter. Klart är här att observationsparen inte är linjärt separabla men det verkar som att en punkt från vardera klassen kanske mätts fel. För att bestämma en klassificeringsregel används separerande hyperplan med mjuka marginaler för 3 olika värden på $\gamma$. Funktionen \texttt{SVC} med \texttt{kernel='linear'} från paketet \texttt{sklearn} \cite{sklearn} användes för att beräkna hyperplanen.
+Låt observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana som i figur \ref{fig:mjukamarginaler} där blåa rutor är klassen $y_i=1$ och orangea cirklar är klassen $y_i=-1$. Axlarna motsvarar här $\mathbf{x}_i$:s första respektive andra komponenter. Klart är att observationsparen inte är linjärt separabla men det verkar som att en punkt från vardera klassen kanske mätts fel. För att bestämma en klassificeringsregel används separerande hyperplan med mjuka marginaler för 3 olika värden på $\gamma$. Funktionen \texttt{SVC} med \texttt{kernel='linear'} från paketet \texttt{sklearn} \cite{sklearn} användes för att beräkna hyperplanen.
 
 Observera hur parametern $\gamma$ påverkar lösningen. Ju mindre $\gamma$ är desto större är marginalerna vilket betyder att flera punkter används som stödvektorer.
 \end{ex}
@@ -920,14 +924,14 @@ Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga obs
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta, \beta_0} & & &\frac{1}{2}\left\|\bfbeta
 \right\|_2^2\\
-\text{så att} & & &y_i\left(\inner{\bfx_i'}{\bfbeta}_2+\beta_0\right)\geq 1,\quad i=1,~\dots,~N
+\text{så att} & & &y_i\left(\inner{\bfx_i'}{\bfbeta}_2+\beta_0\right)\geq 1,\quad i=1,~\dots,~N,
 \end{aligned}
 \end{equation*}
 där $\bfbeta$ nu är en 2-dimensionell vektor. För att lösa ovanstående optimeringsproblem undersöks det duala Lagrangeproblemet
 \begin{equation*}
 		L_D= \sum_{i=1}^{N}\lambda_i - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\lambda_i\lambda_jy_iy_j\inner{\bfx_i'}{\bfx_j'}_2
 \end{equation*}
-där den sista dubbelsumman kan representeras som en matrismultiplikation:
+där den sista dubbelsumman kan representeras som matrismultiplikationen
 \begin{equation*}
 	\boldsymbol{\lambda}^\intercal\mathbf{K}\boldsymbol{\lambda}
 \end{equation*}
@@ -942,7 +946,7 @@ Hade man bildat $n$:te gradens polynom hade antalet operationer varit $nN$ för 
 
 Dimensionen på det ursprungliga rummet har inte ännu tagits i beaktande, i exempel \ref{ex:olinjär} var dimensionen 1 men vad händer om dimensionen är 2 eller 3? Eller kanske man har $16\times16$ pixlar stora bilder. Det visar sig att om den ursprungliga dimensionen $p$ är stor så får till och med enkla utvidgningar en mycket stor dimension $P$ vilket gör det arbetsamt att räkna ut inreprodukten $\inner{\bfx_i'}{\bfx_j'}_P$. Om man till exempel vill samla alla monom\footnote{Till exempel $\bfx_{i1}\bfx_{i2}\bfx_{i3}^2$ är ett monom av graden 5 medan  $\bfx_{i1}\bfx_{i2}\bfx_{i3}$ inte är det och inte $\bfx_{i1}\bfx_{i2}\bfx_{i3}^4$ heller.} av graden 5 för en $16\times16$ pixlar stor bild blir dimensionen nästan $10^{10}$ \cite{LearningKernels}.
 
-Man kan dra slutsatsen att det borde finnas någon möjlighet att effektivera beräkningarna vilket visar sig vara sant. Istället för att först göra utvidgningarna kan man byta ut inreprodukten mot en annan funktion med vissa egenskaper. För exempel \ref{ex:olinjär} skulle den funktionen se ut på följande sätt:
+Man kan hoppas att det skulle finnas någon möjlighet att effektivera beräkningarna vilket visar sig vara sant. Istället för att först göra utvidgningarna kan man byta ut inreprodukten mot en annan funktion med vissa egenskaper. För exempel \ref{ex:olinjär} skulle den funktionen se ut på följande sätt:
 	
 	Betrakta funktionen $\phi:\left[\bfx\right]\longmapsto \left[\bfx^2,\sqrt{2}\bfx, 1\right]^\intercal$ där $\bfx\in\mathbb{R}$, denna funktion motsvarar den olinjära utvidgningen i exempel \ref{ex:olinjär}. Följande inreprodukt mellan två observationer $\mathbf{x}_1$ och $\mathbf{x}_2$ ska beräknas:
 	\begin{align*}
@@ -1176,7 +1180,7 @@ För att visa att $\langle f, g \rangle_k$ är en inreprodukt måste man kolla a
 %	\end{equation*}
 
 \end{enumerate}
-Eftersom alla villkor i definition \ref{def:inreprodukt} är uppfyllda så definierar $\langle f, g\rangle_k:=\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i, \bfx_j\right)$ en inreprodukt. Här är $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right),  \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i samma rum så har man ett Hilbertrum vilket betyder att allting i kapitel \ref{chap:hilbert} gäller även här.
+Eftersom alla villkor i definition \ref{def:inreprodukt} är uppfyllda så definierar $\langle f, g\rangle_k:=\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\beta_jk\left(\bfx_i, \bfx_j\right)$ en inreprodukt. Här är $k\left(\bfx, \bfy\right)=\left(\langle \bfx, \bfy\rangle_1 + 1\right)^2= \left\langle \phi\left(\bfx\right),  \phi\left(\bfy\right)\right\rangle_3$ och $\phi\left(\bfx\right)=\left[\bfx^2, \sqrt{2}\bfx, 1 \right]^\intercal$. Om man dessutom kräver att alla Cauchyföljder konvergerar till en funktion i samma rum så har man ett Hilbertrum vilket betyder att allting i kapitel \ref{chap:hilbert} gäller även i det nya Hilbertrummet.
 
 I beviset användes egenskap (\ref{eq:expansion2}) flitigt. Det visar sig att det räcker med att kärnan $k$ är symmetrisk det vill säga $k\left(\bfx_i, \bfx_j\right)=k\left(\bfx_j, \bfx_i\right)$ som garanteras om kärnan kan definieras som den naturliga inreprodukten mellan någon funktion $\phi\left(\mathbf{x}\right)$ evaluerad i punkterna $\bfx_i$ och $\bfx_j$. Med andra ord kan man dra slutsatsen att följande sats gäller:
 \begin{thm}[Enligt \cite{LearningKernels}]\label{thm:kärnainreprodukt}
@@ -1195,7 +1199,7 @@ med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultip
 \begin{equation}\label{eq:positivtsemidefinit}
 \langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i, \bfx_j\right) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
 \end{equation}
-där $\boldsymbol{\alpha}$ är en vektor med elementen $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och kravet i (\ref{eq:positivtsemidefinit}) brukar användas som definition på \emph{positivt semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positivt semidefinit om Gram matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positivt semidefinit för alla val av $\bfx_i,~\bfx_j$.
+där $\boldsymbol{\alpha}$ är en vektor med komponenterna $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och olikheten till sist i ekvation (\ref{eq:positivtsemidefinit}) brukar användas som definition på \emph{positivt semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positivt semidefinit om Gram-matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positivt semidefinit för alla val av $\bfx_i,~\bfx_j$.
 \newpage
 \section{Kärnor som positivt semidefinita funktioner}
 
@@ -1231,7 +1235,7 @@ Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\
 	\end{equation}
 Tolkningen av ekvation (\ref{eq:reproducing1}) är att inreprodukten mellan en funktion $f$ och $k\left(\cdot, \bfx_i\right)$ är samma sak som evaluering av funktionen $f$ i punkten $\bfx_i$ men $\bfx_i$ måste vara en av de punkterna som man byggde upp inreprodukten av.
 
-För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l, \bfx_h\right)$ inte är definierad genom en inreprodukt så kan $k$ tolkas som en inreprodukt i något (olinjärt) rum. De här två egenskaperna är orsaken till att man pratar om \emph{reproducerande} kärnor, den första ekvationen brukar också ibland användas som definitionen på en reproducerande kärna. Med andra ord borde man givet en symmetrisk positivt semidefinit funktion $k$ kunna skriva den som en inreprodukt i något rum, nedan följer ett exempel som på samma gång visar en av de största fördelarna med att använda kärnor istället för att räkna ut en olinjär utvidgning på förhand.
+För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l, \bfx_h\right)$ inte är definierad genom en inreprodukt så kan $k$ tolkas som en inreprodukt i något (olinjärt) rum. De här två egenskaperna är orsaken till att man pratar om \emph{reproducerande} kärnor, den första ekvationen brukar också ibland användas som definitionen på en reproducerande kärna. Med andra ord borde man givet en symmetrisk positivt semidefinit funktion $k$ kunna skriva den som en inreprodukt i något rum, nedan följer ett exempel som samtidigt visar en av de största fördelarna med att använda kärnor istället för att räkna ut en olinjär utvidgning på förhand.
 
 \begin{ex}
 	Låt $\bfx_i,~\bfx_j\in\mathbb{R}$ och betrakta funktionen
@@ -1246,7 +1250,7 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 		&= \sum_{n=0}^{\infty} \left(\frac{e^{-\left(\frac{\bfx_i}{\sqrt{2}\sigma}\right)^2} \bfx_i^n}{\sqrt{n!}}\right)\left(\frac{e^{-\left(\frac{\bfx_j}{\sqrt{2}\sigma}\right)^2} \bfx_j^n}{\sqrt{n!}}\right)\\
 		&= \inner{\phi\left(\bfx_i\right)}{\phi\left(\bfx_j\right)}_{\ell^2}
 	\end{align*}
-	där $\inner{\bfx}{\bfy}_{\ell^2}$ är inreprodukten given av summan $\sum_{i=1}^{\infty}\bfx_i\bfy_i$ om den är ändlig. Här betecknar $\bfx_i,~\bfy_i$ de $i$:te komponenterna av de oändligtdimensionella vektorerna $\bfx$ och $\bfy$. Summan konvergerar om $\bfx$ och $\bfy$ tillhör Hilbertrummet $\ell^2$ det vill säga rummet av alla följder $\bfx$ för vilka summan $\sum_{i=1}^{\infty}\bfx_i^2=\inner{\bfx}{\bfx}_{\ell^2}=\left\|\bfx\right\|_{\ell^2}^2$ är ändlig, detta eftersom $\inner{\bfx}{\bfy}_{\ell^2}^2\leq\inner{\bfx}{\bfx}_{\ell^2}\inner{\bfy}{\bfy}_{\ell^2}<\infty$ enligt sats \ref{CauchySchwarz}.
+	där $\inner{\bfx}{\bfy}_{\ell^2}$ är inreprodukten given av summan $\sum_{h=1}^{\infty}\bfx_h\bfy_h$ om den är ändlig. Här betecknar $\bfx_h,~\bfy_h$ de $h$:te komponenterna av de oändligtdimensionella vektorerna $\bfx$ och $\bfy$. Summan konvergerar om $\bfx$ och $\bfy$ tillhör Hilbertrummet $\ell^2$ det vill säga rummet av alla följder $\bfx$ för vilka summan $\sum_{h=1}^{\infty}\bfx_h^2=\inner{\bfx}{\bfx}_{\ell^2}=\left\|\bfx\right\|_{\ell^2}^2$ är ändlig, detta eftersom $\inner{\bfx}{\bfy}_{\ell^2}^2\leq\inner{\bfx}{\bfx}_{\ell^2}\inner{\bfy}{\bfy}_{\ell^2}<\infty$ enligt sats \ref{CauchySchwarz}.
 	
 	Kärnan $k\left(\bfx, \bfy\right)=e^{-\frac{\left\| \bfx-\bfy\right\|^2}{2\sigma^2}}$ kan med andra ord skrivas som inreprodukten $\inner{\phi\left(\bfx\right)}{\phi\left(\bfy\right)}_{\ell^2}$ i rummet som ges av utvidgningen
 	\begin{equation*}
@@ -1263,7 +1267,7 @@ Det finns också andra sätt att härleda stödvektormaskinernas optimeringsprob
 
 Stödvektormaskinerna utvecklades under 1990-talet ungefär på samma gång som Vapnik-Chervonenkis teorin där man försöker karaktärisera när och varför metoder inom maskininlärning och statistik generaliserar väl till nya observationer \cite{VC}. Vapnik-Chervonenkis teorin kan ses som ett försök att möjliggöra till exempel analys av konfidensintervall för mera komplicerade algoritmer än linjär regression. För stödvektormaskiner med mjuka marginaler och kärnor forskas det ännu i vilka teoretiska gränser man kan ge för generalisering till ny data \cite{theoretical}.
 
-För att algoritmerna skall generalisera så väl som möjligt måste man ofta bestämma olika parametrar som inte kan lösas genom vanlig optimering. Till exempel måste parametern $\gamma$ och kärnan bestämmas på något sätt. Oftast görs detta genom att man löser algoritmen för till exempel 80 \% av observationerna med olika val av kärna och $\gamma$ för att sedan välja den kombination som fungerar bäst på de resterande 20 \%:en av observationerna \cite{ESL}.
+För att algoritmen ska fungera så väl som möjligt i praktiken måste man ofta bestämma olika parametrar som inte kan lösas genom konvex optimering. Till exempel måste parametern $\gamma$ och kärnan bestämmas på något sätt. Oftast görs detta genom att man löser algoritmen för cirka 80 \% av observationerna med olika val av kärna och $\gamma$ för att sedan välja den kombination som fungerar bäst på de resterande 20 \%:en av observationerna \cite{ESL}.
 
 De reproducerande kärnorna kan också användas för att göra andra algoritmer mera flexibla, det huvudsakliga kravet är att observationerna ska förekomma endast i inreprodukter \cite{ESL, LearningKernels}. Till exempel finns det versioner av principalkomponentsanalys (principal component analysis, PCA) och linjär diskriminantanalys (linear discriminant analysis, LDA) som gjorts olinjära med hjälp av reproducerande kärnor \cite{ESL}.
 
