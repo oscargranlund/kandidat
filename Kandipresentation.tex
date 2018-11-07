@@ -1,0 +1,143 @@
+% !TeX spellcheck = sv_SE
+%\documentclass[mathserif]{beamer}
+\documentclass{beamer}
+%\usepackage{default}
+
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\usepackage{icomma}
+
+\usepackage{graphicx}
+
+\usepackage{enumitem}
+
+\DeclareMathOperator{\sign}{sign}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Sats}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Korollarium}
+\newtheorem{defi}{Definition}[section]
+\newtheorem{ex}{Exempel}[section]
+\theoremstyle{remark}
+\newtheorem*{rem}{Observation}
+
+\newtheorem*{reas}{Orsak}
+
+\newcommand{\bfbeta}{{\boldsymbol{\beta}}}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\bfx}{\mathbf{x}}
+
+\newcommand{\bfy}{\mathbf{y}}
+
+\newcommand{\llangle}{\left\langle}
+\newcommand{\rrangle}{\right\rangle}
+
+\newcommand{\sephyp}{\{ \mathbf{x} : f\left(\mathbf{x}\right)=\inner{\bfx}{\bfbeta}_\mathcal{H} + \beta_0=0\}}
+
+\newcommand{\entsephyp}{\{ \mathbf{x} : f\left(\mathbf{x}\right)=\mathbf{x}^\intercal \bfbeta + \beta_0=0,~y_if\left(\mathbf{x}_i\right)\geq0,~i=1,\dots,~N,~\left\|\bfbeta\right\|=1\}}
+
+\newcommand{\inprod}[2]{\llangle \mathbf{#1}, \mathbf{#2}\rrangle}
+
+\newcommand{\inner}[2]{\llangle #1, #2 \rrangle}
+
+\newcommand{\hil}{\mathcal{H}}
+
+\interfootnotelinepenalty=10000
+
+\usetheme{Pittsburgh}
+\usecolortheme{fly}
+%\usecolortheme{beetle}
+%\usecolortheme{beaver}
+%\usecolortheme{albatross}
+%\setbeamerfont{title}{family=\rm}
+\usefonttheme{serif}
+
+%\setbeamercolor{title}{fg=red!80!black}
+%\setbeamercolor{title}{fg=red!80!black,bg=red!20!white}
+%\setbeamercolor*{palette primary}{fg=red, bg=red}
+%\setbeamercolor{palette secondary}{fg=red, bg=red, use=blue, parent=blue}
+%\setbeamercolor{palette sidebar primary}{fg=red, bg=red, use=blue, parent=blue}
+%\setbeamercolor{title}{fg=white!95!black}
+%\setbeamercolor{author}{fg=white!95!black}
+%\setbeamercolor{date}{fg=white!95!black}
+%\setbeamercolor{institute}{fg=white!95!black}
+%\setbeamercolor{titlelike}{fg=white!95!black}
+%\setbeamercolor{normal text}{fg=white!95!black}
+%\setbeamercolor{background canvas}{bg=black!95!white}
+
+\title{{\Huge Stödvektormaskiner}\\
+	{\LARGE Linjära hyperplan i Hilbertrum}}
+%	~\\
+%	{\large Kandidatavhandling i matematik}}
+%	{\large Fakulteten för naturvetenskaper och teknik}\\
+%	{\large Åbo Akademi}}
+\author{\Large Oscar Granlund}
+\institute{{\large Kandidatavhandling i matematik}\\
+	{\large Fakulteten för naturvetenskaper och teknik}\\
+	{\large Åbo Akademi}}
+
+\date{9 november 2018}
+\begin{document}
+%\maketitle
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bakgrund}
+	\framesubtitle{Klassificering med hjälp av hyperplan}
+	Stödvektormaskinen utvecklades under den senare halvan av 1900-talet i huvudsak av den ryske statistikern/datavetaren Vladimir Vapnik.
+	\begin{itemize}
+		\item 	Tog sin början år 1963 med en \emph{linjär klassificerare} som endast gick att tillämpa på några problem.
+		\item 	År 1992 presenterades en version som gick att tillämpa på alla problem.
+	\end{itemize}
+	Stödvektormaskinen går ut på att man skjuter in ett hyperplan mellan två klasser och använder hyperplanet för att klassificera nya observationer.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bakgrund}
+	\framesubtitle{En olinjär version}
+	Parallellt med forskningen om stödvektormaskiner fann statistiker att en speciell typ av funktion, kärnor, kunde användas för att generalisera linjära algoritmer.
+	\begin{itemize}
+		\item	Kärnorna föreslogs redan år 1964 för att generalisera en annan typ av linjär klassificerare.
+		\item 	De användes även för att studera till exempel spline-modeller.
+		\item 	År 1992 tillämpades kärnor på den ursprungliga stödvektormaskinmetoden.
+	\end{itemize}
+	Snart därefter (1995) tillämpades kärnor på den mera generaliserade algoritmen som presenterades 1992. Resultatet är en (tidsmässigt och resultatmässigt) effektiv \emph{olinjär klassificerare} som ännu idag används.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Konvex optimering}
+	\framesubtitle{Kvadratiska optimerignsproblem}
+	De flesta av algoritmerna inom statistik och maskininlärning går att skriva om som konvexa optimeringsproblem.
+	Ett optimeringsproblem är kvadratiskt och konvext om det går att skriva om på formen
+	\begin{equation*}
+	\begin{aligned}
+	\operatornamewithlimits{min}& & &\frac{1}{2}\bfx^\intercal\mathbf{P}\bfx+\mathbf{q}^\intercal\bfx + r\\
+	\text{så att}& & &g_i(\bfx)\leq0,\quad i=1,~\dots,~n\\
+	& & &h_i(\bfx)=0,\quad i=1,~\dots,~m,\\
+	\end{aligned}
+	\end{equation*}
+	där $\mathbf{P}$ är en positivt semidefinit matris, $g_i(\bfx)$ är högst en kvadratisk funktion och alla krav $g_i$ och $h_i$ är satisfierbara samtidigt.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Konvex optimering}
+	\framesubtitle{Lagrangemultiplikatorer}
+	Ett konvext optimeringsproblem med olikhetskrav och likhetskrav kan lösas genom att man hittar alla extrempunkter (det borde bara finnas en). Detta kan göras med Lagrangemultiplikatorer. För ett kvadratiskt optimeringsproblem blir Lagrangefunktionen
+	\begin{equation*}
+		L_P=f(\bfx) + \sum_{i=1}^{n}\lambda_ig_i(\bfx)+\sum_{i=1}^{m}v_ih_i(\bfx)
+	\end{equation*}
+	där $f(\bfx)$ är objektfunktionen och $g_i,~h_i$ är kraven.
+\end{frame}
+\end{document}
