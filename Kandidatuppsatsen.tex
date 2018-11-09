@@ -536,7 +536,7 @@ Matematiskt kan man uttrycka problemet som följande optimeringsproblem
 \begin{equation}\label{opt:optimalmargin1}
 \begin{aligned}
 	 \operatornamewithlimits{max}_{\widehat{\bfbeta}, \widehat{\beta}_0, \left\|\widehat{\bfbeta}\right\|_p=1}& & &C\\
-	 \text{så att}& & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C,\quad i=1,~\dots,~N
+	 \text{så att}& & &y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right)\geq C,\quad i=1,~\dots,~N,
 \end{aligned}
 \end{equation}
 där $C$ kallas \emph{marginalen} och betecknar avståndet från hyperplanet till de närmaste observationerna. Här betecknar $\left(\bfx_i, y_i\right)$ observationsparen i träningsdatat där $\bfx_i\in\mathbb{R}^p$ och $y_i\in\left\{-1, 1 \right\}$ för $i=1,~\dots,~N$, detta gäller även för resten av kapitlet om inte annat anges.
@@ -700,7 +700,7 @@ som ska maximeras med avseende på $\lambda_i,~i=1,~\dots,~N,$ och kravet \begin
 	\lambda_i\geq 0,\quad i=1,~\dots,~N.
 \end{equation} Uträkningarna och kravet $\lambda_i\geq 0,~i=1,~\dots,~N,$ kan motiveras genom Karush-Kuhn-Tucker kraven \cite{Boyd} för konvexa problem, det vill säga kraven (\ref{eq:krav1}), (\ref{eq:krav2}) och (\ref{eq:krav3}) samt kravet %TODO	Skriv iallafall ut kraven för ett optimeringsproblem i allmän form
 \begin{equation}\label{eq:krav4}
-	\lambda_i\left( y_i\left( \inner{\bfx}{\bfbeta}_p + \beta_0 \right) -1 \right) = 0,\quad i=1,\dots, N.
+	\lambda_i\left( y_i\left( \inner{\bfx}{\bfbeta}_p + \beta_0 \right) -1 \right) = 0,\quad i=1,~\dots,~N.
 \end{equation}
 \begin{rem}
 	Kraven (\ref{eq:krav1}) till (\ref{eq:krav4}) säger något om hurudan den optimala lösningen $\left(\bfbeta^*, \beta^*_0, \lambda_1^*, \dots, \lambda_N^*\right)$ måste vara:
@@ -730,7 +730,8 @@ För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två naturliga sätt 
 	\intertext{eller}
 	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right),\label{eq:softändring2}
 \end{align}
-där slackvariablerna $s_i\in\mathbb{R}$ är nedåt begränsade av noll samt uppåt begränsade så att summan av alla slackvariabler blir mindre än någon konstant $K$, det vill säga \begin{equation*}
+där slackvariablerna $s_i\in\mathbb{R}$ är nedåt begränsade av noll samt uppåt begränsade så att summan av alla slackvariabler blir mindre än någon konstant $K$, det vill säga
+\begin{equation*}
 \begin{aligned}
 s_i&\geq0,\qquad i=1,~\dots,~N,\\
 \sum_{i=1}^{N}s_i&\leq K.
@@ -1215,7 +1216,7 @@ Med små modifikationer gäller då beviset för sats \ref{thm:kärnainreprodukt
 \begin{cor}[Enligt \cite{LearningKernels}]
 	Om dessutom alla Cauchyföljder konvergerar till en funktion i samma rum, med avseende på normen inducerad av inreprodukten $\langle f, g\rangle_k$, så är rummet ett Hilbertrum.
 \end{cor}
-Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$,  där $k\left(\bfx, \bfy\right)$ är en symmetrisk positivt semidefinit funktion.  Funktionen $\Phi_{\bfx_l}\!(\bfx)$ kan skrivas som $\sum_{j=1}^{N}\!\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars, för att passa in i definitionen för inreprodukten $\inner{\cdot}{\cdot}_k$. För $\Phi_{\bfx_l}(\bfx)$ och en annan funktion $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ gäller då att
+Betrakta funktionen $\Phi_{\bfx_l}(\bfx):=k\left(\bfx, \bfx_l\right)$, där $k\left(\bfx, \bfy\right)$ är en symmetrisk positivt semidefinit funktion.  Funktionen $\Phi_{\bfx_l}\!(\bfx)$ kan skrivas som $\sum_{j=1}^{N}\!\beta_jk\left(\bfx, \bfx_l\right)$ med $\beta_j=1$ om $j=l$, 0 annars, för att passa in i definitionen för inreprodukten $\inner{\cdot}{\cdot}_k$. För $\Phi_{\bfx_l}(\bfx)$ och en annan funktion $f\left(\bfx\right) = \sum_{i=1}^{N}\alpha_ik\left(\bfx, \bfx_i\right)$ gäller då att
 	\begin{equation*}
 		\langle \Phi_{\bfx_l}, f\rangle_k = \langle k\left(\cdot, \bfx_i\right), f\rangle_k = \sum_{j=1}^{N}\sum_{i=1}^{N}\beta_j\alpha_i k\left(\bfx_j, \bfx_i\right)
 	\end{equation*}
