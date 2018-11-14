@@ -442,7 +442,7 @@ Från beviset av egenskap 1 i sats \ref{thm:hyperplan} och efter man arbetat med
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur1.pdf}
+\includegraphics[width=\linewidth, trim={0.35cm 1.5mm 0.4cm 4.5mm}, clip]{KandFigur1.pdf}
 \caption{\label{fig:separatinghyperplane}20 datapunkter med två separerande hyperplan (linjer) där klassen $y_i=1$ framställs som blå fyrkanter och klassen $y_i=-1$ som orangea cirklar.}
 \end{figure}
 
@@ -911,7 +911,7 @@ från Karush-Kuhn-Tucker kraven för konvexa problem.
 \begin{ex}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur2.pdf}
+	\includegraphics[width=\linewidth, trim={0.35cm 1.5mm 0.4cm 4.5mm}, clip]{KandFigur2.pdf}
 	\caption{\label{fig:mjukamarginaler}Löst exempel för linjärt oseparabelt data för 3 olika värden på $\gamma$. De streckade linjerna är marginalernas ränder.}
 \end{figure}
 Låt observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana som i figur \ref{fig:mjukamarginaler}, där blåa rutor är klassen $y_i=1$ och orangea cirklar är klassen $y_i=-1$. Axlarna motsvarar här $\mathbf{x}_i$:s första respektive andra komponenter. Klart är att observationsparen inte är linjärt separabla men det verkar som att en punkt från vardera klassen kanske mätts fel. För att bestämma en klassificeringsregel används separerande hyperplan med mjuka marginaler för tre olika värden på $\gamma$. Funktionen \texttt{SVC} med \texttt{kernel='linear'} från paketet \texttt{sklearn} \cite{sklearn} användes för att beräkna hyperplanen.
@@ -922,7 +922,7 @@ Observera hur parametern $\gamma$ påverkar lösningen. Ju mindre $\gamma$ är d
 \begin{ex}\label{ex:olinjär}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth, trim={0.5cm 4mm -5mm 4mm}, clip]{KandFigur3.pdf}
+	\includegraphics[width=\linewidth, trim={0.2cm 4mm -7mm 3.5mm}, clip]{KandFigur3.pdf}
 	\caption{\label{fig:kvadratisk}En lösning med optimala separerande hyperplan och kvadratisk utvidgning där endast hyperplan med mjuka marginaler inte hade fungerat.}
 \end{figure}
 Låt $\mathbf{x}_i\in\mathbb{R}$ och observationsparen $\left(\mathbf{x}_i,~y_i\right)$ vara sådana att klassen $y_i=1$ befinner sig mitt i klassen $y_i=-1$, situationen finns illustrerad överst i figur \ref{fig:kvadratisk}. Klart är att observationsparen är linjärt oseparabla men nu kan inte heller separerande hyperplan med mjuka marginaler ge vettiga lösningar. Istället kan man lägga till en dimension och definiera att $\mathbf{x}_i\in\mathbb{R}^2$ och $\mathbf{x}_{i2} = \mathbf{x}_{i1}^2$.
@@ -1276,7 +1276,7 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 	Kärnan \begin{equation*}
 	k\left(\bfx, \bfy\right)=e^{-\frac{\left\| \bfx-\bfy\right\|_p^2}{2\sigma^2}}
 	\end{equation*} brukar kallas den Gaussiska kärnan och används ofta med goda resultat.
-	Nyttan av den Gaussiska kärnan syns i figur \ref{fig:jämförelse} där den Gaussiska kärnan jämförs med den polynomiella kärnan med graden $k$.
+	Nyttan av den Gaussiska kärnan syns i figur \ref{fig:jämförelse} där den Gaussiska kärnan jämförs med den polynomiella kärnan med graden $7$.
 \end{ex}
 
 	\begin{figure}[h]
@@ -1284,17 +1284,15 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 		\begin{subfigure}{0.5\linewidth}
 			\centering
 %			\includegraphics[width=0.5\linewidth, trim={3.5cm 11mm 2.7cm 11mm}, clip]{KandFigur6.pdf}
-			\includegraphics[width=1.05\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur6.pdf}
-			
-			\caption{\label{fig:RBF}Radiell basfunktion}
+			\includegraphics[width=1.05\linewidth, trim={0.35cm 1.5mm 0.4cm 4.5mm}, clip]{KandFigur6.pdf}
+			\caption{\label{fig:RBF}Gaussisk kärna med $\gamma=100$ och\\ $\sigma^2=0,25$. Beräkningstid 2 sekunder.}
 		\end{subfigure}%
 		\begin{subfigure}{0.5\linewidth}
 			\centering
-			\includegraphics[width=1.05\linewidth, trim={0.5cm 2mm 0.5cm 6mm}, clip]{KandFigur7.pdf}
-			\caption{\label{fig:Polkärna}Polynomiell kärna}
+			\includegraphics[width=1.05\linewidth, trim={0.35cm 1.5mm 0.4cm 4.5mm}, clip]{KandFigur7.pdf}
+			\caption{\label{fig:Polkärna}Polynomiell kärna $k\left(\inner{\bfx_i}{\bfx_j}+1\right)^{7}$ med $\gamma=1$. Beräkningstid 3,5 minuter.}
 		\end{subfigure}
-		\caption{\label{fig:jämförelse}Jämförelse mellan två olika kärnor}
-		
+		\caption{\label{fig:jämförelse}Jämförelse mellan ett olinjärt klassificeringsproblem löst med hjälp av två olika instansieringar av en stödvektormaskin, en med Gaussisk kärna och en annan med en polynomiell kärna. Lösningarna beräknades med funktionen \texttt{SVC} från paketet \texttt{sklearn} \cite{sklearn}. Parametrarna var \texttt{kernel='rbf'} och \texttt{kernel='poly'} med kärn-specifika parametrar nämnda i figurtexten. Den heldragna kurvan i svart är det olinjära hyperplanet och de streckade kurvorna är marginalens ränder. Observationerna är ritade som blåa fyrkanter eller orangea cirklar beroende på klasstillhörighet.}
 	\end{figure}
 
 
