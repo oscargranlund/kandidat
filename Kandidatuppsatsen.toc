@@ -1,14 +1,14 @@
 \babel@toc {swedish}{}
-\contentsline {chapter}{\numberline {1}Inledning}{2}
-\contentsline {chapter}{\numberline {2}Hilbertrumteori}{4}
-\contentsline {section}{\numberline {2.1}Geometriska begrepp}{4}
-\contentsline {chapter}{\numberline {3}St\IeC {\"o}dvektormaskiner (SVM)}{9}
-\contentsline {section}{\numberline {3.1}Klassificering med hj\IeC {\"a}lp av separerande hyperplan}{10}
-\contentsline {section}{\numberline {3.2}Optimala separerande hyperplan}{15}
-\contentsline {subsection}{\numberline {3.2.1}Primala och duala Lagrangeproblem}{18}
-\contentsline {section}{\numberline {3.3}Det oseparabla fallet}{20}
-\contentsline {subsection}{\numberline {3.3.1}Primala och duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{23}
-\contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{28}
-\contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{30}
-\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positivt semidefinita funktioner}{34}
-\contentsline {chapter}{\numberline {5}Avslutning}{37}
+\contentsline {chapter}{\numberline {1}Inledning}{2}{chapter.1}
+\contentsline {chapter}{\numberline {2}Hilbertrumteori}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Geometriska begrepp}{4}{section.2.1}
+\contentsline {chapter}{\numberline {3}St\IeC {\"o}dvektormaskiner (SVM)}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Klassificering med hj\IeC {\"a}lp av separerande hyperplan}{10}{section.3.1}
+\contentsline {section}{\numberline {3.2}Optimala separerande hyperplan}{15}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Primala och duala Lagrangeproblem}{18}{subsection.3.2.1}
+\contentsline {section}{\numberline {3.3}Det oseparabla fallet}{20}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Primala och duala Lagrangeproblem f\IeC {\"o}r mjuka marginaler}{23}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {4}Reproducerande k\IeC {\"a}rnor}{28}{chapter.4}
+\contentsline {section}{\numberline {4.1}K\IeC {\"a}rnor som inreprodukter}{30}{section.4.1}
+\contentsline {section}{\numberline {4.2}K\IeC {\"a}rnor som positivt semidefinita funktioner}{34}{section.4.2}
+\contentsline {chapter}{\numberline {5}Avslutning}{37}{chapter.5}

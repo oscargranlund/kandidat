@@ -11,6 +11,8 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 
+\usepackage{hyperref}
+
 \usepackage{icomma}
 
 \usepackage{graphicx}
@@ -201,7 +203,7 @@ Man kan även definiera en inreprodukt för vektorrum bestående av funktioner p
 men man måste dessutom kräva att normen $\left\|f\right\|_{\mathcal{L}^2} = \left(\int_{a}^{b}f\left(x\right)^2\,dx\right)^{\frac{1}{2}}$ är ändlig för alla funktioner i vektorrummet.
 %För den vanliga inreprodukten i $\mathbb{R}^2$ och $\mathbb{R}^3$ skulle det vara bra om intuitionen för till exempel när vinkeln mellan två vektorer är $90^\circ$ det vill säga när två vektorer är ortogonala:
 
-Ett hjälpmedel när man jobbar med Hilbertrum kan vara att kunna visualisera och föreställa sig relationer mellan vektorer, speciellt räta vinklar är viktiga och spelar en betydande roll. I Hilbertrum säger man att vinkeln mellan två vektorer är $90^\circ$ om de är ortogonala:
+Ett hjälpmedel när man jobbar med Hilbertrum kan vara att kunna visualisera och föreställa sig relationer mellan vektorer, speciellt räta vinklar är viktiga och spelar en betydande roll. I Hilbertrum säger man att vinkeln mellan två vektorer är $90^\circ$ om de är ortogonala och olika $\mathbf{0}$:
 
 
 \begin{defi}[Enligt \cite{Lang}]
@@ -292,7 +294,7 @@ Antalet basvektorer $\mathbf{e}_i$ bestämmer i princip dimensionen på Hilbertr
 
 \chapter{Stödvektormaskiner (SVM)}
 
-Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa \emph{klassificeringsproblem}, till exempel med hjälp av regressionsmodeller eller klusteranalys. I detta kapitel kommer en metod med en speciell egenskap att behandlas och generaliseras. Det speciella med stödvektormaskin-algoritmen är att lösningen kommer bero på endast ett fåtal av de observationer man matar in i algoritmen. Med andra ord ger algoritmen samma lösning även om man tar bort alla andra observationer. Observationerna som lösningen beror på kallas stödvektorer och därifrån kommer även termen stödvektormaskin.
+Inom statistiken och maskininlärningen finns många olika metoder för att försöka lösa \emph{klassificeringsproblem}, till exempel med hjälp av regressionsmodeller eller klusteranalys. I detta kapitel kommer en metod med en speciell egenskap att behandlas och generaliseras. Det speciella med stödvektormaskin-algoritmen är att lösningen kommer att bero på endast ett fåtal av de observationer man matar in i algoritmen. Med andra ord ger algoritmen samma lösning även om man tar bort alla andra observationer. Observationerna som lösningen beror på kallas stödvektorer och därifrån kommer även termen stödvektormaskin.
 
 Att lösningen beror på endast ett fåtal av observationerna medför några goda saker, bland annat ger det ofta bra poäng i de vanligaste testen för hur väl en algoritm generaliserar. Betrakta $N$ stycken observationer, ifall $n$ stycken av dem är stödvektorer så betyder det att algoritmen ger precis samma lösning ifall man tar bort någon av de andra $N-n$ stycken observationerna. Ifall man slumpmässigt väljer en observation att ta bort så får man samma lösning med sannolikheten $\frac{N-n}{N}$. Om man då låter antalet observationer $N$ gå mot oändligheten så går sannolikheten att man får samma lösning mot 1.
 
@@ -933,7 +935,7 @@ Moralen är att hyperplan med mjuka marginaler inte alltid räcker till utan fle
 
 \FloatBarrier
 \chapter{Reproducerande kärnor}
-Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. I exemplet bildades andra gradens polynom för varje observation $\bfx_i$ så att de nya observationerna $\bfx_i'$ blev $\left[\bfx_i, \bfx_i^2\right]^\intercal$. Att räkna ut de nya $\bfx_i'$:na kommer då att kräva $N$ multiplikationer (kvadrering av $\bfx_i$); att bilda tredje gradens polynom hade krävt $2N$ multiplikationer och att bilda $n$:te gradens polynom hade tagit $nN$ multiplikationer. Efter utvidgningen löstes optimeringsproblemet 
+Exempel \ref{ex:olinjär} antyder att det kunde vara en bra idé att utvidga observationerna $\mathbf{x}_i$ med olinjära faktorer, frågan är bara hur detta görs bäst. I exemplet bildades andra gradens polynom för varje observation $\bfx_i$ så att de nya observationerna $\bfx_i'$ blev $\left[\bfx_i, \bfx_i^2\right]^\intercal$. Att räkna ut de nya $\bfx_i'$:na kommer då att kräva $N$ multiplikationer (kvadrering av $\bfx_i$); att bilda tredje gradens polynom hade krävt $2N$ multiplikationer och att bilda $n$:te gradens polynom hade krävt $nN$ multiplikationer. Efter utvidgningen löstes optimeringsproblemet 
 \begin{equation*}
 \begin{aligned}
 \operatornamewithlimits{min}_{\bfbeta, \beta_0} & & &\frac{1}{2}\left\|\bfbeta
@@ -1213,7 +1215,7 @@ med likhet om och endast om $f=0$. Detta krav kan skrivas om som en matrismultip
 \begin{equation}\label{eq:positivtsemidefinit}
 \langle f, f \rangle_k = \sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_i\alpha_jk\left(\bfx_i, \bfx_j\right) = \boldsymbol{\alpha}^\intercal \mathbf{K} \boldsymbol{\alpha}\geq 0
 \end{equation}
-där $\boldsymbol{\alpha}$ är en vektor med komponenterna $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och olikheten till sist i ekvation (\ref{eq:positivtsemidefinit}) brukar användas som definition på \emph{positivt semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positivt semidefinit om Gram-matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positivt semidefinit för alla val av $\bfx_i,~\bfx_j$.
+där $\boldsymbol{\alpha}$ är en vektor med komponenterna $\alpha_1,~\alpha_2,~\dots,~\alpha_N$ och $\mathbf{K}$ är matrisen med elementen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$. Matrisen $\mathbf{K}$ kallas Gram-matrisen och olikheten till sist i ekvation (\ref{eq:positivtsemidefinit}) brukar användas som definition på \emph{positiv semidefinithet} för en matris $\mathbf{K}$. En funktion $k\left(\bfx_i, \bfx_j\right)$ sägs vara positivt semidefinit om Gram-matrisen $\mathbf{K}_{ij}=k\left(\bfx_i, \bfx_j\right)$ är positivt semidefinit för alla val av $\bfx_i,~\bfx_j$.
 %\newpage
 \section{Kärnor som positivt semidefinita funktioner}
 
