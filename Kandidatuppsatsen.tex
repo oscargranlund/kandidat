@@ -132,7 +132,7 @@ Ett \emph{Hilbertrum}, $\mathcal{H}$, är ett vektorrum $X$ försett med en \emp
 \end{defi}
 
 \begin{defi}\label{def:Cfull}
-	Ett inreproduktrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar (med avseende på normen inducerad av inreprodukten) till en punkt $\mathbf{x}$ i $X$.
+	Ett inreproduktrum $X$ är \emph{fullständigt} om varje Cauchyföljd $\mathbf{x}_n$ konvergerar (med avseende på inreproduktens inducerade norm) till en punkt $\mathbf{x}$ i $X$.
 \end{defi}
 
 \begin{defi}
@@ -257,7 +257,7 @@ Märk hur dimensionen på vektorrummet $X$ inte nämns i definitionen för inrep
 \end{equation*}
 även om det kan vara svårt att visualisera för oändligtdimensionella rum.
 
-För att hjälpa till med visualiseringen av oändligtdimensionella rum finns ett till verktyg som ger en motsvarighet till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. För att undersöka saken är det naturligt att leta efter något som kunde agera som motsvarighet till basvektorerna. Ett sådant koncept finns om det existerar en \emph{ortonormal följd} av vektorer, $\mathbf{e}_i$, $i=1,~2,~3,~\dots$, det vill säga en följd vektorer sådana att $\left\|\mathbf{e}_i\right\|_\hil=1$, $i=1,~2,~3,~\dots$, och $\inner{\mathbf{e}_i}{\mathbf{e}_j}_\hil=0$ om $i\neq j$.
+För att hjälpa till med visualiseringen av oändligtdimensionella rum finns ett till verktyg som ger en motsvarighet till de ändligtdimensionella vektorrummens koordinatsystem och basvektorer. För att undersöka saken är det naturligt att leta efter något som kunde agera som motsvarighet till basvektorerna. Ett sådant koncept finns om det existerar en \emph{ortonormal följd} vektorer, $\mathbf{e}_i$, $i=1,~2,~3,~\dots$, det vill säga en följd vektorer sådana att $\left\|\mathbf{e}_i\right\|_\hil=1$, $i=1,~2,~3,~\dots$, och $\inner{\mathbf{e}_i}{\mathbf{e}_j}_\hil=0$ om $i\neq j$.
 
 \begin{ex}
 I $\mathcal{L}^2$, $x\in\left[-\pi, \pi\right]$ är följande en ortonormal följd \cite{Young}:
@@ -754,7 +754,7 @@ För optimeringsproblemet (\ref{opt:optimalmargin1}) finns två naturliga sätt 
 	\intertext{eller}
 	y_i\left(\inner{\bfx_i}{\widehat{\bfbeta}}_p+\widehat{\beta}_0\right) &\geq C\left(1-s_i\right),\label{eq:softändring2}
 \end{align}
-där slackvariablerna $s_i\in\mathbb{R}$ är nedåt begränsade av noll samt uppåt begränsade så att summan av alla slackvariabler blir mindre än någon konstant $K$, det vill säga
+där slackvariablerna $s_i\in\mathbb{R}$ är nedåt begränsade av noll samt uppåt begränsade så att slackvariablernas summa blir mindre än någon konstant $K$, det vill säga
 \begin{equation*}
 \begin{aligned}
 s_i&\geq0,\qquad i=1,~\dots,~N,\\
@@ -1295,7 +1295,7 @@ För ekvation (\ref{eq:reproducing2}) är tolkningen att även om $k\left(\bfx_l
 	Kärnan \begin{equation*}
 	k\left(\bfx, \bfy\right)=e^{-\frac{\left\| \bfx-\bfy\right\|_p^2}{2\sigma^2}}
 	\end{equation*} brukar kallas den Gaussiska kärnan och används ofta med goda resultat.
-	Nyttan av den Gaussiska kärnan syns i figur \ref{fig:jämförelse} där den Gaussiska kärnan jämförs med den polynomiella kärnan med graden $7$.
+	Den Gaussiska kärnans nytta syns i figur \ref{fig:jämförelse} där den Gaussiska kärnan jämförs med den polynomiella kärnan med graden $7$.
 \end{ex}
 
 	\begin{figure}[h]
